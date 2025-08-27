@@ -2,11 +2,12 @@
 export interface Props{
     href:string,
     text:string,
+    download:string,
     className?:string,
     variant:"primary"|"secondary"
 }
 
-const {href, text,className, variant} = Astro.props
+const {href, text, download, className, variant} = Astro.props
 
 const getThemeStyle = (variant:"primary"|"secondary")=>{
     if (variant === "primary") {
