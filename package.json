@@ -8,7 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "npm run clean && astro build && gh-pages -d dist",
+    "deploy": "npm run clean && astro build && echo > dist/.nojekyll && gh-pages -d dist",
     "clean": "rm -rf dist"
   },
   "dependencies": {
