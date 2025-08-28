@@ -4,61 +4,86 @@ import Container from "../shared/Container.astro";
 import Navitem from "../shared/Navitem.astro";
 
 const navItems = [
-    {
-        href: "#",
-        text: "Home",
-    },
-    {
-        href: "#services",
-        text: "Services",
-    },
-    {
-        href: "#about-us",
-        text: "About us",
-    },
-    {
-        href: "#features",
-        text: "Features",
-    },
+    { href: "#", text: "Home" },
+    { href: "#services", text: "Services" },
+    { href: "#about-us", text: "About us" },
+    { href: "#features", text: "Features" },
 ];
 ---
 
 <header class="absolute inset-x-0 top-0 z-50 py-6">
     <Container>
         <nav class="w-full flex justify-between gap-6 relative">
-            <!-- logo -->
+            
+            <!-- NEW LOGO -->
             <div class="min-w-max inline-flex relative">
                 <a href="/" class="relative flex items-center gap-3">
-                    <div
-                        class="relative w-7 h-7 overflow-hidden flex rounded-xl"
-                    >
-                        <span
-                            class="absolute w-4 h-4 -top-1 -right-1 bg-green-500 rounded-md rotate-45"
-                        ></span>
-                        <span
-                            class="absolute w-4 h-4 -bottom-1 -right-1 bg-[#FCDC58] rounded-md rotate-45"
-                        ></span>
-                        <span
-                            class="absolute w-4 h-4 -bottom-1 -left-1 bg-primary rounded-md rotate-45"
-                        ></span>
-                        <span
-                            class="absolute w-2 h-2 rounded-full bg-heading-1 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                        ></span>
+                    <div class="w-12 h-12">
+                        <svg width="48" height="48" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                          <style>
+                            .orbit {
+                              transform-origin: 100px 100px;
+                              animation: spin 10s linear infinite;
+                            }
+                            .core {
+                              animation: pulse 3s ease-in-out infinite;
+                            }
+                            @keyframes spin {
+                              to { transform: rotate(360deg); }
+                            }
+                            @keyframes pulse {
+                              0%,100% { r: 16; }
+                              50% { r: 20; }
+                            }
+                          </style>
+
+                          <defs>
+                            <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+                              <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+                              <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+                            </radialGradient>
+                            <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="1">
+                              <stop offset="0%" stop-color="#06b6d4"/>
+                              <stop offset="100%" stop-color="#3b82f6"/>
+                            </linearGradient>
+                            <linearGradient id="grad2" x1="0" y1="0" x2="1" y2="1">
+                              <stop offset="0%" stop-color="#3b82f6"/>
+                              <stop offset="100%" stop-color="#a855f7"/>
+                            </linearGradient>
+                            <linearGradient id="grad3" x1="0" y1="0" x2="1" y2="1">
+                              <stop offset="0%" stop-color="#a855f7"/>
+                              <stop offset="100%" stop-color="#f59e0b"/>
+                            </linearGradient>
+                            <linearGradient id="grad4" x1="0" y1="0" x2="1" y2="1">
+                              <stop offset="0%" stop-color="#f59e0b"/>
+                              <stop offset="100%" stop-color="#06b6d4"/>
+                            </linearGradient>
+                          </defs>
+
+                          <circle cx="100" cy="100" r="60" fill="url(#coreGlow)"/>
+                          <circle class="core" cx="100" cy="100" r="18" fill="white" stroke="#0f172a" stroke-width="4"/>
+                          <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(255,255,255,0.15)" stroke-dasharray="6 8"/>
+                          <g class="orbit">
+                            <circle cx="170" cy="100" r="10" fill="url(#grad1)"/>
+                            <circle cx="100" cy="30" r="10" fill="url(#grad2)"/>
+                            <circle cx="30" cy="100" r="10" fill="url(#grad3)"/>
+                            <circle cx="100" cy="170" r="10" fill="url(#grad4)"/>
+                          </g>
+                        </svg>
                     </div>
-                    <div
-                        class="inline-flex text-lg font-semibold text-heading-1"
-                    >
+                    <div class="inline-flex text-lg font-semibold text-heading-1">
                         AgenceX
                     </div>
                 </a>
             </div>
 
+            <!-- rest navbar untouched -->
             <div
                 data-nav-overlay
                 aria-hidden="true"
                 class="fixed hidden inset-0 lg:!hidden bg-box-bg bg-opacity-50 backdrop-filter backdrop-blur-xl"
-            >
-            </div>
+            ></div>
+
             <div
                 data-navbar
                 class="flex h-0 overflow-hidden lg:!h-auto lg:scale-y-100 duration-300 ease-linear flex-col gap-y-6 gap-x-4 lg:flex-row w-full lg:justify-between lg:items-center absolute lg:relative top-full lg:top-0 bg-body lg:bg-transparent border-x border-x-box-border lg:border-x-0"
@@ -66,16 +91,10 @@ const navItems = [
                 <ul
                     class="border-t border-box-border lg:border-t-0 px-6 lg:px-0 pt-6 lg:pt-0 flex flex-col lg:flex-row gap-y-4 gap-x-3 text-lg text-heading-2 w-full lg:justify-center lg:items-center"
                 >
-                    {
-                        navItems.map((item) => {
-                            return <Navitem {...item} />;
-                        })
-                    }
+                    { navItems.map((item) => <Navitem {...item} />) }
                 </ul>
 
-                <div
-                    class="lg:min-w-max flex items-center sm:w-max w-full pb-6 lg:pb-0 border-b border-box-bg lg:border-0 px-6 lg:px-0"
-                >
+                <div class="lg:min-w-max flex items-center sm:w-max w-full pb-6 lg:pb-0 border-b border-box-bg lg:border-0 px-6 lg:px-0">
                     <BtnLink
                         text="Resume"
                         href={`${Astro.site}/resume.pdf`}
@@ -86,60 +105,25 @@ const navItems = [
                 </div>
             </div>
 
+            <!-- theme & menu buttons -->
             <div class="min-w-max flex items-center gap-x-3">
-                <button
-                    data-switch-theme
-                    class="outline-none flex relative text-heading-2 rounded-full p-2 lg:p-3 border border-box-border"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-6 h-6 dark:flex hidden"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
-                        ></path>
+                <!-- theme switch -->
+                <button data-switch-theme class="outline-none flex relative text-heading-2 rounded-full p-2 lg:p-3 border border-box-border">
+                    <!-- dark/light icons -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 dark:flex hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
                     </svg>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-6 h-6 dark:hidden"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
-                        ></path>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/>
                     </svg>
-
                     <span class="sr-only">switch theme</span>
                 </button>
 
-                <button
-                    data-toggle-nav
-                    data-open-nav="false"
-                    class="lg:hidden lg:invisible outline-none w-7 h-auto flex flex-col relative"
-                >
-                    <span
-                        id="line1"
-                        class="w-6 h-0.5 rounded-full bg-heading-2 transition-all duration-300 ease-linear"
-                    ></span>
-                    <span
-                        id="line2"
-                        class="w-6 origin-center mt-1 h-0.5 rounded-ful bg-heading-2 transition-all duration-300 ease-linear"
-                    ></span>
-                    <span
-                        id="line3"
-                        class="w-6 mt-1 h-0.5 rounded-ful bg-heading-2 transition-all duration-300 ease-linear"
-                    ></span>
+                <!-- mobile nav toggle -->
+                <button data-toggle-nav data-open-nav="false" class="lg:hidden lg:invisible outline-none w-7 h-auto flex flex-col relative">
+                    <span id="line1" class="w-6 h-0.5 rounded-full bg-heading-2 transition-all duration-300 ease-linear"></span>
+                    <span id="line2" class="w-6 origin-center mt-1 h-0.5 rounded-ful bg-heading-2 transition-all duration-300 ease-linear"></span>
+                    <span id="line3" class="w-6 mt-1 h-0.5 rounded-ful bg-heading-2 transition-all duration-300 ease-linear"></span>
                     <span class="sr-only">togglenav</span>
                 </button>
             </div>

@@ -1,48 +1,103 @@
 ---
 import Container from "../shared/Container.astro";
-
 ---
 
 <section class="relative mt-12 md:mt-16">
   <Container>
     <div
-      class="mx-auto lg:mx-0 p-5 sm:p-6 py-6 sm:py-8 max-w-5xl rounded-3xl bg-box-bg border border-box-border shadow-lg  shadow-box-shadow md:divide-x divide-box-border grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 md:gap-6 lg:gap-12"
+      id="stats-container"
+      class="mx-auto lg:mx-0 p-5 sm:p-6 py-6 sm:py-8 max-w-7xl rounded-3xl bg-box-bg border border-box-border shadow-lg shadow-box-shadow md:divide-x divide-box-border grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-8 gap-x-4 sm:gap-6"
     >
       <div class="text-center">
         <h2
-          class="font-semibold text-xl sm:text-2xl md:text-4xl text-heading-1"
+          data-target="2"
+          class="counter-number font-semibold text-xl sm:text-2xl md:text-4xl text-heading-1"
         >
-          12+
+          0+
         </h2>
-        <p class="mt-2 text-heading-3">Created projects</p>
+        <p class="mt-2 text-heading-3">Years of Experience</p>
       </div>
 
       <div class="text-center">
         <h2
-          class="font-semibold text-xl sm:text-2xl md:text-4xl text-heading-1"
+          data-target="7"
+          class="counter-number font-semibold text-xl sm:text-2xl md:text-4xl text-heading-1"
         >
-          200+
+          0+
         </h2>
-        <p class="mt-2 text-heading-3">Projects</p>
+        <p class="mt-2 text-heading-3">Enterprise Projects</p>
       </div>
 
       <div class="text-center">
         <h2
-          class="font-semibold text-xl sm:text-2xl md:text-4xl text-heading-1"
+          data-target="1500"
+          class="counter-number font-semibold text-xl sm:text-2xl md:text-4xl text-heading-1"
         >
-          120
+          0+
         </h2>
-        <p class="mt-2 text-heading-3">Happy Client</p>
+        <p class="mt-2 text-heading-3">Code Commits</p>
       </div>
 
       <div class="text-center">
         <h2
-          class="font-semibold text-xl sm:text-2xl md:text-4xl text-heading-1"
+          data-target="200"
+          class="counter-number font-semibold text-xl sm:text-2xl md:text-4xl text-heading-1"
         >
-          5+
+          0+
         </h2>
-        <p class="mt-2 text-heading-3">Years</p>
+        <p class="mt-2 text-heading-3">Features Delivered</p>
+      </div>
+
+      <div class="text-center">
+        <h2
+          data-target="500"
+          class="counter-number font-semibold text-xl sm:text-2xl md:text-4xl text-heading-1"
+        >
+          0+
+        </h2>
+        <p class="mt-2 text-heading-3">Code Reviews</p>
       </div>
     </div>
   </Container>
 </section>
+
+<script>
+  const statsContainer = document.getElementById("stats-container");
+
+  function animateValue(element: HTMLElement, start: number, end: number, duration: number) {
+    let startTimestamp: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const currentValue = Math.floor(progress * (end - start) + start);
+      element.innerHTML = `${currentValue.toLocaleString()}+`;
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        if (statsContainer) {
+          const counters = statsContainer.querySelectorAll(".counter-number");
+          counters.forEach((counter) => {
+            const target = parseInt(counter.getAttribute("data-target") || "0", 10);
+            animateValue(counter as HTMLElement, 0, target, 2000);
+          });
+        }
+        if (statsContainer) {
+          observer.unobserve(statsContainer);
+        }
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  if (statsContainer) {
+    observer.observe(statsContainer);
+  }
+</script>
