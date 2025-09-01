@@ -1,22 +1,11 @@
+/* These three lines are essential. They inject Tailwind's styles. */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import "tailwindcss";
-
-@custom-variant dark (&:where(.dark, .dark *));
-
-@theme {
-  --color-primary: #1d4ed8;
-  --color-box-bg: rgb(var(--color-box));
-  --color-box-shadow: rgb(var(--box-sd));
-  --color-box-border: rgb(var(--box-border));
-  --color-heading-1: rgb(var(--heading-1));
-  --color-heading-2: rgb(var(--heading-2));
-  --color-heading-3: rgb(var(--heading-3));
-  --breakpoint-midmd: 880px;
-}
-
+/* These are your CSS variables. 
+  The Tailwind config now uses these to create utility classes.
+*/
 :root {
   --color-bg: 255 255 255;
   --color-box: 255 255 255;
@@ -31,21 +20,25 @@
   --color-bg: 3 7 18;
   --color-box: 17 24 39;
   --box-border: 243 244 246 / 0.1;
-  --box-sd: transparent;
+  --box-sd: 0 0 0 / 0; /* Changed from transparent for better compatibility */
   --heading-1: 255 255 255;
   --heading-2: 243 244 246;
   --heading-3: 209 213 219;
 }
 
+/* Your remaining custom global styles */
 html {
   scroll-behavior: smooth;
 }
 
 body {
+  /* You can now use a Tailwind class in your HTML body tag: <body class="bg-white dark:bg-slate-900">
+     Or continue setting the base background color here. */
   background-color: rgb(var(--color-bg));
-  font-family: "Raleway", sans-serif;
+  /* Note: The font has been moved to the Tailwind config, but this can serve as a fallback. */
 }
 
+/* These styles are fine and can remain here */
 [data-toggle-nav][data-open-nav="true"] #line1 {
   transform: translateY(0.375rem) rotate(40deg);
 }
@@ -63,5 +56,3 @@ body {
   visibility: visible;
   display: flex;
 }
-
-
