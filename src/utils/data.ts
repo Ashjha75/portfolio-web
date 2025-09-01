@@ -1,19 +1,17 @@
-// src/utils/data.ts
-
 export const services = [
     {
-        title: "Web Development",
-        description: "Building responsive and high-performance websites from the ground up.",
-        icon: "lucide:code-2", // Example icon name
+        title: "Frontend Development",
+        description: "Crafting modern, scalable, and maintainable user interfaces using Angular and the latest web technologies. I focus on performance, accessibility, and seamless user experiences.",
+        icon: "simple-icons:angular", // Example icon name
     },
     {
-        title: "UI/UX Design",
-        description: "Creating intuitive and beautiful user interfaces that are a joy to use.",
-        icon: "lucide:figma", // Example icon name
+        title: "Backend Engineering",
+        description: "Designing robust and secure APIs and microservices with Spring Boot. I ensure your applications are reliable, efficient, and ready to scale as your business grows.",
+        icon: "simple-icons:springboot", // Example icon name
     },
     {
-        title: "SEO Optimization",
-        description: "Improving your site's visibility on search engines to attract more visitors.",
-        icon: "lucide:trending-up", // Example icon name
+        title: "Cloud & DevOps (AWS)",
+        description: "Deploying, managing, and optimizing cloud infrastructure on AWS. I help teams achieve high availability, security, and cost efficiency with modern DevOps practices.",
+        icon: "simple-icons:amazonaws", // Example icon name
     },
 ];
