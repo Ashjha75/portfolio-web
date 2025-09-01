@@ -1,8 +1,8 @@
 ---
+// filepath: src/components/sections/CompanyLogos.astro
 import Container from "../shared/Container.astro";
 import Title from "../shared/Title.astro";
 import { Icon } from 'astro-icon/components';
-
 import { companyLogos } from "../../utils/companyLogos.ts";
 ---
 
@@ -10,28 +10,30 @@ import { companyLogos } from "../../utils/companyLogos.ts";
     <Container className="space-y-8">
         <div class="text-center max-w-3xl mx-auto">
             <Title>
-                Trusted by companies like
+                My Tech Stack & Skills
             </Title>
         </div>
         <div class="flex justify-center flex-wrap gap-4">
             {
                 companyLogos.map((logo) => (
-                    // The outer div's classes remain the same.
-                    // We add `flex items-center` to align the icon and text horizontally.
-                    <div class="p-4 sm:p-5 rounded-xl bg-body border border-box-border group flex items-center gap-x-3">
+                    // Updated classes for border, background, and hover effect
+                    <div class="p-4 sm:p-5 rounded-xl bg-body border transition-all duration-300
+                                border-box-border dark:border-[#292237] group flex items-center gap-x-3
+                                hover:-translate-y-1 hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-blue-500/20">
                         
-                        {/* The Icon component's classes are slightly adjusted for size */}
+                        {/* Icon with grayscale hover effect */}
                         <Icon 
                             name={logo.icon} 
-                            class="h-7 sm:h-8 w-auto ease-linear duration-300 grayscale group-hover:!grayscale-0 group-hover:scale-105 text-brand-green" 
+                            class="h-7 sm:h-8 w-auto text-heading-1 ease-linear duration-300 grayscale group-hover:!grayscale-0 group-hover:scale-105" 
                         />
 
-                        {/* We add the text here, unless the icon name already contains it */}
+                        {/* Text with the same grayscale effect and correct color handling */}
                         { !logo.icon.includes('paypal') && !logo.icon.includes('google') && !logo.icon.includes('netflix') && (
                             <span class="text-lg font-semibold text-heading-2 ease-linear duration-300 grayscale group-hover:!grayscale-0">
                                 {logo.name}
                             </span>
                         )}
+
                     </div>
                 ))
             }
