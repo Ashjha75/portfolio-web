@@ -1,6 +1,6 @@
-import { defineConfig } from 'astro/config';
+// astro.config.mjs
 
-// 1. Import the official integrations
+import { defineConfig } from 'astro/config';
 import tailwind from "@astrojs/tailwind";
 import icon from "astro-icon";
 
@@ -9,16 +9,16 @@ export default defineConfig({
   base: "/portfolio-web/",
   trailingSlash: "never",
   
-  // 2. Add the integrations to this array
   integrations: [
     tailwind(), 
+    
+    // Add the `include` option here
     icon({
-      // Optional: specify the icon packs to include
+      // This tells astro-icon to download the sets you need
       include: {
-        'simple-icons': ['*']
+        lucide: ['*'], // Include all icons from the 'lucide' set
+        'simple-icons': ['*'] // Include all icons from the 'simple-icons' set
       }
     })
   ],
-
-  // 3. You no longer need the manual vite config for Tailwind
 });
