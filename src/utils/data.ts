@@ -1,17 +1,17 @@
 export const services = [
     {
         title: "Frontend Development",
-        description: "Crafting modern, scalable, and maintainable user interfaces using Angular and the latest web technologies. I focus on performance, accessibility, and seamless user experiences.",
-        icon: "simple-icons:angular", // Example icon name
+        description: "I build fast, scalable, and modern user interfaces with Angular. My focus is on clean architecture, performance optimization, and delivering smooth user experiences across devices.",
+        icon: "simple-icons:angular",
     },
     {
         title: "Backend Engineering",
-        description: "Designing robust and secure APIs and microservices with Spring Boot. I ensure your applications are reliable, efficient, and ready to scale as your business grows.",
-        icon: "simple-icons:springboot", // Example icon name
+        description: "I develop secure and reliable APIs and microservices with Spring Boot. My solutions are designed to handle complex business logic efficiently and scale seamlessly with growing demands.",
+        icon: "simple-icons:springboot",
     },
     {
         title: "Cloud & DevOps (AWS)",
-        description: "Deploying, managing, and optimizing cloud infrastructure on AWS. I help teams achieve high availability, security, and cost efficiency with modern DevOps practices.",
-        icon: "simple-icons:amazonaws", // Example icon name
+        description: "I set up and optimize AWS cloud infrastructure with best DevOps practices. From deployment automation to cost optimization, I ensure systems stay highly available and production-ready.",
+        icon: "simple-icons:amazonaws",
     },
 ];
