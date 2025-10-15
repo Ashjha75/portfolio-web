@@ -43,17 +43,25 @@ const { project } = Astro.props;
             </ul>
         </div>
 
-        <div class="flex items-center gap-4 pt-4">
-            {project.demoUrl && (
-                <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full bg-primary text-white text-sm font-semibold transition-colors duration-300 ease-in-out hover:bg-primary/90">
-                    Live Demo
-                </a>
-            )}
-            {project.repoUrl && (
-                <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm font-semibold transition-colors duration-300 ease-in-out hover:bg-gray-200 dark:hover:bg-gray-700">
+        <div class="flex items-center gap-4 pt-4 z-10">
+            {project.repoUrl ? (
+                <a 
+                    href={project.repoUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-white text-sm font-semibold transition-all duration-300 ease-in-out hover:bg-primary/90 hover:scale-105 hover:shadow-lg relative z-20"
+                    onclick={`console.log('Clicking URL: ${project.repoUrl}'); window.open('${project.repoUrl}', '_blank');`}
+                >
+                    <Icon name="lucide:github" class="w-4 h-4" />
                     Source Code
                 </a>
+            ) : (
+                <span class="px-5 py-2.5 rounded-full bg-gray-300 text-gray-500 text-sm font-semibold cursor-not-allowed">
+                    No Repository
+                </span>
             )}
+            
+          
         </div>
     </div>
     <div class="absolute -bottom-12 -right-12 w-28 h-28 bg-primary/10 dark:bg-primary/20 rounded-full transition-transform duration-500 ease-in-out group-hover:scale-150"></div>

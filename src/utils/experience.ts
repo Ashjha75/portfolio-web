@@ -11,7 +11,7 @@ const experienceData: Experience[] = [
   {
     role: "Software Engineer",
     company: "Novoinvent Software",
-    companyUrl: "#",
+    companyUrl: "https://www.novoinvent.com/",
     startDate: "June 2024",
     endDate: "Present",
     responsibilities: [
@@ -24,7 +24,7 @@ const experienceData: Experience[] = [
   {
     role: "Software Intern",
     company: "Novoinvent Software",
-    companyUrl: "#",
+    companyUrl: "https://www.novoinvent.com/",
     startDate: "March 2023",
     endDate: "May 2024",
     responsibilities: [
