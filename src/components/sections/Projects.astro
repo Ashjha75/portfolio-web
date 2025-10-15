@@ -1,0 +1,45 @@
+---
+import { projects } from '../../utils/projects';
+import Container from '../shared/Container.astro';
+import Paragraph from '../shared/Paragraph.astro';
+import Title from '../shared/Title.astro';
+import ProjectCard from '../cards/ProjectCard.astro';
+---
+
+<section id="projects">
+  <Container className="space-y-12">
+    <div class="text-center max-w-3xl mx-auto">
+      <Title>
+       My Projects
+      </Title>
+      <Paragraph>
+        Here are some of the projects I’ve worked on — showcasing my skills in building scalable, efficient, and user-friendly applications.
+      </Paragraph>
+    </div>
+    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 opacity-0 transform scale-90 transition-all duration-700 ease-in-out">
+      {projects.map(project => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+  </Container>
+</section>
+
+<script>
+  const projectsGrid = document.getElementById('projects-grid');
+
+  if (projectsGrid) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          projectsGrid.classList.remove('opacity-0', 'scale-90');
+          projectsGrid.classList.add('opacity-100', 'scale-100');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    observer.observe(projectsGrid);
+  }
+</script>

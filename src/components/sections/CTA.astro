@@ -1,59 +1,80 @@
 ---
-import Button from "../shared/Button.astro";
 import Container from "../shared/Container.astro";
-import Paragraph from "../shared/Paragraph.astro";
-
+import experienceData, { getFormattedDate } from "../../utils/experience";
+import { Icon } from "astro-icon/components";
 ---
 
-<section  id="cta" class="pb-20">
+<section id="experience" class="pb-20">
   <Container>
     <div
-      class="w-full relative py-8 md:py-10 px-6 md:px-8 rounded-2xl bg-gradient-to-tr from-gray-100 to-gray-200 dark:from-gray-900 dark:to-transparent"
+      id="experience-card"
+      class="relative w-full max-w-6xl mx-auto p-8 md:p-10 rounded-2xl bg-white dark:bg-gray-900/70 backdrop-blur-sm border border-gray-200 dark:border-gray-800 shadow-lg shadow-gray-200/20 dark:shadow-gray-900/20 overflow-hidden opacity-0 transform translate-y-10 transition-all duration-700 ease-in-out"
     >
-      <div class="absolute right-0 top-0 h-full w-full flex justify-end">
-        <div class="w-28 h-28 overflow-auto flex rounded-xl relative blur-2xl">
-            <span
-              class="absolute w-16 h-16 -top-1 -right-1 bg-green-500 rounded-md rotate-45"
-            ></span>
-            <span
-              class="absolute w-16 h-16 -bottom-1 -right-1 bg-[#FCDC58] rounded-md rotate-45"
-            ></span>
-            <span
-              class="absolute w-16 h-16 -bottom-1 -left-1 bg-primary rounded-md rotate-45"
-            ></span>
-          </div>
-      </div>
-
-      <div class="absolute left-0 bottom-0 h-full w-full flex items-end">
-        <div class="w-28 h-28 overflow-auto flex rounded-xl relative blur-2xl">
-            <span
-              class="absolute w-16 h-16 -top-1 -right-1 bg-green-500 rounded-md rotate-45"
-            ></span>
-            <span
-              class="absolute w-16 h-16 -bottom-1 -right-1 bg-[#FCDC58] rounded-md rotate-45"
-            ></span>
-            <span
-              class="absolute w-16 h-16 -bottom-1 -left-1 bg-primary rounded-md rotate-45"
-            ></span>
-          </div>
-      </div>
-      <div class="mx-auto text-center max-w-xl md:max-w-2xl relative">
-        <h1
-          class="text-3xl/tight sm:text-4xl/tight md:text-5xl/tight
-          font-bold text-heading-1"
-        >
-          Quick Start your <span class="text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 from-20% via-primary via-30% to-green-600">Strategic Digital</span> Marketing Campaing
-        </h1>
-        <Paragraph className={"pt-10"}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente
-          delectus architecto ullam earum
-        </Paragraph>
-        <div class="mx-auto max-w-md sm:max-w-xl pt-10">
-          <Button variant={"primary"}>
-            <span class="text-white relative z-[5]">Get In Touch</span>
-          </Button>
+      <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-xl"></div>
+      <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-green-500/10 rounded-full blur-xl"></div>
+      
+      <div class="relative z-10">
+        <h2 class="text-3xl font-bold text-center text-heading-1 mb-12">My Experience</h2>
+        
+        <div class="space-y-12">
+          {experienceData.map(exp => (
+            <div class="experience-entry opacity-0 transform translate-y-8 transition-all duration-500 ease-in-out">
+              <div class="flex items-center gap-4">
+                <h3 class="text-xl font-bold text-green-600 dark:text-green-400">{exp.role}</h3>
+                <span class="text-gray-400 dark:text-gray-500">|</span>
+                <a href={exp.companyUrl} target="_blank" rel="noopener noreferrer" class="text-xl font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2">
+                  {exp.company}
+                  <Icon name="lucide:external-link" class="w-5 h-5" />
+                </a>
+              </div>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-2 bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-full w-max">
+                {getFormattedDate(exp.startDate)} - {getFormattedDate(exp.endDate)}
+              </p>
+              <ul class="mt-6 space-y-4">
+                {exp.responsibilities.map(resp => (
+                  <li class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg shadow-sm">
+                    <p class="text-gray-700 dark:text-gray-300 flex items-start">
+                      <span class="text-red-500 mr-3 mt-1">•</span>
+                      {resp}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   </Container>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const experienceCard = document.getElementById('experience-card');
+    const experienceEntries = document.querySelectorAll('.experience-entry');
+
+    if (experienceCard) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            experienceCard.classList.remove('opacity-0', 'translate-y-10');
+            experienceCard.classList.add('opacity-100', 'translate-y-0');
+
+            experienceEntries.forEach((card, index) => {
+              setTimeout(() => {
+                card.classList.remove('opacity-0', 'translate-y-8');
+                card.classList.add('opacity-100', 'translate-y-0');
+              }, index * 200);
+            });
+
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+
+      observer.observe(experienceCard);
+    }
+  });
+</script>

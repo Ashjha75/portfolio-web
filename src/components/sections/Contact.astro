@@ -1,0 +1,73 @@
+---
+import Container from "../shared/Container.astro";
+import Paragraph from "../shared/Paragraph.astro";
+import Title from "../shared/Title.astro";
+import Button from "../shared/Button.astro";
+---
+
+<section id="contact" class="pb-20">
+  <Container>
+    <div
+      id="contact-card"
+      class="relative w-full max-w-4xl mx-auto p-8 md:p-10 rounded-2xl bg-white dark:bg-gray-900/70 backdrop-blur-sm border border-gray-200 dark:border-gray-800 shadow-lg shadow-gray-200/20 dark:shadow-gray-900/20 overflow-hidden opacity-0 transform translate-y-10 transition-all duration-700 ease-in-out"
+    >
+      <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-xl"></div>
+      <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-green-500/10 rounded-full blur-xl"></div>
+      
+      <div class="relative z-10 text-center">
+        <Title>
+        <span class="text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 from-20% via-primary via-30% to-green-600">
+          Contact Me
+        </span>
+      </Title>
+        <Paragraph className="mt-4">
+          I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+        </Paragraph>
+
+        <form class="mt-10 max-w-lg mx-auto text-left">
+          <div class="grid grid-cols-1 gap-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+              <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-3 bg-gray-100 dark:bg-gray-800 border-transparent rounded-md focus:ring-primary focus:border-primary dark:focus:ring-offset-gray-900">
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+              <input type="email" id="email" name="email" class="mt-1 block w-full px-4 py-3 bg-gray-100 dark:bg-gray-800 border-transparent rounded-md focus:ring-primary focus:border-primary dark:focus:ring-offset-gray-900">
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Message</label>
+              <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-4 py-3 bg-gray-100 dark:bg-gray-800 border-transparent rounded-md focus:ring-primary focus:border-primary dark:focus:ring-offset-gray-900"></textarea>
+            </div>
+            <div class="text-center">
+              <Button type="submit" variant="primary">
+                <span class="text-white relative z-[5]">Send Message</span>
+              </Button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const contactCard = document.getElementById('contact-card');
+
+    if (contactCard) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            contactCard.classList.remove('opacity-0', 'translate-y-10');
+            contactCard.classList.add('opacity-100', 'translate-y-0');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+
+      observer.observe(contactCard);
+    }
+  });
+</script>

@@ -1,0 +1,144 @@
+---
+import Container from "../shared/Container.astro";
+import AshishData, { type TimelineEvent } from "../../utils/Ashish";
+import Title from "../shared/Title.astro";
+---
+
+<section id="Ashish" class="py-20 overflow-x-hidden">
+  <Container>
+    <div class="text-center max-w-2xl  mx-auto mb-20">
+      <Title>
+        <span class="text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 from-20% via-primary via-30% to-green-600">
+          Timeline
+        </span>
+      </Title>
+    </div>
+    <div class="relative max-w-5xl mx-auto">
+      <div class="absolute top-0 left-0 w-full h-full z-0">
+        <svg id="Ashish-svg" class="w-full h-full" preserveAspectRatio="none">
+          <path id="Ashish-path" d="" stroke="url(#line-gradient)" stroke-width="3" fill="none" stroke-linecap="round" />
+          <defs>
+            <linearGradient id="line-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#a855f7" />
+              <stop offset="100%" stop-color="#6366f1" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="relative z-10">
+        {AshishData.map((event: TimelineEvent, index: number) => (
+          <div class={`Ashish-event group flex w-full items-center mb-16 md:mb-24`}>
+            <div class={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:pr-16' : 'md:pl-16 md:order-2'}`}>
+              <div class="p-6 rounded-lg bg-white dark:bg-gray-800/50 shadow-lg transform transition-all duration-500 opacity-0 group-[.is-visible]:opacity-100 group-[.is-visible]:translate-y-0 translate-y-10">
+                <h3 class={`text-2xl font-bold text-gray-800 dark:text-white mb-3 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>{event.year}</h3>
+                <p class={`text-gray-600 dark:text-gray-300 leading-relaxed ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>{event.description}</p>
+              </div>
+            </div>
+            <div class={`w-auto absolute md:relative left-4 md:left-auto ${index % 2 === 0 ? 'md:order-1' : 'md:order-1'}`}>
+              <div class="Ashish-dot w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold shadow-2xl shadow-primary/40 transform transition-transform duration-500 scale-0 group-[.is-visible]:scale-100 animate-pulse" style={`animation-delay: ${index * 300}ms; animation-duration: 2s;`}>
+                {event.id}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Container>
+</section>
+
+<style>
+  @media (max-width: 767px) {
+    .Ashish-event {
+      padding-left: 4rem;
+    }
+    .Ashish-event > div:first-child {
+      width: 100%;
+      padding: 0 !important;
+      text-align: left !important;
+    }
+     .Ashish-event > div:first-child h3, .Ashish-event > div:first-child p {
+      text-align: left !important;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const AshishSvg = document.getElementById('Ashish-svg');
+    const AshishPath = document.getElementById('Ashish-path') as SVGPathElement | null;
+    const AshishEvents = document.querySelectorAll('.Ashish-event');
+    const AshishDots = document.querySelectorAll('.Ashish-dot');
+
+    if (!AshishSvg || !AshishPath || AshishEvents.length === 0) return;
+
+    const drawPath = () => {
+      const svgRect = AshishSvg.getBoundingClientRect();
+      let pathD = '';
+      const isMobile = window.innerWidth < 768;
+
+      const dotCoords = Array.from(AshishDots).map(dot => {
+        const rect = dot.getBoundingClientRect();
+        return {
+          x: rect.left + rect.width / 2 - svgRect.left,
+          y: rect.top + rect.height / 2 - svgRect.top,
+        };
+      });
+
+      for (let i = 0; i < dotCoords.length; i++) {
+        const { x, y } = dotCoords[i];
+        if (i === 0) {
+          pathD += `M ${x} ${y}`;
+        } else {
+          const { x: prevX, y: prevY } = dotCoords[i - 1];
+          if (isMobile) {
+            pathD += ` L ${x} ${y}`;
+          } else {
+            const midY = prevY + (y - prevY) / 2;
+            pathD += ` Q ${prevX},${midY} ${(prevX + x) / 2},${midY}`;
+            pathD += ` T ${x},${y}`;
+          }
+        }
+      }
+      AshishPath.setAttribute('d', pathD);
+      const pathLength = AshishPath.getTotalLength();
+      AshishPath.style.strokeDasharray = `${pathLength}`;
+      AshishPath.style.strokeDashoffset = `${pathLength}`;
+    };
+
+    const handleAnimation = () => {
+      drawPath();
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const target = entry.target as HTMLElement;
+          if (entry.isIntersecting) {
+            target.classList.add('is-visible');
+          } else {
+            target.classList.remove('is-visible');
+          }
+        });
+      }, { threshold: 0.5 });
+
+      AshishEvents.forEach(event => observer.observe(event));
+
+      const pathObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            AshishPath.style.transition = 'stroke-dashoffset 4s cubic-bezier(0.25, 1, 0.5, 1)';
+            AshishPath.style.strokeDashoffset = '0';
+          } else {
+            const pathLength = AshishPath.getTotalLength();
+            AshishPath.style.transition = 'stroke-dashoffset 1s cubic-bezier(0.5, 0, 0.75, 0)';
+            AshishPath.style.strokeDashoffset = `${pathLength}`;
+          }
+        });
+      }, { threshold: 0.1 });
+
+      pathObserver.observe(AshishSvg);
+    };
+    
+    setTimeout(() => {
+      handleAnimation();
+      window.addEventListener('resize', drawPath);
+    }, 200);
+  });
+</script>
