@@ -8,6 +8,17 @@ import Title from "../shared/Title.astro";
 
 <section id="about-us" class="scroll-animation">
     <Container className="flex flex-col midmd:flex-row gap-10 lg:gap-12">
+        <div class="max-w-md mx-auto midmd:max-w-none lg:mx-0  lg:pr-10 xl:pr-2 flex-1 flex w-11/12 midmd:w-5/12 lg:w-1/2 midmd:h-auto">
+            <div class="w-full h-80 sm:h-96 midmd:h-full relative">
+                <div class="absolute rotate-45 -left-5 md:-left-10 lg:-left-20 xl:-left-24 p-1 top-1/2 w-16 h-16 bg-gradient-to-br from-primary to-orange-400 blur-3xl opacity-50"></div>
+                <div class="absolute  p-1 -top-4 md:-top-10 right-0 w-20 h-20 bg-gradient-to-br from-primary to-orange-400 rounded-full blur-3xl opacity-60"></div>
+                
+                <span class="absolute w-full aspect-[16/5] -skew-x-12 rounded-full bg-gradient-to-tr from-primary to-green-400 opacity-40 blur-2xl left-0 bottom-0"></span>
+               
+                            <img src={`${Astro.site}/images/ashishp1.jpeg`} alt="Hero image" width="2350" height="2359" class="  w-auto left-1/2 -translate-x-1/2 absolute bottom-0 max-h-full lg:absolute lg:w-full lg:h-full rounded-3xl object-cover lg:max-h-none max-h-96">
+
+        </div>
+            </div>
         <div class="flex-1 flex midmd:w-7/12 lg:w-1/2 flex-col">
             <Title>
                 About
@@ -24,39 +35,3 @@ import Title from "../shared/Title.astro";
         </div>
     </Container>
 </section>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('.scroll-animation');
-
-    if (sections.length > 0) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          } else {
-            entry.target.classList.remove('is-visible');
-          }
-        });
-      }, {
-        threshold: 0.1
-      });
-
-      sections.forEach(section => {
-        observer.observe(section);
-      });
-    }
-  });
-</script>
-
-<style>
-    .scroll-animation {
-        opacity: 0;
-        transform: translateY(4rem);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
-    .scroll-animation.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-</style>

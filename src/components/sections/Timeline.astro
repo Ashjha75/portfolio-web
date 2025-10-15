@@ -6,15 +6,14 @@ import Title from "../shared/Title.astro";
 
 <section id="Ashish" class="py-20 overflow-x-hidden">
   <Container>
-    <div class="text-center max-w-2xl  mx-auto mb-20">
+    <div class="text-center max-w-2xl mx-auto mb-20">
       <Title>
-        <span class="text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 from-20% via-primary via-30% to-green-600">
           Timeline
-        </span>
       </Title>
     </div>
     <div class="relative max-w-5xl mx-auto">
-      <div class="absolute top-0 left-0 w-full h-full z-0">
+      <!-- Timeline line - adjusted for mobile -->
+      <div class="absolute top-0 left-6 md:left-1/2 md:-translate-x-1/2 w-0.5 md:w-full h-full z-0">
         <svg id="Ashish-svg" class="w-full h-full" preserveAspectRatio="none">
           <path id="Ashish-path" d="" stroke="url(#line-gradient)" stroke-width="3" fill="none" stroke-linecap="round" />
           <defs>
@@ -27,15 +26,17 @@ import Title from "../shared/Title.astro";
       </div>
       <div class="relative z-10">
         {AshishData.map((event: TimelineEvent, index: number) => (
-          <div class={`Ashish-event group flex w-full items-center mb-16 md:mb-24`}>
-            <div class={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:pr-16' : 'md:pl-16 md:order-2'}`}>
-              <div class="p-6 rounded-lg bg-white dark:bg-gray-800/50 shadow-lg transform transition-all duration-500 opacity-0 group-[.is-visible]:opacity-100 group-[.is-visible]:translate-y-0 translate-y-10">
-                <h3 class={`text-2xl font-bold text-gray-800 dark:text-white mb-3 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>{event.year}</h3>
-                <p class={`text-gray-600 dark:text-gray-300 leading-relaxed ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>{event.description}</p>
+          <div class={`Ashish-event group flex w-full items-start md:items-center md:justify-center mb-12 md:mb-16 lg:mb-24`}>
+            <!-- Content box -->
+            <div class={`w-full pl-16 md:pl-0 md:w-1/2 ${index % 2 === 0 ? 'md:pr-12 lg:pr-16' : 'md:pl-12 lg:pl-16 md:order-2'}`}>
+              <div class="p-4 sm:p-6 rounded-lg bg-white dark:bg-gray-800/50 shadow-lg transform transition-all duration-500 opacity-0 group-[.is-visible]:opacity-100 group-[.is-visible]:translate-y-0 translate-y-10">
+                <h3 class={`text-xl sm:text-2xl font-bold text-gray-800 dark:text-white mb-2 sm:mb-3 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>{event.year}</h3>
+                <p class={`text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>{event.description}</p>
               </div>
             </div>
-            <div class={`w-auto absolute md:relative left-4 md:left-auto ${index % 2 === 0 ? 'md:order-1' : 'md:order-1'}`}>
-              <div class="Ashish-dot w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold shadow-2xl shadow-primary/40 transform transition-transform duration-500 scale-0 group-[.is-visible]:scale-100 animate-pulse" style={`animation-delay: ${index * 300}ms; animation-duration: 2s;`}>
+            <!-- Dot -->
+            <div class={`absolute left-0 md:relative md:left-auto ${index % 2 === 0 ? 'md:order-1' : 'md:order-1'}`}>
+              <div class="Ashish-dot w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white text-lg sm:text-xl font-bold shadow-2xl shadow-primary/40 transform transition-transform duration-500 scale-0 group-[.is-visible]:scale-100 animate-pulse" style={`animation-delay: ${index * 300}ms; animation-duration: 2s;`}>
                 {event.id}
               </div>
             </div>
@@ -47,17 +48,35 @@ import Title from "../shared/Title.astro";
 </section>
 
 <style>
+  /* Mobile-first timeline styles */
   @media (max-width: 767px) {
     .Ashish-event {
-      padding-left: 4rem;
+      padding-left: 0;
+      flex-direction: row;
+      align-items: flex-start;
     }
+    
     .Ashish-event > div:first-child {
-      width: 100%;
-      padding: 0 !important;
-      text-align: left !important;
+      padding-left: 4rem !important;
     }
-     .Ashish-event > div:first-child h3, .Ashish-event > div:first-child p {
-      text-align: left !important;
+    
+    .Ashish-event .Ashish-dot {
+      position: absolute;
+      left: 0;
+      transform: translateX(0);
+    }
+    
+    #Ashish-svg {
+      left: 1.5rem;
+      width: 2px;
+    }
+  }
+  
+  /* Tablet adjustments */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .Ashish-event > div:first-child {
+      padding-left: 3rem !important;
+      padding-right: 3rem !important;
     }
   }
 </style>
@@ -91,8 +110,10 @@ import Title from "../shared/Title.astro";
         } else {
           const { x: prevX, y: prevY } = dotCoords[i - 1];
           if (isMobile) {
+            // Straight vertical line for mobile
             pathD += ` L ${x} ${y}`;
           } else {
+            // Curved path for desktop
             const midY = prevY + (y - prevY) / 2;
             pathD += ` Q ${prevX},${midY} ${(prevX + x) / 2},${midY}`;
             pathD += ` T ${x},${y}`;
@@ -112,11 +133,9 @@ import Title from "../shared/Title.astro";
           const target = entry.target as HTMLElement;
           if (entry.isIntersecting) {
             target.classList.add('is-visible');
-          } else {
-            target.classList.remove('is-visible');
           }
         });
-      }, { threshold: 0.5 });
+      }, { threshold: 0.3 });
 
       AshishEvents.forEach(event => observer.observe(event));
 
@@ -125,10 +144,6 @@ import Title from "../shared/Title.astro";
           if (entry.isIntersecting) {
             AshishPath.style.transition = 'stroke-dashoffset 4s cubic-bezier(0.25, 1, 0.5, 1)';
             AshishPath.style.strokeDashoffset = '0';
-          } else {
-            const pathLength = AshishPath.getTotalLength();
-            AshishPath.style.transition = 'stroke-dashoffset 1s cubic-bezier(0.5, 0, 0.75, 0)';
-            AshishPath.style.strokeDashoffset = `${pathLength}`;
           }
         });
       }, { threshold: 0.1 });

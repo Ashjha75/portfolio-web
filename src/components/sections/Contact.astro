@@ -5,21 +5,17 @@ import Title from "../shared/Title.astro";
 import Button from "../shared/Button.astro";
 ---
 
-<section id="contact" class="pb-20">
+<section id="contact" class="pb-20 scroll-animation">
   <Container>
     <div
       id="contact-card"
-      class="relative w-full max-w-4xl mx-auto p-8 md:p-10 rounded-2xl bg-white dark:bg-gray-900/70 backdrop-blur-sm border border-gray-200 dark:border-gray-800 shadow-lg shadow-gray-200/20 dark:shadow-gray-900/20 overflow-hidden opacity-0 transform translate-y-10 transition-all duration-700 ease-in-out"
+      class="relative w-full max-w-4xl mx-auto p-8 md:p-10 rounded-2xl bg-white dark:bg-gray-900/70 backdrop-blur-sm border border-gray-200 dark:border-gray-800 shadow-lg shadow-gray-200/20 dark:shadow-gray-900/20 overflow-hidden"
     >
       <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-xl"></div>
       <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-green-500/10 rounded-full blur-xl"></div>
       
       <div class="relative z-10 text-center">
-        <Title>
-        <span class="text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 from-20% via-primary via-30% to-green-600">
-          Contact Me
-        </span>
-      </Title>
+        <Title>Contact Me</Title>
         <Paragraph className="mt-4">
           I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
         </Paragraph>
@@ -49,25 +45,3 @@ import Button from "../shared/Button.astro";
     </div>
   </Container>
 </section>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const contactCard = document.getElementById('contact-card');
-
-    if (contactCard) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            contactCard.classList.remove('opacity-0', 'translate-y-10');
-            contactCard.classList.add('opacity-100', 'translate-y-0');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.1
-      });
-
-      observer.observe(contactCard);
-    }
-  });
-</script>

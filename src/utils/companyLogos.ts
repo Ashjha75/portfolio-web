@@ -11,6 +11,7 @@ export const companyLogos = [
     { name: 'MySQL', icon: 'simple-icons:mysql' },
     { name: 'Redis', icon: 'simple-icons:redis' },
     { name: 'Kafka', icon: 'simple-icons:apachekafka' },
+    { name: 'LangChain', icon: 'simple-icons:chainlink' }, // LangChain uses chainlink icon
 
     // --- Cloud & DevOps ---
     { name: 'AWS', icon: 'simple-icons:amazonaws' },

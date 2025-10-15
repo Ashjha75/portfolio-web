@@ -4,10 +4,13 @@ import Container from "../shared/Container.astro";
 import Navitem from "../shared/Navitem.astro";
 
 const navItems = [
-    { href: "#", text: "Home" },
+    { href: "#hero", text: "Home" },
+    { href: "#about-us", text: "About" },
     { href: "#services", text: "Services" },
-    { href: "#about-us", text: "About us" },
-    { href: "#features", text: "Features" },
+    { href: "#projects", text: "Projects" },
+    { href: "#experience", text: "Experience" },
+    { href: "#timeline", text: "Timeline" },
+    { href: "#contact", text: "Contact" },
 ];
 ---
 
@@ -71,7 +74,7 @@ const navItems = [
                           </g>
                         </svg>
                     </div>
-                    <div class="inline-flex text-lg font-semibold text-heading-1">
+                    <div id="animated-logo-text" class="inline-flex text-lg font-semibold text-heading-1 transition-all duration-300 ease-in-out">
                         Ashish
                     </div>
                 </a>
@@ -108,8 +111,9 @@ const navItems = [
             <!-- theme & menu buttons -->
             <div class="min-w-max flex items-center gap-x-3">
                 <!-- theme switch -->
+                <!--
                 <button data-switch-theme class="outline-none flex relative text-heading-2 rounded-full p-2 lg:p-3 border border-box-border">
-                    <!-- dark/light icons -->
+                    
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 dark:flex hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
                     </svg>
@@ -118,6 +122,7 @@ const navItems = [
                     </svg>
                     <span class="sr-only">switch theme</span>
                 </button>
+                -->
 
                 <!-- mobile nav toggle -->
                 <button data-toggle-nav data-open-nav="false" class="lg:hidden lg:invisible outline-none w-7 h-auto flex flex-col relative">
@@ -130,3 +135,22 @@ const navItems = [
         </nav>
     </Container>
 </header>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const animatedText = document.getElementById('animated-logo-text');
+        if (animatedText) {
+            const words = ["Engineer", "Developer", "Ashish"];
+            let currentIndex = 0;
+
+            setInterval(() => {
+                animatedText.style.opacity = '0';
+                setTimeout(() => {
+                    currentIndex = (currentIndex + 1) % words.length;
+                    animatedText.textContent = words[currentIndex];
+                    animatedText.style.opacity = '1';
+                }, 300);
+            }, 2000);
+        }
+    });
+</script>
