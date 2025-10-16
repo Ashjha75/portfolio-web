@@ -8,16 +8,18 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "npm run clean && astro build && echo > dist/.nojekyll && gh-pages -d dist",
+    "deploy": "echo 'Deploying via GitHub Actions - just push to main branch'",
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.4",
     "@astrojs/tailwind": "^6.0.2",
     "astro": "^5.13.3",
     "astro-icon": "^1.1.5",
     "gh-pages": "^6.3.0",
     "swiper": "^12.0.2",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
     "@iconify-json/logos": "^1.2.9",

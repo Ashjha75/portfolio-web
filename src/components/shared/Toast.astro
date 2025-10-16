@@ -1,0 +1,190 @@
+---
+// Toast Component - Reusable toast notification
+export interface Props {
+  message?: string;
+  type?: 'success' | 'error' | 'warning' | 'info';
+  duration?: number;
+  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
+}
+
+const {
+  message = '',
+  type = 'success',
+  duration = 5000,
+  position = 'top-right'
+} = Astro.props;
+
+// Define position classes
+const positionClasses = {
+  'top-right': 'top-4 right-4',
+  'top-left': 'top-4 left-4',
+  'bottom-right': 'bottom-4 right-4',
+  'bottom-left': 'bottom-4 left-4',
+  'top-center': 'top-4 left-1/2 transform -translate-x-1/2',
+  'bottom-center': 'bottom-4 left-1/2 transform -translate-x-1/2'
+};
+
+// Define type configurations
+const typeConfig = {
+  success: {
+    icon: `<svg class="h-6 w-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+    </svg>`,
+    bgClass: 'bg-green-50 dark:bg-green-900/20',
+    borderClass: 'border-green-200 dark:border-green-800',
+    iconBg: 'bg-green-100 dark:bg-green-800/50'
+  },
+  error: {
+    icon: `<svg class="h-6 w-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>`,
+    bgClass: 'bg-red-50 dark:bg-red-900/20',
+    borderClass: 'border-red-200 dark:border-red-800',
+    iconBg: 'bg-red-100 dark:bg-red-800/50'
+  },
+  warning: {
+    icon: `<svg class="h-6 w-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+    </svg>`,
+    bgClass: 'bg-yellow-50 dark:bg-yellow-900/20',
+    borderClass: 'border-yellow-200 dark:border-yellow-800',
+    iconBg: 'bg-yellow-100 dark:bg-yellow-800/50'
+  },
+  info: {
+    icon: `<svg class="h-6 w-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>`,
+    bgClass: 'bg-blue-50 dark:bg-blue-900/20',
+    borderClass: 'border-blue-200 dark:border-blue-800',
+    iconBg: 'bg-blue-100 dark:bg-blue-800/50'
+  }
+};
+
+const config = typeConfig[type];
+---
+
+<!-- Toast Container -->
+<div
+  id="toast-{Math.random().toString(36).substr(2, 9)}"
+  class={`toast-${position} fixed ${positionClasses[position]} z-50 max-w-sm w-full ${config.bgClass} ${config.borderClass} border rounded-lg shadow-lg transform translate-x-full transition-all duration-300 ease-in-out`}
+  data-position={position}
+  data-duration={duration}
+>
+  <div class="p-4">
+    <div class="flex items-center">
+      <div class={`flex-shrink-0 rounded-full p-1 ${config.iconBg}`}>
+        <div class="toast-icon">
+          <Fragment set:html={config.icon} />
+        </div>
+      </div>
+      <div class="ml-3 w-0 flex-1">
+        <p class="toast-message text-sm font-medium text-gray-900 dark:text-gray-100">
+          {message}
+        </p>
+      </div>
+      <div class="ml-4 flex-shrink-0 flex">
+        <button class="toast-close ${config.bgClass} ${config.borderClass} rounded-md inline-flex text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+          <span class="sr-only">Close</span>
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Toast management system
+  class ToastManager {
+    private static instance: ToastManager;
+    private toasts: Map<string, HTMLElement> = new Map();
+
+    static getInstance(): ToastManager {
+      if (!ToastManager.instance) {
+        ToastManager.instance = new ToastManager();
+      }
+      return ToastManager.instance;
+    }
+
+    show(message: string, type: 'success' | 'error' | 'warning' | 'info' = 'success', duration: number = 5000, position: string = 'top-right'): string {
+      const toastId = `toast-${Math.random().toString(36).substr(2, 9)}`;
+      const toast = document.getElementById(toastId) as HTMLElement;
+
+      if (!toast) return '';
+
+      // Store toast reference
+      this.toasts.set(toastId, toast);
+
+      // Show toast
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-x-full');
+        toast.classList.add('translate-x-0');
+      });
+
+      // Auto hide
+      setTimeout(() => {
+        this.hide(toastId);
+      }, duration);
+
+      // Close button functionality
+      const closeButton = toast.querySelector('.toast-close') as HTMLButtonElement;
+      if (closeButton) {
+        closeButton.onclick = () => this.hide(toastId);
+      }
+
+      return toastId;
+    }
+
+    hide(toastId: string): void {
+      const toast = this.toasts.get(toastId);
+      if (!toast) return;
+
+      toast.classList.remove('translate-x-0');
+      toast.classList.add('translate-x-full');
+
+      // Remove from DOM after animation
+      setTimeout(() => {
+        toast.remove();
+        this.toasts.delete(toastId);
+      }, 300);
+    }
+
+    hideAll(): void {
+      this.toasts.forEach((toast, id) => {
+        this.hide(id);
+      });
+    }
+  }
+
+  // Global toast function
+  (window as any).showToast = function(message: string, type?: 'success' | 'error' | 'warning' | 'info', duration?: number, position?: string) {
+    return ToastManager.getInstance().show(message, type, duration, position);
+  };
+
+  (window as any).hideToast = function(toastId: string) {
+    ToastManager.getInstance().hide(toastId);
+  };
+
+  (window as any).hideAllToasts = function() {
+    ToastManager.getInstance().hideAll();
+  };
+</script>
+
+<style>
+  /* Toast animations */
+  .toast-top-right, .toast-top-left, .toast-bottom-right, .toast-bottom-left {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .toast-top-center, .toast-bottom-center {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Dark mode adjustments */
+  .dark .toast-top-right, .dark .toast-top-left, .dark .toast-bottom-right, .dark .toast-bottom-left,
+  .dark .toast-top-center, .dark .toast-bottom-center {
+    background-color: rgb(var(--color-box));
+    border-color: rgb(var(--box-border));
+  }
+</style>

@@ -1,0 +1,60 @@
+---
+// Example component showing how to use environment variables in Astro
+// This demonstrates accessing PUBLIC_ prefixed variables
+---
+
+<div class="env-example">
+  <h3>Environment Variables Example</h3>
+
+  <!-- Safe to use PUBLIC_ variables in HTML since they're bundled at build time -->
+  <p>Contact Email: {import.meta.env.PUBLIC_CONTACT_EMAIL}</p>
+
+  <!-- Example of conditional rendering based on env vars -->
+  {import.meta.env.PUBLIC_GA_TRACKING_ID && (
+    <p>Google Analytics is configured with ID: {import.meta.env.PUBLIC_GA_TRACKING_ID}</p>
+  )}
+
+  <!-- Example of using env vars in attributes -->
+  {import.meta.env.PUBLIC_TWITTER_HANDLE && (
+    <a href={`https://twitter.com/${import.meta.env.PUBLIC_TWITTER_HANDLE.replace('@', '')}`}>
+      Follow on Twitter
+    </a>
+  )}
+
+  <!-- Example of API calls with env vars -->
+  {import.meta.env.PUBLIC_API_BASE_URL && (
+    <p>API Base URL: {import.meta.env.PUBLIC_API_BASE_URL}</p>
+  )}
+</div>
+
+<style>
+  .env-example {
+    padding: 1rem;
+    background: #f5f5f5;
+    border-radius: 8px;
+    margin: 1rem 0;
+  }
+
+  .env-example h3 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  .env-example p {
+    margin: 0.5rem 0;
+  }
+
+  .env-example a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #1da1f2;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 0.5rem 0;
+  }
+
+  .env-example a:hover {
+    background: #0d8bd9;
+  }
+</style>
