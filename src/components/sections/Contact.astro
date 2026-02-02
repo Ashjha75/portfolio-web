@@ -241,4 +241,18 @@ const FORMSPREE_ENDPOINT = import.meta.env.PUBLIC_FORMSPREE_ENDPOINT || "https:/
       }
     });
   }
+  // Smooth scroll to contact section if hash is #contact-me
+  function scrollToContactIfHash() {
+    if (window.location.hash === '#contact-me') {
+      const contactSection = document.getElementById('contact');
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }
+
+  // On page load
+  window.addEventListener('DOMContentLoaded', scrollToContactIfHash);
+  // On hash change
+  window.addEventListener('hashchange', scrollToContactIfHash);
 </script>
