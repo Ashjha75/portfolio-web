@@ -8,6 +8,20 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+   {
+    title: "Ticketing-system",
+    description: "High-concurrency ticket booking backend built with Spring Boot, focusing on safe inventory handling, caching, and real-world backend design patterns.",
+    techStack: ["Java", "Spring Boot", "Spring Data JPA", "postgres", "Maven", "Redis","Angular","Spring Security"],
+    features: [
+      "User Registration and Authentication",
+      "Event creation and management (admin)",
+      "Event browsing with filtering and pagination",
+      "Ticket booking with concurrency control",
+      "Inventory management to prevent overselling",
+    ],
+    demoUrl: "ashjha75.github.io/ticketing-system/",
+    repoUrl: "https://github.com/Ashjha75/ticketing-system",
+  },
   {
     title: "Spring-Commerce",
     description: "Spring Commerce: A powerful backend implementation for an eCommerce platform built with Spring Boot....",
