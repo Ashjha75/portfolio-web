@@ -70,6 +70,37 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/Ashjha75/ticketing-system",
   },
   {
+  title: "Multi-threaded Task Scheduler",
+  description: "Production-inspired Java task scheduling system demonstrating advanced concurrency patterns. Manages thousands of tasks across multiple worker threads with smart retry logic, priority-based queuing, and real-time event publishing. Built from first principles to master core Java concurrency, design patterns, and system architecture.",
+  techStack: [
+    "Java 17+",
+    "Concurrency",
+    "ThreadPoolExecutor",
+    "BlockingQueue",
+    "AtomicReference/AtomicInteger",
+    "Design Patterns",
+    "Maven",
+    "ConcurrentHashMap",
+    "Observer Pattern",
+    "Factory Pattern",
+    "Strategy Pattern",
+    "Template Method Pattern"
+  ],
+  features: [
+    "Multi-threaded task execution with PriorityBlockingQueue",
+    "Compare-And-Set (CAS) based safe state transitions",
+    "Exponential backoff retry mechanism",
+    "Event-driven architecture with Observer pattern",
+    "Factory-based command creation",
+    "Thread-safe repository with ConcurrentHashMap",
+    "Real-time console logging and metrics tracking",
+    "Graceful shutdown with timeout handling",
+    "CLI interface for task management",
+    "Task lifecycle management (PENDING → RUNNING → SUCCESS/FAILED)"
+  ],
+  repoUrl: "https://github.com/Ashjha75/Multi-threaded-task-scheduler"
+},
+  {
     title: "Spring-Commerce",
     description: "Spring Commerce: A powerful backend implementation for an eCommerce platform built with Spring Boot....",
     techStack: ["Java", "Spring Boot", "Spring Data JPA", "MySQL", "Maven", "Redis"],
