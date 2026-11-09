@@ -7,7 +7,7 @@ import { Icon } from "astro-icon/components";
 <section id="experience" class="pb-20 scroll-animation">
   <Container>
     <div
-      class="relative w-full max-w-6xl mx-auto p-8 md:p-10 rounded-2xl bg-white dark:bg-gray-900/70 backdrop-blur-sm border border-gray-200 dark:border-gray-800 shadow-lg shadow-gray-200/20 dark:shadow-gray-900/20 overflow-hidden"
+      class="relative w-full max-w-6xl mx-auto p-8 md:p-10 rounded-2xl bg-white dark:bg-gray-900/70 backdrop-blur-xs border border-gray-200 dark:border-gray-800 shadow-lg shadow-gray-200/20 dark:shadow-gray-900/20 overflow-hidden"
     >
       <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-xl"></div>
       <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-green-500/10 rounded-full blur-xl"></div>
@@ -31,7 +31,7 @@ import { Icon } from "astro-icon/components";
               </p>
               <ul class="mt-6 space-y-4">
                 {exp.responsibilities.map(resp => (
-                  <li class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg shadow-sm">
+                  <li class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg shadow-xs">
                     <p class="text-gray-700 dark:text-gray-300 flex items-start">
                       <span class="text-red-500 mr-3 mt-1">•</span>
                       {resp}

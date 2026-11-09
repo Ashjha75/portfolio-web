@@ -5,6 +5,12 @@ export interface Project {
   features: string[];
   demoUrl?: string;
   repoUrl?: string;
+  /* Optional repository metadata, present on some entries only. */
+  topics?: string[];
+  primaryLanguage?: string;
+  javaVersion?: string;
+  buildTool?: string;
+  defaultBranch?: string;
 }
 
 export const projects: Project[] = [

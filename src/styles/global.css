@@ -1,10 +1,61 @@
-/* These three lines are essential. They inject Tailwind's styles. */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Tailwind v4: a single import replaces the old
+   @tailwind base / components / utilities triple. */
+@import "tailwindcss";
 
-/* These are your CSS variables. 
-  The Tailwind config now uses these to create utility classes.
+/* Astro components live next to this file; make the scan explicit so utility
+   classes inside .astro templates are always picked up. */
+@source "../**/*.{astro,html,js,jsx,ts,tsx,vue,svelte}";
+
+/* Replaces `darkMode: 'selector'` from the old tailwind.config.js. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Replaces the `theme.extend` block of the old tailwind.config.js.
+   `inline` is important here: these colours are built from CSS variables that
+   are re-declared under `.dark`, so the utilities must reference the variables
+   directly instead of a snapshotted :root value. */
+@theme inline {
+  --color-primary: #1d4ed8;
+  --color-box-bg: rgb(var(--color-box));
+  --color-box-shadow: rgb(var(--box-sd));
+  --color-box-border: rgb(var(--box-border));
+  --color-heading-1: rgb(var(--heading-1));
+  --color-heading-2: rgb(var(--heading-2));
+  --color-heading-3: rgb(var(--heading-3));
+
+  --breakpoint-midmd: 880px;
+
+  --font-sans: "Raleway", sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+   Tailwind v3 compatibility layer.
+   v4 changed three preflight defaults; these keep the existing design intact.
+   --------------------------------------------------------------------------- */
+@layer base {
+  /* v4 defaults the border colour to currentColor; v3 used gray-200. */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  /* v4 defaults placeholders to currentColor/50%; v3 used gray-400. */
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-gray-400);
+  }
+
+  /* v4 sets buttons to cursor: default; v3 used pointer. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* These are your CSS variables.
+  The @theme block above uses these to create the utility classes.
 */
 :root {
   --color-bg: 255 255 255;

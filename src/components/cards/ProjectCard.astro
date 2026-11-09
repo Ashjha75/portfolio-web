@@ -9,7 +9,7 @@ interface Props {
 const { project } = Astro.props;
 ---
 
-<div class="group relative h-full bg-white dark:bg-gray-900/70 backdrop-blur-sm border border-gray-200 dark:border-gray-800 rounded-2xl shadow-lg shadow-gray-200/20 dark:shadow-gray-900/20 overflow-hidden flex flex-col">
+<div class="group relative h-full bg-white dark:bg-gray-900/70 backdrop-blur-xs border border-gray-200 dark:border-gray-800 rounded-2xl shadow-lg shadow-gray-200/20 dark:shadow-gray-900/20 overflow-hidden flex flex-col">
     
     <!-- FIX: prevent overlay from blocking clicks -->
     <div class="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out pointer-events-none"></div>
@@ -41,7 +41,7 @@ const { project } = Astro.props;
             <ul class="space-y-2">
                 {project.features.map(feature => (
                     <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                        <Icon name="lucide:check-circle-2" class="w-4 h-4 text-primary mr-2.5 flex-shrink-0" />
+                        <Icon name="lucide:check-circle-2" class="w-4 h-4 text-primary mr-2.5 shrink-0" />
                         {feature}
                     </li>
                 ))}
