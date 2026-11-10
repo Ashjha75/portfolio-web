@@ -44,8 +44,7 @@ const navItems = [
             <a
               href={item.href}
               data-nav-link
-              class="rounded-md px-3 py-2 text-sm text-ink-2 transition-colors hover:text-ink
-                     data-[active=true]:text-accent"
+              class="relative rounded-md px-3 py-2 text-[0.9375rem] text-ink-2 transition-colors hover:text-ink data-[active=true]:text-accent after:absolute after:inset-x-3 after:bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:after:scale-x-100 data-[active=true]:after:scale-x-100"
             >
               {item.text}
             </a>

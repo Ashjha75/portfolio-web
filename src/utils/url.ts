@@ -13,5 +13,11 @@ export const withBase = (path: string): string => {
   return root + "/" + path.replace(/^\/+/, "");
 };
 
-/** The site root, for the wordmark link. */
-export const homeHref = BASE.endsWith("/") ? BASE : BASE + "/";
+/**
+ * The site root, for the wordmark link.
+ *
+ * astro.config sets `trailingSlash: "never"`, so "/portfolio-web/" 404s while
+ * "/portfolio-web" resolves. Always strip the trailing slash here.
+ */
+export const homeHref =
+  BASE.length > 1 && BASE.endsWith("/") ? BASE.slice(0, -1) : BASE;

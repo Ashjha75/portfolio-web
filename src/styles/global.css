@@ -12,23 +12,23 @@
    Three hues total: a neutral ramp, one copper-amber accent, one status green.
    =========================================================================== */
 @theme {
-  /* surfaces */
-  --color-bg:            #0A0A0A;
-  --color-surface-1:     #111110;
-  --color-surface-2:     #171716;
-  --color-line:          #262523;
-  --color-line-strong:   #35332F;
+  /* surfaces — lifted off pure black so panels and hairlines actually read */
+  --color-bg:            #0C0C0E;
+  --color-surface-1:     #16161A;
+  --color-surface-2:     #1F1F24;
+  --color-line:          #2F2F36;
+  --color-line-strong:   #45454E;
 
-  /* text */
-  --color-ink:           #EDEAE4;
-  --color-ink-2:         #A8A49C;
-  --color-ink-3:         #817D75;
+  /* text — every step brightened; ink-2 carries body copy at ~11:1 */
+  --color-ink:           #F6F4F0;
+  --color-ink-2:         #C8C4BC;
+  --color-ink-3:         #9C978E;
 
   /* accent — deliberately warm, against the indigo/violet template default */
-  --color-accent:        #E08C3C;
-  --color-accent-hi:     #F0A050;
-  --color-accent-dim:    #3A2616;
-  --color-accent-fg:     #0A0A0A;
+  --color-accent:        #EC9440;
+  --color-accent-hi:     #FFAA55;
+  --color-accent-dim:    #42291A;
+  --color-accent-fg:     #0C0C0E;
 
   /* status only — never a second brand colour */
   --color-signal:        #5ECF8E;
@@ -113,9 +113,9 @@
    =========================================================================== */
 @utility mono-label {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--color-ink-3);
 }
@@ -124,9 +124,9 @@
    Carries a sense of a technical drawing without adding a colour. */
 @utility grid-field {
   background-image:
-    linear-gradient(to right,  color-mix(in oklab, var(--color-line) 55%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in oklab, var(--color-line) 55%, transparent) 1px, transparent 1px);
-  background-size: 64px 64px;
+    linear-gradient(to right,  var(--color-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+  background-size: 72px 72px;
 }
 
 /* ===========================================================================
@@ -137,15 +137,15 @@
 @layer components {
   .js-motion [data-reveal] {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(26px);
   }
 
   .js-motion [data-reveal].is-in {
     opacity: 1;
     transform: none;
     transition:
-      opacity 520ms var(--ease-out-expo),
-      transform 520ms var(--ease-out-expo);
+      opacity 620ms var(--ease-out-expo),
+      transform 620ms var(--ease-out-expo);
     transition-delay: var(--reveal-delay, 0ms);
   }
 }
@@ -167,4 +167,67 @@
     opacity: 1 !important;
     transform: none !important;
   }
+}
+
+/* ===========================================================================
+   Hero entrance + ambient motion
+   Runs on load (not scroll). Gated on no-preference so reduced-motion users
+   get the final state immediately.
+   =========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  [data-enter] {
+    animation: enter-up 760ms var(--ease-out-expo) both;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+
+  @keyframes enter-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* slow diagonal drift of the hero grid */
+  .grid-pan { animation: grid-pan 26s linear infinite; }
+  @keyframes grid-pan {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-72px, -72px, 0); }
+  }
+
+  /* the accent wash breathes rather than sitting static */
+  .glow-breathe { animation: glow-breathe 9s ease-in-out infinite; }
+  @keyframes glow-breathe {
+    0%, 100% { opacity: 0.6; }
+    50%      { opacity: 1; }
+  }
+
+  /* a light sweep that travels the grid once in a while */
+  .scan-sweep { animation: scan-sweep 11s ease-in-out infinite; }
+  @keyframes scan-sweep {
+    0%, 70%, 100% { opacity: 0; transform: translateY(-30%); }
+    80%           { opacity: 0.5; }
+    95%           { opacity: 0; transform: translateY(130%); }
+  }
+}
+
+/* Hover affordances that depend on a real pointer. */
+@media (hover: hover) {
+  .lift {
+    transition:
+      transform 320ms var(--ease-out-expo),
+      border-color 240ms ease,
+      box-shadow 320ms var(--ease-out-expo);
+  }
+  .lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -24px rgb(0 0 0 / 0.9);
+  }
+
+  /* underline that draws in from the left */
+  .link-underline {
+    background-image: linear-gradient(var(--color-accent), var(--color-accent));
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 280ms var(--ease-out-expo), color 200ms ease;
+  }
+  .link-underline:hover { background-size: 100% 1px; }
 }

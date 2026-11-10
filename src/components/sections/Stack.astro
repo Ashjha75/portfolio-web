@@ -20,16 +20,15 @@ import { stackGroups } from "../../utils/stack";
           <h3 class="font-display text-lg font-semibold text-ink">{group.layer}</h3>
         </div>
 
-        <p class="mt-2.5 text-[0.9375rem] text-ink-2">{group.note}</p>
+        <p class="mt-2.5 text-[1rem] leading-relaxed text-ink-2">{group.note}</p>
 
         <ul class="mt-6 flex flex-wrap gap-2">
           {group.items.map((item) => (
             <li
-              class="inline-flex items-center gap-2 rounded-lg border border-line bg-surface-2/70
-                     px-3 py-2 transition-colors duration-200 hover:border-accent/40"
+              class="group inline-flex items-center gap-2 rounded-lg border border-line bg-surface-2/70 px-3 py-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/50 hover:bg-surface-2"
             >
-              <Icon name={item.icon} class="h-4 w-4 text-ink-2" />
-              <span class="font-mono text-[12px] text-ink">{item.name}</span>
+              <Icon name={item.icon} class="h-4 w-4 text-ink-2 transition-colors duration-200 group-hover:text-accent" />
+              <span class="font-mono text-[13px] text-ink">{item.name}</span>
             </li>
           ))}
         </ul>

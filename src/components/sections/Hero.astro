@@ -3,65 +3,57 @@ import Container from "../shared/Container.astro";
 import Button from "../shared/Button.astro";
 import { profile, proofPoints } from "../../utils/profile";
 import { withBase } from "../../utils/url";
-
 ---
 
-<section id="hero" class="relative overflow-hidden pt-28 pb-14 lg:pt-40 lg:pb-24">
-  <!-- The only decorative background: a hairline technical grid, faded out. -->
-  <div
-    class="grid-field pointer-events-none absolute inset-0 opacity-[0.55]
-           [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]"
-    aria-hidden="true"
-  >
-  </div>
-  <div
-    class="pointer-events-none absolute -top-40 left-1/2 h-[380px] w-[680px] -translate-x-1/2
-           rounded-full bg-accent/[0.07] blur-[90px]"
-    aria-hidden="true"
-  >
+<section id="hero" class="relative overflow-hidden pt-28 pb-16 lg:pt-40 lg:pb-24">
+  <!-- Ambient layer: a technical grid that slowly drifts, a breathing accent
+       wash, and an occasional light sweep. Transform/opacity only, and the
+       whole layer freezes under prefers-reduced-motion. -->
+  <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div class="grid-field grid-pan absolute -inset-32 opacity-70 [mask-image:radial-gradient(ellipse_80%_65%_at_50%_20%,black_35%,transparent_100%)]"></div>
+    <div class="glow-breathe absolute left-1/2 top-[-22%] h-[520px] w-[min(880px,120vw)] -translate-x-1/2 rounded-full bg-accent/[0.13] blur-[110px]"></div>
+    <div class="scan-sweep absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-transparent via-accent/[0.07] to-transparent"></div>
+    <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-line-strong to-transparent"></div>
   </div>
 
   <Container class="relative">
     <div class="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-      <!-- ── copy ─────────────────────────────────────────────────── -->
       <div>
-        <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2" data-enter>
           <span class="mono-label">{profile.name}</span>
           {profile.available && (
-            <span class="inline-flex items-center gap-2 rounded-full border border-signal/30
-                         bg-signal/[0.08] px-2.5 py-1 font-mono text-[11px] tracking-wide text-signal">
+            <span class="inline-flex items-center gap-2 rounded-full border border-signal/40 bg-signal/[0.10] px-3 py-1 font-mono text-[12px] tracking-wide text-signal">
               <span class="relative flex h-1.5 w-1.5">
-                <span class="absolute inline-flex h-full w-full rounded-full bg-signal opacity-60 motion-safe:animate-ping"></span>
+                <span class="absolute inline-flex h-full w-full rounded-full bg-signal opacity-70 motion-safe:animate-ping"></span>
                 <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal"></span>
               </span>
-              Open to backend roles
+              Open to software engineering roles
             </span>
           )}
         </div>
 
-        <h1 class="mt-6 text-[length:var(--text-display)] font-semibold">
+        <h1 class="mt-6 text-[length:var(--text-display)] font-semibold" data-enter style="--enter-delay:90ms">
           I build backend systems{" "}<br class="hidden sm:block" />
           that hold up <span class="text-accent">under load</span>.
         </h1>
 
-        <p class="mt-7 max-w-xl text-[1.0625rem] leading-relaxed text-ink-2">
-          Backend engineer, two years at{" "}
+        <p class="mt-7 max-w-xl text-[1.0625rem] leading-relaxed text-ink-2" data-enter style="--enter-delay:200ms">
+          Software engineer, two years at{" "}
           <a
             href="https://www.novoinvent.com/"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-ink underline decoration-line-strong underline-offset-4 transition-colors hover:decoration-accent"
+            class="link-underline text-ink hover:text-accent"
             >Novoinvent Software</a
           >. I work in Java and Spring Boot on the parts that break when traffic
           arrives — multi-tenancy, concurrency, and the data layer.
         </p>
 
-        <div class="mt-9 flex flex-wrap items-center gap-3">
-          <Button href="#work" variant="primary">
+        <div class="mt-9 flex flex-wrap items-center gap-3" data-enter style="--enter-delay:300ms">
+          <Button href="#work" variant="primary" class="group">
             View selected work
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" />
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </Button>
           <Button href={withBase("resume.pdf")} download="Ashish-Kumar-Jha-Resume.pdf" variant="ghost">
@@ -69,28 +61,21 @@ import { withBase } from "../../utils/url";
           </Button>
         </div>
 
-        <!-- quick, copy-able contact rail -->
-        <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[12px] text-ink-3">
-          <a href={`mailto:${profile.email}`} class="transition-colors hover:text-accent"
-            >{profile.email}</a
-          >
-          <a href={profile.links.github} target="_blank" rel="noopener noreferrer"
-            class="transition-colors hover:text-accent">github.com/Ashjha75</a
-          >
+        <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[13px] text-ink-3" data-enter style="--enter-delay:400ms">
+          <a href={"mailto:" + profile.email} class="link-underline hover:text-accent">{profile.email}</a>
+          <a href={profile.links.github} target="_blank" rel="noopener noreferrer" class="link-underline hover:text-accent">github.com/Ashjha75</a>
           <span>{profile.location}</span>
         </div>
       </div>
 
-      <!-- ── system schematic ─────────────────────────────────────── -->
-      <div class="relative" data-reveal>
-        <div class="rounded-2xl border border-line bg-surface-1/70 p-5 backdrop-blur-sm sm:p-7">
+      <div class="relative" data-enter style="--enter-delay:260ms">
+        <div class="rounded-2xl border border-line bg-surface-1/80 p-5 backdrop-blur-sm sm:p-7">
           <div class="mb-5 flex items-center justify-between">
             <span class="mono-label">Request path</span>
-            <span class="font-mono text-[11px] text-ink-3">spring-boot</span>
+            <span class="font-mono text-[12px] text-ink-3">spring-boot</span>
           </div>
 
-          <svg class="hero-svg w-full" viewBox="0 0 400 260" role="img"
-            aria-label="Diagram of a request flowing through a gateway and service layer to a cache and database.">
+          <svg class="hero-svg w-full" viewBox="0 0 400 260" role="img" aria-label="Diagram of a request flowing through a gateway and service layer to a cache, database and object store.">
             <defs>
               <marker id="hero-ah" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
                 <path d="M0 0 L7 3.5 L0 7 z" class="arrow" />
@@ -98,20 +83,20 @@ import { withBase } from "../../utils/url";
             </defs>
 
             <rect class="node" x="8" y="104" width="92" height="40" rx="8" />
-            <text class="lbl" x="54" y="122">CLIENT</text>
-            <text class="lbl dim" x="54" y="135">HTTP</text>
+            <text class="lbl" x="54" y="120">CLIENT</text>
+            <text class="lbl dim" x="54" y="134">HTTP</text>
 
             <rect class="node" x="150" y="104" width="100" height="40" rx="8" />
-            <text class="lbl" x="200" y="122">GATEWAY</text>
-            <text class="lbl dim" x="200" y="135">auth · rate limit</text>
+            <text class="lbl" x="200" y="120">GATEWAY</text>
+            <text class="lbl dim" x="200" y="134">auth · rate limit</text>
 
             <rect class="node accent" x="150" y="16" width="100" height="40" rx="8" />
-            <text class="lbl on" x="200" y="34">SERVICE</text>
-            <text class="lbl on" x="200" y="47">domain logic</text>
+            <text class="lbl on" x="200" y="32">SERVICE</text>
+            <text class="lbl on small" x="200" y="46">domain logic</text>
 
             <rect class="node" x="150" y="192" width="100" height="40" rx="8" />
-            <text class="lbl" x="200" y="210">WORKER</text>
-            <text class="lbl dim" x="200" y="223">async jobs</text>
+            <text class="lbl" x="200" y="208">WORKER</text>
+            <text class="lbl dim" x="200" y="222">async jobs</text>
 
             <rect class="node" x="298" y="40" width="94" height="38" rx="8" />
             <text class="lbl" x="345" y="63">REDIS</text>
@@ -131,12 +116,11 @@ import { withBase } from "../../utils/url";
           </svg>
         </div>
 
-        <!-- proof strip, docked to the schematic -->
-        <dl class="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4">
+        <dl class="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4" data-enter style="--enter-delay:360ms">
           {proofPoints.map((p) => (
-            <div class="bg-surface-1 px-4 py-4 text-center">
+            <div class="bg-surface-1 px-4 py-4 text-center transition-colors duration-300 hover:bg-surface-2">
               <dt class="font-display text-xl font-semibold text-ink">{p.value}</dt>
-              <dd class="mt-1 text-[11px] leading-snug text-ink-3">{p.label}</dd>
+              <dd class="mt-1 text-[12px] leading-snug text-ink-3">{p.label}</dd>
             </div>
           ))}
         </dl>
@@ -155,29 +139,30 @@ import { withBase } from "../../utils/url";
   }
   .node.accent {
     fill: var(--color-accent-dim);
-    stroke: color-mix(in oklab, var(--color-accent) 60%, transparent);
+    stroke: color-mix(in oklab, var(--color-accent) 70%, transparent);
   }
 
   .lbl {
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 10.5px;
     letter-spacing: 0.06em;
     fill: var(--color-ink-2);
     text-anchor: middle;
   }
   .lbl.on { fill: var(--color-accent-hi); }
-  .lbl.dim { font-size: 8.5px; fill: var(--color-ink-3); }
+  .lbl.dim { font-size: 9px; fill: var(--color-ink-3); }
+  .lbl.small { font-size: 9px; }
 
   .link,
   .flow {
     fill: none;
     stroke: var(--color-line-strong);
-    stroke-width: 1.25;
+    stroke-width: 1.4;
   }
   .arrow { fill: var(--color-line-strong); }
 
   .flow {
-    stroke: color-mix(in oklab, var(--color-accent) 70%, transparent);
+    stroke: var(--color-accent);
     stroke-dasharray: 5 8;
     animation: drift 2.6s linear infinite;
   }

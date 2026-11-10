@@ -15,8 +15,8 @@ const { project, index = 0, wide = false } = Astro.props;
 
 <article
   class:list={[
-    "group h-full overflow-hidden rounded-2xl border border-line bg-surface-1",
-    "transition-colors duration-300 hover:border-line-strong",
+    "group lift h-full overflow-hidden rounded-2xl border border-line bg-surface-1",
+    "hover:border-accent/45",
     wide ? "md:grid md:grid-cols-[1.05fr_1fr]" : "flex flex-col",
   ]}
   data-reveal
@@ -42,11 +42,11 @@ const { project, index = 0, wide = false } = Astro.props;
 
   <div class="flex flex-1 flex-col p-4 sm:p-6">
     <h3 class="text-[length:var(--text-h3)] font-semibold text-ink">{project.title}</h3>
-    <p class="mt-2.5 text-[0.9375rem] text-ink-2">{project.summary}</p>
+    <p class="mt-2.5 text-[1rem] leading-relaxed text-ink-2">{project.summary}</p>
 
     <ul class="mt-5 space-y-2.5">
       {project.highlights.map((h) => (
-        <li class="flex gap-2.5 text-[0.875rem] leading-relaxed text-ink-2">
+        <li class="flex gap-2.5 text-[0.9375rem] leading-relaxed text-ink-2">
           <span class="mt-[0.55rem] h-px w-3 shrink-0 bg-accent/60" aria-hidden="true" />
           <span>{h}</span>
         </li>
@@ -65,7 +65,7 @@ const { project, index = 0, wide = false } = Astro.props;
             href={project.repoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 text-sm font-medium text-ink-2 transition-colors hover:text-accent"
+            class="link-underline inline-flex items-center gap-2 text-sm font-medium text-ink-2 hover:text-accent"
           >
             <Icon name="lucide:github" class="h-4 w-4" />
             Source
