@@ -25,7 +25,7 @@ const { project, index = 0, wide = false } = Astro.props;
   <!-- The architecture panel: replaces the identical folder icon v1 used. -->
   <div
     class:list={[
-      "relative bg-bg/40 px-5 pt-5 pb-4",
+      "relative bg-bg/40 px-4 pt-4 pb-3 sm:px-5 sm:pt-5 sm:pb-4",
       wide ? "border-b border-line md:border-b-0 md:border-r" : "border-b border-line",
     ]}
   >
@@ -40,7 +40,7 @@ const { project, index = 0, wide = false } = Astro.props;
     <ArchDiagram kind={project.diagram} />
   </div>
 
-  <div class="flex flex-1 flex-col p-5 sm:p-6">
+  <div class="flex flex-1 flex-col p-4 sm:p-6">
     <h3 class="text-[length:var(--text-h3)] font-semibold text-ink">{project.title}</h3>
     <p class="mt-2.5 text-[0.9375rem] text-ink-2">{project.summary}</p>
 
@@ -54,7 +54,7 @@ const { project, index = 0, wide = false } = Astro.props;
     </ul>
 
     <!-- mt-auto pins the footer so every card in a row ends level -->
-    <div class="mt-auto pt-6">
+    <div class="mt-auto pt-5">
       <div class="flex flex-wrap gap-1.5">
         {project.stack.map((s) => <Tag>{s}</Tag>)}
       </div>

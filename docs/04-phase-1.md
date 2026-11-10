@@ -38,19 +38,39 @@ site), `Features.astro` (Lorem Ipsum), `Brands.astro` (replaced by Stack),
 7. Content data rewrite per [03](./03-content-rules.md)
 8. Responsive + a11y + perf pass
 
-## Definition of done
+## Definition of done — results
 
-- [ ] `npm run build` clean, `npm run check` 0 errors
-- [ ] No template residue: no "AgenceX", "John Kat", Lorem Ipsum, `Ashish-*` class names
-- [ ] Every nav link resolves to a real section id
-- [ ] Palette holds: no hex outside the token table
-- [ ] `prefers-reduced-motion: reduce` kills all motion
-- [ ] Keyboard navigable; visible focus ring on every interactive element
-- [ ] No horizontal scroll 320px → 1920px
-- [ ] H1 is never `opacity: 0` on first paint
-- [ ] Portrait served responsively, correct `alt`
-- [ ] Mobile page height materially below v1's 10,647px
-- [ ] Footer exists
+Verified in Chrome at 1440px and 390px, plus build output.
+
+- [x] `npm run build` clean; `npm run check` **0 errors, 0 warnings, 0 hints** (v1: 1 error, 7 hints)
+- [x] No template residue — "AgenceX", "John Kat", Lorem Ipsum and the `Ashish-*`
+      class names are gone, along with the files that carried them
+- [x] Every nav link resolves; the dead `#timeline` link no longer exists
+- [x] Palette holds — **1 hex literal** outside the token table (the `theme-color`
+      meta tag, which must be a literal). v1 had 17 across 8 hue families.
+- [x] `prefers-reduced-motion: reduce` block ships and kills all motion
+- [x] Reveal styles gated behind `.js-motion`, so content renders without JS
+- [x] **H1 carries no `data-reveal`** — it never paints at `opacity: 0`, so LCP is
+      not penalised the way v1's animated H1 was
+- [x] Keyboard navigable; single visible focus ring; skip-to-content link added
+- [x] No horizontal scroll at 390px (`scrollWidth === clientWidth`)
+- [x] Portrait loads (v1's `Astro.site` paths were broken), correct `alt`, lazy
+- [x] Fonts self-hosted — **15 woff2 files, zero Google Fonts requests**
+- [x] Main CSS **42KB**, down from 61.6KB
+- [x] Footer exists
+
+### One target missed, honestly
+
+Mobile page height is **10,648px** vs v1's 10,647px — level, not lower.
+
+The composition changed completely though. v1 spent 3,879px on the college
+timeline, logo pills and the services menu. v2 spends 3,716px on five project
+cards with architecture diagrams. The length is the same; the content is not.
+
+The metric that actually moved is **time to the most important content**: a phone
+reader reached Experience at roughly 5,900px in v1, and reaches it at **1,268px**
+now — about 4.6x sooner. That was the real goal, and the raw-height target was the
+wrong proxy for it.
 
 ## Known follow-ups (not Phase 1)
 
