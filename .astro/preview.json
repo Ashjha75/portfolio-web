@@ -1,0 +1,14 @@
+{
+	"pid": 21980,
+	"port": 4455,
+	"url": "http://localhost:4455",
+	"urls": {
+		"local": [
+			"http://localhost:4455/portfolio-web"
+		],
+		"network": [],
+		"networkInterfaceNames": []
+	},
+	"background": false,
+	"startedAt": "2026-11-10T07:40:27.857Z"
+}

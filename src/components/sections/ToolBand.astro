@@ -1,0 +1,153 @@
+---
+import Container from "../shared/Container.astro";
+import { Icon } from "astro-icon/components";
+
+/* Two counter-scrolling rows of the tools actually named in stack.ts, plus the
+   assistants used day to day. Full-bleed with an edge fade so it reads as a
+   band rather than a boxed widget. */
+const rowA = [
+  { name: "Java", icon: "simple-icons:openjdk" },
+  { name: "Spring Boot", icon: "simple-icons:springboot" },
+  { name: "Spring Security", icon: "simple-icons:springsecurity" },
+  { name: "Hibernate", icon: "simple-icons:hibernate" },
+  { name: "PostgreSQL", icon: "simple-icons:postgresql" },
+  { name: "MySQL", icon: "simple-icons:mysql" },
+  { name: "Redis", icon: "simple-icons:redis" },
+  { name: "MongoDB", icon: "simple-icons:mongodb" },
+  { name: "Docker", icon: "simple-icons:docker" },
+  { name: "Kubernetes", icon: "simple-icons:kubernetes" },
+  { name: "AWS", icon: "simple-icons:amazonwebservices" },
+  { name: "Linux", icon: "simple-icons:linux" },
+];
+
+const rowB = [
+  { name: "Next.js", icon: "simple-icons:nextdotjs" },
+  { name: "React", icon: "simple-icons:react" },
+  { name: "TypeScript", icon: "simple-icons:typescript" },
+  { name: "Node.js", icon: "simple-icons:nodedotjs" },
+  { name: "Express", icon: "simple-icons:express" },
+  { name: "Git", icon: "simple-icons:git" },
+  { name: "GitHub Actions", icon: "simple-icons:githubactions" },
+  { name: "Jenkins", icon: "simple-icons:jenkins" },
+  { name: "Maven", icon: "simple-icons:apachemaven" },
+  { name: "LangChain", icon: "simple-icons:langchain" },
+  { name: "ChatGPT", icon: "simple-icons:openai" },
+  { name: "Claude", icon: "simple-icons:claude" },
+  { name: "Gemini", icon: "simple-icons:googlegemini" },
+];
+---
+
+<section class="relative overflow-hidden py-14 sm:py-16" aria-label="Tools and technologies">
+  <Container>
+    <p class="mono-label mb-7">Day to day</p>
+  </Container>
+
+  <div class="band">
+    <div class="band-row">
+      <ul class="band-track track-l" role="list">
+        {[...rowA, ...rowA, ...rowA, ...rowA].map((t, i) => (
+          <li class="tile" aria-hidden={i >= rowA.length ? "true" : undefined}>
+            <Icon name={t.icon} class="tile-icon" />
+            <span class="sr-only">{t.name}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="band-row">
+      <ul class="band-track track-r" role="list">
+        {[...rowB, ...rowB, ...rowB, ...rowB].map((t, i) => (
+          <li class="tile" aria-hidden={i >= rowB.length ? "true" : undefined}>
+            <Icon name={t.icon} class="tile-icon" />
+            <span class="sr-only">{t.name}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .band {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    /* fade both edges into the page instead of cutting off hard */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+
+  .band-row { overflow: hidden; }
+
+  .band-track {
+    display: flex;
+    gap: 0.875rem;
+    width: max-content;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    will-change: transform;
+  }
+
+  /* The track holds four copies, so -25% lands exactly on a seam and at
+     least three copies are on screen at any moment — a single copy is
+     narrower than a desktop viewport. */
+  .track-l { animation: slide-l 46s linear infinite; }
+  .track-r { animation: slide-r 52s linear infinite; }
+
+  @keyframes slide-l {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-25%, 0, 0); }
+  }
+  @keyframes slide-r {
+    from { transform: translate3d(-25%, 0, 0); }
+    to   { transform: translate3d(0, 0, 0); }
+  }
+
+  .tile {
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    flex: none;
+    border: 1px solid var(--color-line);
+    border-radius: 0.875rem;
+    background: var(--color-surface-1);
+    transition:
+      border-color 240ms ease,
+      background-color 240ms ease,
+      transform 240ms var(--ease-out-expo);
+  }
+
+  .tile-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-ink-2);
+    transition: color 240ms ease;
+  }
+
+  @media (hover: hover) {
+    /* hold the row still so a tile can actually be pointed at */
+    .band:hover .band-track { animation-play-state: paused; }
+
+    .tile:hover {
+      border-color: color-mix(in oklab, var(--color-accent) 55%, transparent);
+      background: var(--color-surface-2);
+      transform: translateY(-3px);
+    }
+    .tile:hover .tile-icon { color: var(--color-accent); }
+  }
+
+  @media (max-width: 640px) {
+    .tile { width: 3.25rem; height: 3.25rem; border-radius: 0.75rem; }
+    .tile-icon { width: 1.25rem; height: 1.25rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* no drift: let the rows sit still and be swiped instead */
+    .track-l,
+    .track-r { animation: none; transform: none; }
+    .band-row { overflow-x: auto; scrollbar-width: none; }
+    .band-row::-webkit-scrollbar { display: none; }
+  }
+</style>

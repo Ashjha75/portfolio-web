@@ -10,6 +10,8 @@ These docs are the source of truth for the redesign. Read in order:
 | [02-design-system.md](./02-design-system.md) | Colour, type, spacing, elevation, motion. The rules. |
 | [03-content-rules.md](./03-content-rules.md) | What we claim and what we don't. Angular→Next.js policy. |
 | [04-phase-1.md](./04-phase-1.md) | Phase 1 scope, section plan, checklist. |
+| [05-seo-and-security.md](./05-seo-and-security.md) | SEO, AI discoverability, CSP — and what static hosting cannot do. |
+| [github-profile-README.md](./github-profile-README.md) | Drop-in replacement for the Ashjha75/Ashjha75 profile README. |
 
 ## Ground rules agreed with Ashish
 
@@ -34,4 +36,5 @@ export PATH="/c/Users/DELL/AppData/Local/nvm/v26.13.0:$PATH"
 npm run dev     # http://localhost:4321/portfolio-web
 npm run build
 npm run check   # astro check — must stay at 0 errors
+npm run og      # regenerate public/og.png (social card)
 ```

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="0%" r="70%">
+      <stop offset="0%" stop-color="#EC9440" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#EC9440" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0C0C0E" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#0C0C0E" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0C0C0E"/>
+  <g opacity="0.55"><line x1="0" y1="0" x2="0" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="72" y1="0" x2="72" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="144" y1="0" x2="144" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="216" y1="0" x2="216" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="288" y1="0" x2="288" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="360" y1="0" x2="360" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="432" y1="0" x2="432" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="504" y1="0" x2="504" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="576" y1="0" x2="576" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="648" y1="0" x2="648" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="720" y1="0" x2="720" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="792" y1="0" x2="792" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="864" y1="0" x2="864" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="936" y1="0" x2="936" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="1008" y1="0" x2="1008" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="1080" y1="0" x2="1080" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="1152" y1="0" x2="1152" y2="630" stroke="#2F2F36" stroke-width="1"/><line x1="0" y1="0" x2="1200" y2="0" stroke="#2F2F36" stroke-width="1"/><line x1="0" y1="72" x2="1200" y2="72" stroke="#2F2F36" stroke-width="1"/><line x1="0" y1="144" x2="1200" y2="144" stroke="#2F2F36" stroke-width="1"/><line x1="0" y1="216" x2="1200" y2="216" stroke="#2F2F36" stroke-width="1"/><line x1="0" y1="288" x2="1200" y2="288" stroke="#2F2F36" stroke-width="1"/><line x1="0" y1="360" x2="1200" y2="360" stroke="#2F2F36" stroke-width="1"/><line x1="0" y1="432" x2="1200" y2="432" stroke="#2F2F36" stroke-width="1"/><line x1="0" y1="504" x2="1200" y2="504" stroke="#2F2F36" stroke-width="1"/><line x1="0" y1="576" x2="1200" y2="576" stroke="#2F2F36" stroke-width="1"/></g>
+  <rect width="1200" height="630" fill="url(#fade)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <rect x="64" y="60" width="44" height="44" rx="10" fill="#16161A" stroke="#2F2F36"/>
+  <text x="86" y="89" fill="#EC9440" font-family="DejaVu Sans Mono, monospace" font-size="18" font-weight="700" text-anchor="middle">AJ</text>
+  <text x="124" y="89" fill="#F6F4F0" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="600">Ashish Kumar Jha</text>
+
+  <text x="64" y="232" fill="#F6F4F0" font-family="DejaVu Sans, Arial, sans-serif" font-size="68" font-weight="700">I build backend systems</text>
+  <text x="64" y="312" fill="#F6F4F0" font-family="DejaVu Sans, Arial, sans-serif" font-size="68" font-weight="700">that hold up <tspan fill="#EC9440">under load</tspan>.</text>
+
+  <text x="64" y="372" fill="#C8C4BC" font-family="DejaVu Sans, Arial, sans-serif" font-size="26">Software engineer &#183; Java &#183; Spring Boot &#183; PostgreSQL &#183; AWS</text>
+
+  <line x1="64" y1="430" x2="1136" y2="430" stroke="#2F2F36" stroke-width="1"/>
+  
+  <text x="64" y="508" fill="#F6F4F0" font-family="DejaVu Sans, Arial, sans-serif" font-size="34" font-weight="700">2+</text>
+  <text x="64" y="536" fill="#9C978E" font-family="DejaVu Sans Mono, monospace" font-size="16">YEARS</text>
+  
+  <text x="304" y="508" fill="#F6F4F0" font-family="DejaVu Sans, Arial, sans-serif" font-size="34" font-weight="700">15%</text>
+  <text x="304" y="536" fill="#9C978E" font-family="DejaVu Sans Mono, monospace" font-size="16">PERF GAINED</text>
+  
+  <text x="604" y="508" fill="#F6F4F0" font-family="DejaVu Sans, Arial, sans-serif" font-size="34" font-weight="700">20%</text>
+  <text x="604" y="536" fill="#9C978E" font-family="DejaVu Sans Mono, monospace" font-size="16">RESPONSE TIME CUT</text>
+  
+  <text x="944" y="508" fill="#F6F4F0" font-family="DejaVu Sans, Arial, sans-serif" font-size="34" font-weight="700">5</text>
+  <text x="944" y="536" fill="#9C978E" font-family="DejaVu Sans Mono, monospace" font-size="16">SYSTEMS SHIPPED</text>
+</svg>
