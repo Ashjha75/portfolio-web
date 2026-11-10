@@ -8,7 +8,7 @@ export const profile = {
   links: {
     github: "https://github.com/Ashjha75",
     linkedin: "https://www.linkedin.com/in/ashish-kumar-jha-7b1b3b1b1/",
-    x: "https://x.com/Ashish5jha",
+    x: "https://x.com/ashish5jha",
   },
 } as const;
 
