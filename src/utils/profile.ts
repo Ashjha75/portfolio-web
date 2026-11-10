@@ -2,12 +2,14 @@ export const profile = {
   name: "Ashish Kumar Jha",
   role: "Backend Engineer",
   focus: "Java · Spring Boot · PostgreSQL · AWS",
-  location: "India",
+  location: "Delhi, India",
   available: true,
-  email: "ashish.jha@novoinvent.com",
+  // Personal address on purpose: recruiters should not be mailing a
+  // candidate at their current employer's domain.
+  email: "network.ashishjha@gmail.com",
   links: {
     github: "https://github.com/Ashjha75",
-    linkedin: "https://www.linkedin.com/in/ashish-kumar-jha-7b1b3b1b1/",
+    linkedin: "https://www.linkedin.com/in/ashish5jha",
     x: "https://x.com/ashish5jha",
   },
 } as const;
