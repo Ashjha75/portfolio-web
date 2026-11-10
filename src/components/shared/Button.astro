@@ -1,23 +1,33 @@
 ---
-export interface Props{
-    className?:string,
-    variant?:"primary"|"secondary",
-    type?: "button" | "submit" | "reset"
+export interface Props {
+  href?: string;
+  type?: "button" | "submit";
+  variant?: "primary" | "ghost";
+  download?: string | boolean;
+  target?: string;
+  rel?: string;
+  class?: string;
 }
+const {
+  href, type = "button", variant = "primary",
+  download, target, rel, class: cls = "",
+} = Astro.props;
 
-const {className, variant = "primary", type = "button"} = Astro.props
+const base =
+  "inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 " +
+  "text-sm font-medium transition-colors duration-200";
 
-const getThemeStyle = (variant:"primary"|"secondary")=>{
-    if (variant === "primary") {
-        return "bg-primary border-transparent relative after:bg-[#172554] hover:border-[#172554]"
-    }
-    return "text-primary"
-}
-
-
+const styles = {
+  primary: "bg-accent text-accent-fg hover:bg-accent-hi",
+  ghost:   "border border-line-strong text-ink hover:border-accent hover:text-accent",
+}[variant];
 ---
-<button type={type} class={`px-6 py-3 rounded-full outline-hidden relative overflow-hidden border duration-300 ease-linear
-                    after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-[#172554]
-                    ${getThemeStyle(variant)} hover:after:opacity-100 hover:after:scale-[2.5] ${className}`}>
-    <slot/>
-</button>
+{href ? (
+  <a href={href} download={download} target={target} rel={rel} class:list={[base, styles, cls]}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class:list={[base, styles, cls]}>
+    <slot />
+  </button>
+)}

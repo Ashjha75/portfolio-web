@@ -1,223 +1,188 @@
 ---
-import BtnLink from "../shared/BtnLink.astro";
 import Container from "../shared/Container.astro";
-import Paragraph from "../shared/Paragraph.astro";
-import ByNumber from "./ByNumber.astro";
+import Button from "../shared/Button.astro";
+import { profile, proofPoints } from "../../utils/profile";
+
+const base = import.meta.env.BASE_URL;
 ---
 
-<section id="hero" class="relative pt-32 lg:pt-36 overflow-hidden">
-    <!-- Animated background blobs -->
-    <div class="absolute w-full lg:w-1/2 inset-y-0 lg:right-0 ">
-        <span class="blob-1 absolute -left-6 md:left-4 top-24 lg:top-28 w-24 h-24 rotate-90 skew-x-12 rounded-3xl bg-green-400 blur-xl opacity-60 lg:opacity-95"></span>
-        <span class="blob-2 absolute right-4 bottom-12 w-24 h-24 rounded-3xl bg-primary blur-xl opacity-80"></span>
-    </div>
-    <span class="blob-3 w-4/12 lg:w-2/12 aspect-square bg-gradient-to-tr from-primary to-green-400 absolute -top-5 lg:left-0 rounded-full skew-y-12 blur-2xl opacity-40 skew-x-12 rotate-90"></span>
-    
-    <!-- Floating particles -->
-    <div class="particles absolute inset-0 pointer-events-none">
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
-    </div>
+<section id="hero" class="relative overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-28">
+  <!-- The only decorative background: a hairline technical grid, faded out. -->
+  <div
+    class="grid-field pointer-events-none absolute inset-0 opacity-[0.55]
+           [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute -top-40 left-1/2 h-[380px] w-[680px] -translate-x-1/2
+           rounded-full bg-accent/[0.07] blur-[90px]"
+    aria-hidden="true"
+  >
+  </div>
 
-    <Container className={"relative z-10"}>
-        <div class="mx-auto text-center max-w-4xl">
-            <div class="hero-content">
-                <!-- Animated heading with staggered reveal -->
-                <h1 class="text-4xl/tight sm:text-5xl/tight md:text-6xl/tight xl:text-7xl/tight font-bold text-heading-1 overflow-hidden">
-                    <span class="reveal-line block">Ashish Kumar Jha:</span>
-                    <span class="reveal-line block">
-                        <span class="text-transparent bg-clip-text bg-gradient-to-br from-indigo-600 from-20% via-primary via-30% to-green-600 gradient-animate">Engineering</span>
-                    </span>
-                    <span class="reveal-line block">Robust Web Applications.</span>
-                </h1>
-                
-                <div class="fade-in-up" style="animation-delay: 0.6s;">
-                    <Paragraph className="mt-8 text-lg">
-                        Passionate about transforming complex challenges into elegant, efficient code. I leverage the power of Angular and Spring Boot to architect and build end-to-end web solutions that are not only functional and secure but also provide a seamless user experience.
-                    </Paragraph>
-                </div>
-                
-                <div class="mt-12 flex justify-center gap-6 fade-in-up" style="animation-delay: 0.9s;">
-                    <BtnLink href="#projects" text="View My Work" />
-                    <BtnLink href="#contact" text="Get In Touch" variant="secondary" />
-                </div>
-            </div>
+  <Container class="relative">
+    <div class="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+      <!-- ── copy ─────────────────────────────────────────────────── -->
+      <div>
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span class="mono-label">{profile.name}</span>
+          {profile.available && (
+            <span class="inline-flex items-center gap-2 rounded-full border border-signal/30
+                         bg-signal/[0.08] px-2.5 py-1 font-mono text-[11px] tracking-wide text-signal">
+              <span class="relative flex h-1.5 w-1.5">
+                <span class="absolute inline-flex h-full w-full rounded-full bg-signal opacity-60 motion-safe:animate-ping"></span>
+                <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal"></span>
+              </span>
+              Open to backend roles
+            </span>
+          )}
         </div>
-    </Container>
 
-    <ByNumber/>
+        <h1 class="mt-6 text-[length:var(--text-display)] font-semibold">
+          I build backend systems<br class="hidden sm:block" />
+          that hold up <span class="text-accent">under load</span>.
+        </h1>
+
+        <p class="mt-7 max-w-xl text-[1.0625rem] leading-relaxed text-ink-2">
+          Backend engineer, two years at
+          <a
+            href="https://www.novoinvent.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-ink underline decoration-line-strong underline-offset-4 transition-colors hover:decoration-accent"
+            >Novoinvent Software</a
+          >. I work in Java and Spring Boot on the parts that break when traffic
+          arrives — multi-tenancy, concurrency, and the data layer.
+        </p>
+
+        <div class="mt-9 flex flex-wrap items-center gap-3">
+          <Button href="#work" variant="primary">
+            View selected work
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </Button>
+          <Button href={`${base}resume.pdf`} download="Ashish-Kumar-Jha-Resume.pdf" variant="ghost">
+            Download résumé
+          </Button>
+        </div>
+
+        <!-- quick, copy-able contact rail -->
+        <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[12px] text-ink-3">
+          <a href={`mailto:${profile.email}`} class="transition-colors hover:text-accent"
+            >{profile.email}</a
+          >
+          <a href={profile.links.github} target="_blank" rel="noopener noreferrer"
+            class="transition-colors hover:text-accent">github.com/Ashjha75</a
+          >
+          <span>{profile.location}</span>
+        </div>
+      </div>
+
+      <!-- ── system schematic ─────────────────────────────────────── -->
+      <div class="relative" data-reveal>
+        <div class="rounded-2xl border border-line bg-surface-1/70 p-5 backdrop-blur-sm sm:p-7">
+          <div class="mb-5 flex items-center justify-between">
+            <span class="mono-label">Request path</span>
+            <span class="font-mono text-[11px] text-ink-3">spring-boot</span>
+          </div>
+
+          <svg class="hero-svg w-full" viewBox="0 0 400 260" role="img"
+            aria-label="Diagram of a request flowing through a gateway and service layer to a cache and database.">
+            <defs>
+              <marker id="hero-ah" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                <path d="M0 0 L7 3.5 L0 7 z" class="arrow" />
+              </marker>
+            </defs>
+
+            <rect class="node" x="8" y="104" width="92" height="40" rx="8" />
+            <text class="lbl" x="54" y="122">CLIENT</text>
+            <text class="lbl dim" x="54" y="135">HTTP</text>
+
+            <rect class="node" x="150" y="104" width="100" height="40" rx="8" />
+            <text class="lbl" x="200" y="122">GATEWAY</text>
+            <text class="lbl dim" x="200" y="135">auth · rate limit</text>
+
+            <rect class="node accent" x="150" y="16" width="100" height="40" rx="8" />
+            <text class="lbl on" x="200" y="34">SERVICE</text>
+            <text class="lbl on" x="200" y="47">domain logic</text>
+
+            <rect class="node" x="150" y="192" width="100" height="40" rx="8" />
+            <text class="lbl" x="200" y="210">WORKER</text>
+            <text class="lbl dim" x="200" y="223">async jobs</text>
+
+            <rect class="node" x="298" y="40" width="94" height="38" rx="8" />
+            <text class="lbl" x="345" y="63">REDIS</text>
+
+            <rect class="node" x="298" y="105" width="94" height="38" rx="8" />
+            <text class="lbl" x="345" y="128">POSTGRES</text>
+
+            <rect class="node" x="298" y="170" width="94" height="38" rx="8" />
+            <text class="lbl" x="345" y="193">S3</text>
+
+            <path class="flow" d="M100 124 H144" marker-end="url(#hero-ah)" />
+            <path class="flow" d="M200 104 V62" marker-end="url(#hero-ah)" />
+            <path class="link" d="M200 144 V186" marker-end="url(#hero-ah)" />
+            <path class="link" d="M250 36 H274 V59 H292" marker-end="url(#hero-ah)" />
+            <path class="flow" d="M250 44 H274 V124 H292" marker-end="url(#hero-ah)" />
+            <path class="link" d="M250 212 H274 V189 H292" marker-end="url(#hero-ah)" />
+          </svg>
+        </div>
+
+        <!-- proof strip, docked to the schematic -->
+        <dl class="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4">
+          {proofPoints.map((p) => (
+            <div class="bg-surface-1 px-4 py-4 text-center">
+              <dt class="font-display text-xl font-semibold text-ink">{p.value}</dt>
+              <dd class="mt-1 text-[11px] leading-snug text-ink-3">{p.label}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </Container>
 </section>
 
 <style>
-    /* Blob animations */
-    .blob-1 {
-        animation: float 6s ease-in-out infinite;
-    }
-    
-    .blob-2 {
-        animation: float 8s ease-in-out infinite;
-        animation-delay: 1s;
-    }
-    
-    .blob-3 {
-        animation: float 10s ease-in-out infinite;
-        animation-delay: 2s;
-    }
-    
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0px) rotate(0deg);
-        }
-        50% {
-            transform: translateY(-20px) rotate(5deg);
-        }
-    }
-    
-    /* Gradient animation */
-    .gradient-animate {
-        background-size: 200% 200%;
-        animation: gradient-shift 3s ease infinite;
-    }
-    
-    @keyframes gradient-shift {
-        0%, 100% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-    }
-    
-    /* Reveal line animation */
-    .reveal-line {
-        opacity: 0;
-        transform: translateY(30px);
-        animation: reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
-    
-    .reveal-line:nth-child(1) {
-        animation-delay: 0.1s;
-    }
-    
-    .reveal-line:nth-child(2) {
-        animation-delay: 0.3s;
-    }
-    
-    .reveal-line:nth-child(3) {
-        animation-delay: 0.5s;
-    }
-    
-    @keyframes reveal {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    /* Fade in up animation */
-    .fade-in-up {
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
-    
-    @keyframes fadeInUp {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    /* Floating particles */
-    .particles {
-        z-index: 1;
-    }
-    
-    .particle {
-        position: absolute;
-        width: 4px;
-        height: 4px;
-        background: rgba(99, 102, 241, 0.5);
-        border-radius: 50%;
-        animation: particle-float 15s infinite;
-    }
-    
-    .particle:nth-child(1) {
-        left: 10%;
-        top: 20%;
-        animation-delay: 0s;
-    }
-    
-    .particle:nth-child(2) {
-        left: 80%;
-        top: 30%;
-        animation-delay: 2s;
-    }
-    
-    .particle:nth-child(3) {
-        left: 30%;
-        top: 60%;
-        animation-delay: 4s;
-    }
-    
-    .particle:nth-child(4) {
-        left: 70%;
-        top: 70%;
-        animation-delay: 6s;
-    }
-    
-    .particle:nth-child(5) {
-        left: 50%;
-        top: 40%;
-        animation-delay: 8s;
-    }
-    
-    @keyframes particle-float {
-        0%, 100% {
-            transform: translate(0, 0);
-            opacity: 0;
-        }
-        10% {
-            opacity: 1;
-        }
-        90% {
-            opacity: 1;
-        }
-        100% {
-            transform: translate(100px, -100px);
-            opacity: 0;
-        }
-    }
-    
-    /* Hover effects on buttons */
-    :global(.btn-link) {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    :global(.btn-link:hover) {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
-    }
-</style>
+  .hero-svg { height: auto; }
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Smooth scroll for anchor links
-        const links = document.querySelectorAll('a[href^="#"]');
-        links.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = document.querySelector(link.getAttribute('href') || '');
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    });
-</script>
+  .node {
+    fill: var(--color-surface-2);
+    stroke: var(--color-line-strong);
+    stroke-width: 1;
+  }
+  .node.accent {
+    fill: var(--color-accent-dim);
+    stroke: color-mix(in oklab, var(--color-accent) 60%, transparent);
+  }
+
+  .lbl {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    fill: var(--color-ink-2);
+    text-anchor: middle;
+  }
+  .lbl.on { fill: var(--color-accent-hi); }
+  .lbl.dim { font-size: 8.5px; fill: var(--color-ink-3); }
+
+  .link,
+  .flow {
+    fill: none;
+    stroke: var(--color-line-strong);
+    stroke-width: 1.25;
+  }
+  .arrow { fill: var(--color-line-strong); }
+
+  .flow {
+    stroke: color-mix(in oklab, var(--color-accent) 70%, transparent);
+    stroke-dasharray: 5 8;
+    animation: drift 2.6s linear infinite;
+  }
+
+  @keyframes drift {
+    to { stroke-dashoffset: -26; }
+  }
+</style>

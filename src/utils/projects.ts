@@ -1,174 +1,103 @@
+export type DiagramKey =
+  | "multi-tenant"
+  | "scheduler"
+  | "ticketing"
+  | "context"
+  | "express";
+
 export interface Project {
+  slug: string;
   title: string;
-  description: string;
-  techStack: string[];
-  features: string[];
-  demoUrl?: string;
+  kind: string;
+  /** One line: the constraint, not the brochure. */
+  summary: string;
+  /** 2–3 outcomes. What the system actually does under pressure. */
+  highlights: string[];
+  /** Max 6, highest-signal first. */
+  stack: string[];
+  diagram: DiagramKey;
   repoUrl?: string;
-  /* Optional repository metadata, present on some entries only. */
-  topics?: string[];
-  primaryLanguage?: string;
-  javaVersion?: string;
-  buildTool?: string;
-  defaultBranch?: string;
+  demoUrl?: string;
+  featured?: boolean;
 }
 
 export const projects: Project[] = [
   {
-    title: "Multi-tenant-saas-app",
-    description: "Scalable multi-tenant SaaS platform built with Spring Boot and PostgreSQL, featuring dynamic tenant provisioning, schema isolation, JWT authentication, and enterprise-grade backend architecture.",
-    techStack: [
-      "Java",
-      "Spring Boot 4.0.6",
-      "Spring Security",
-      "Spring Data JPA",
-      "Spring Validation",
-      "Spring DevTools",
-      "PostgreSQL",
-      "H2 Database",
-      "Maven",
-      "JWT (JJWT 0.12.6)",
-      "Lombok",
-      "Flyway (Database Migrations)",
-      "SpringDoc OpenAPI",
-      "Jackson",
-      "Docker"
+    slug: "multi-tenant-saas",
+    title: "Multi-tenant SaaS Platform",
+    kind: "Spring Boot · PostgreSQL",
+    summary:
+      "One deployment serving many tenants, with each tenant's data isolated at the schema level rather than by a WHERE clause.",
+    highlights: [
+      "Tenants are provisioned at runtime — schema created and migrated on demand, no redeploy.",
+      "A resolver maps each request to its tenant schema before the transaction opens.",
+      "Flyway runs migrations per schema, so tenants can sit on different versions safely.",
     ],
-    features: [
-      "Dynamic tenant provisioning",
-      "Schema isolation",
-      "JWT authentication",
-      "Spring Security integration",
-      "Database migrations with Flyway",
-      "REST API documentation with OpenAPI",
-      "Input validation",
-      "Docker support",
-      "Enterprise-grade backend architecture"
-    ],
-    demoUrl: "https://ashjha75.github.io/Multi-tenant-saas-app-ui",
+    stack: ["Java 21", "Spring Boot", "PostgreSQL", "Flyway", "Spring Security", "Docker"],
+    diagram: "multi-tenant",
     repoUrl: "https://github.com/Ashjha75/Multi-tenant-saas-app",
-    topics: [
-      "docker",
-      "java",
-      "multi-tenant-architecture",
-      "postgres",
-      "saas",
-      "spring-security-jwt",
-      "springboot"
+    demoUrl: "https://ashjha75.github.io/Multi-tenant-saas-app-ui",
+    featured: true,
+  },
+  {
+    slug: "task-scheduler",
+    title: "Multi-threaded Task Scheduler",
+    kind: "Java · Concurrency",
+    summary:
+      "A scheduler built from first principles to hold thousands of tasks across a worker pool without locks in the hot path.",
+    highlights: [
+      "Priority queue feeds a fixed worker pool; state moves only through compare-and-set, so no task runs twice.",
+      "Failures retry with exponential backoff instead of blocking a worker.",
+      "Observer-based event publishing keeps metrics and logging out of the execution path.",
     ],
-    primaryLanguage: "Java (98.6%)",
-    javaVersion: "21",
-    buildTool: "Maven",
-    defaultBranch: "dev_v1"
-},
-   {
-    title: "Ticketing-system",
-    description: "High-concurrency ticket booking backend built with Spring Boot, focusing on safe inventory handling, caching, and real-world backend design patterns.",
-    techStack: ["Java", "Spring Boot", "Spring Data JPA", "postgres", "Maven", "Redis","Angular","Spring Security"],
-    features: [
-      "User Registration and Authentication",
-      "Event creation and management (admin)",
-      "Event browsing with filtering and pagination",
-      "Ticket booking with concurrency control",
-      "Inventory management to prevent overselling",
+    stack: ["Java 17+", "ThreadPoolExecutor", "PriorityBlockingQueue", "CAS", "Observer", "Maven"],
+    diagram: "scheduler",
+    repoUrl: "https://github.com/Ashjha75/Multi-threaded-task-scheduler",
+    featured: true,
+  },
+  {
+    slug: "ticketing-system",
+    title: "Ticketing System",
+    kind: "Spring Boot · Redis",
+    summary:
+      "Ticket booking where the hard part is contention: many people buying the last seat at the same instant.",
+    highlights: [
+      "Inventory is decremented under a concurrency guard, so the system cannot oversell.",
+      "Redis caches hot event reads to keep listing traffic off the primary.",
+      "Browsing is paginated and filterable rather than loading the full catalogue.",
     ],
-    demoUrl: "ashjha75.github.io/ticketing-system/",
+    stack: ["Java", "Spring Boot", "PostgreSQL", "Redis", "Spring Data JPA", "Angular"],
+    diagram: "ticketing",
     repoUrl: "https://github.com/Ashjha75/ticketing-system",
   },
   {
-  title: "Multi-threaded Task Scheduler",
-  description: "Production-inspired Java task scheduling system demonstrating advanced concurrency patterns. Manages thousands of tasks across multiple worker threads with smart retry logic, priority-based queuing, and real-time event publishing. Built from first principles to master core Java concurrency, design patterns, and system architecture.",
-  techStack: [
-    "Java 17+",
-    "Concurrency",
-    "ThreadPoolExecutor",
-    "BlockingQueue",
-    "AtomicReference/AtomicInteger",
-    "Design Patterns",
-    "Maven",
-    "ConcurrentHashMap",
-    "Observer Pattern",
-    "Factory Pattern",
-    "Strategy Pattern",
-    "Template Method Pattern"
-  ],
-  features: [
-    "Multi-threaded task execution with PriorityBlockingQueue",
-    "Compare-And-Set (CAS) based safe state transitions",
-    "Exponential backoff retry mechanism",
-    "Event-driven architecture with Observer pattern",
-    "Factory-based command creation",
-    "Thread-safe repository with ConcurrentHashMap",
-    "Real-time console logging and metrics tracking",
-    "Graceful shutdown with timeout handling",
-    "CLI interface for task management",
-    "Task lifecycle management (PENDING → RUNNING → SUCCESS/FAILED)"
-  ],
-  repoUrl: "https://github.com/Ashjha75/Multi-threaded-task-scheduler"
-},
-  {
-    title: "Spring-Commerce",
-    description: "Spring Commerce: A powerful backend implementation for an eCommerce platform built with Spring Boot....",
-    techStack: ["Java", "Spring Boot", "Spring Data JPA", "MySQL", "Maven", "Redis"],
-    features: [
-      "User Registration and Authentication",
-      "Role-based Access Control (Admin, User)",
-      "Product Management (CRUD operations)",
-      "Order Management (Create, Read, Update, Delete)",
-    ],
-    demoUrl: "null",
-    repoUrl: "https://github.com/Ashjha75/spring-commerce",
-  },
-  {
-    title: "Express APIs App",
-    description: "Express APIs: A comprehensive set of RESTful APIs built with Express.js, designed to facilitate communication....",
-    techStack: ["Express", "Node.js", "MongoDB", "Mongoose", "TypeScript"],
-    features: [
-      "User Registration and Authentication",
-      "Role-based Access Control (Admin, User)",
-      "Integration with External Services",
-      "Error Handling and Validation",
-    ],
-    demoUrl: "null",
-    repoUrl: "https://github.com/Ashjha75/Express-APi-s-Learning",
-  },
-  {
-    title: "Portfolio Website",
-    description: "A modern personal portfolio showcasing skills and projects with smooth animations and responsive design.",
-    techStack: ["Astro", "TypeScript", "Tailwind CSS"],
-    features: [
-      "Static Site Generation with Astro",
-      "Smooth Scroll Animations",
-      "Fully Responsive Design",
-      "Dark Mode Support",
-    ],
-    demoUrl: "null",
-    repoUrl: "https://github.com/Ashjha75/portfolio-web",
-  },
-  {
-    title: "Patient Management System",
-    description: "A production-ready Patient Management System built with Java Spring Boot for healthcare providers.",
-    techStack: ["Java", "Spring Boot", "Spring Data JPA", "MySQL", "Maven", "Redis"],
-    features: [
-      "User Registration and Authentication",
-      "Role-based Access Control (Admin, User)",
-      "Patient Management (CRUD operations)",
-      "Appointment Scheduling System",
-    ],
-    demoUrl: "null",
-    repoUrl: "https://github.com/Ashjha75/Patient-Management-System",
-  },
-  {
+    slug: "code-to-context",
     title: "Code To Context",
-    description: "A privacy-first tool converting local codebases into structured prompts for AI models and development.",
-    techStack: ["HTML5", "CSS3", "JavaScript", "Code-Context", "Markdown Editor"],
-    features: [
-      "Structure-Aware Output Generation",
-      "100% Private & Secure Processing",
-      "AI Ready Codebase Conversion",
-      "Intelligent File Handling System",
+    kind: "Developer tooling · LLM",
+    summary:
+      "Turns a local codebase into structured, token-aware context for an LLM — without the source ever leaving the machine.",
+    highlights: [
+      "Walks a repository and emits structure-aware output instead of a flat file dump.",
+      "Runs entirely client-side, so private code is never uploaded.",
+      "Filters noise (build output, lockfiles, binaries) before anything reaches the prompt.",
     ],
-    demoUrl: "null",
+    stack: ["JavaScript", "Code parsing", "Markdown", "LLM context"],
+    diagram: "context",
     repoUrl: "https://github.com/Ashjha75/CodeToContext",
+  },
+  {
+    slug: "express-apis",
+    title: "Express REST API",
+    kind: "Node.js · TypeScript",
+    summary:
+      "A typed Express service covering the parts that matter in production: auth, roles, validation and error handling.",
+    highlights: [
+      "JWT auth with role-based access control across admin and user routes.",
+      "Request validation and a single error-handling layer, so failures return a consistent shape.",
+      "Mongoose models with typed schemas end to end.",
+    ],
+    stack: ["Express", "Node.js", "TypeScript", "MongoDB", "Mongoose"],
+    diagram: "express",
+    repoUrl: "https://github.com/Ashjha75/Express-APi-s-Learning",
   },
 ];

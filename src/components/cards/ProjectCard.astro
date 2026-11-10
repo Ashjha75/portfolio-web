@@ -1,71 +1,76 @@
 ---
-import type { Project } from '../../utils/projects';
-import { Icon } from 'astro-icon/components';
+import type { Project } from "../../utils/projects";
+import { Icon } from "astro-icon/components";
+import Tag from "../shared/Tag.astro";
+import ArchDiagram from "../diagrams/ArchDiagram.astro";
 
-interface Props {
-  project: Project;
-}
-
-const { project } = Astro.props;
+export interface Props { project: Project; index?: number }
+const { project, index = 0 } = Astro.props;
 ---
 
-<div class="group relative h-full bg-white dark:bg-gray-900/70 backdrop-blur-xs border border-gray-200 dark:border-gray-800 rounded-2xl shadow-lg shadow-gray-200/20 dark:shadow-gray-900/20 overflow-hidden flex flex-col">
-    
-    <!-- FIX: prevent overlay from blocking clicks -->
-    <div class="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out pointer-events-none"></div>
-    
-    <div class="p-6 space-y-6 relative z-10 flex-1 flex flex-col">
-        <div class="flex items-start gap-4">
-            <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg text-gray-600 dark:text-gray-300">
-                <Icon name="lucide:folder-git-2" class="h-7 w-7" />
-            </div>
-            <div>
-                <h3 class="text-lg font-bold text-gray-800 dark:text-white">{project.title}</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{project.description}</p>
-            </div>
-        </div>
-
-        <div class="flex-1">
-            <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Tech Stack:</h4>
-            <div class="flex flex-wrap gap-2">
-                {project.techStack.map(tech => (
-                    <span class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-xs font-semibold px-3 py-1 rounded-full">
-                        {tech}
-                    </span>
-                ))}
-            </div>
-        </div>
-
-        <div class="flex-1">
-            <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Key Features:</h4>
-            <ul class="space-y-2">
-                {project.features.map(feature => (
-                    <li class="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                        <Icon name="lucide:check-circle-2" class="w-4 h-4 text-primary mr-2.5 shrink-0" />
-                        {feature}
-                    </li>
-                ))}
-            </ul>
-        </div>
-
-        <div class="flex items-center gap-4 pt-4 mt-auto">
-            {project.repoUrl ? (
-                <a 
-                    href={project.repoUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-white text-sm font-semibold transition-all duration-300 ease-in-out hover:bg-primary/90 hover:scale-105"
-                >
-                    <Icon name="lucide:github" class="w-4 h-4" />
-                    Source Code
-                </a>
-            ) : (
-                <span class="px-5 py-2.5 rounded-full bg-gray-300 text-gray-500 text-sm font-semibold cursor-not-allowed">
-                    No Repository
-                </span>
-            )}
-        </div>
+<article
+  class="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface-1
+         transition-colors duration-300 hover:border-line-strong"
+  data-reveal
+  data-reveal-index={index}
+>
+  <!-- the architecture panel replaces the identical folder icon every v1 card had -->
+  <div class="relative border-b border-line bg-bg/40 px-5 pt-5 pb-4">
+    <div class="mb-3 flex items-center justify-between">
+      <span class="mono-label">{project.kind}</span>
+      {project.featured && (
+        <span class="rounded-full border border-accent/30 bg-accent/[0.08] px-2 py-0.5
+                     font-mono text-[10px] tracking-wide text-accent">
+          FEATURED
+        </span>
+      )}
     </div>
+    <ArchDiagram kind={project.diagram} />
+  </div>
 
-    <div class="absolute -bottom-12 -right-12 w-28 h-28 bg-primary/10 dark:bg-primary/20 rounded-full transition-transform duration-500 ease-in-out group-hover:scale-150 pointer-events-none"></div>
-</div>
+  <div class="flex flex-1 flex-col p-5 sm:p-6">
+    <h3 class="text-[length:var(--text-h3)] font-semibold text-ink">{project.title}</h3>
+    <p class="mt-2.5 text-[0.9375rem] text-ink-2">{project.summary}</p>
+
+    <ul class="mt-5 space-y-2.5">
+      {project.highlights.map((h) => (
+        <li class="flex gap-2.5 text-[0.875rem] leading-relaxed text-ink-2">
+          <span class="mt-[0.55rem] h-px w-3 shrink-0 bg-accent/60" aria-hidden="true" />
+          <span>{h}</span>
+        </li>
+      ))}
+    </ul>
+
+    <!-- mt-auto pins the footer so every card ends at the same place -->
+    <div class="mt-auto pt-6">
+      <div class="flex flex-wrap gap-1.5">
+        {project.stack.map((s) => <Tag>{s}</Tag>)}
+      </div>
+
+      <div class="mt-5 flex items-center gap-4 border-t border-line pt-4">
+        {project.repoUrl && (
+          <a
+            href={project.repoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-sm font-medium text-ink-2 transition-colors hover:text-accent"
+          >
+            <Icon name="lucide:github" class="h-4 w-4" />
+            Source
+          </a>
+        )}
+        {project.demoUrl && (
+          <a
+            href={project.demoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-sm font-medium text-ink-2 transition-colors hover:text-accent"
+          >
+            <Icon name="lucide:external-link" class="h-4 w-4" />
+            Live
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</article>
