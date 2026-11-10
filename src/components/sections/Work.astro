@@ -2,6 +2,8 @@
 import Section from "../shared/Section.astro";
 import ProjectCard from "../cards/ProjectCard.astro";
 import { projects } from "../../utils/projects";
+
+const [lead, ...rest] = projects;
 ---
 
 <Section
@@ -11,12 +13,15 @@ import { projects } from "../../utils/projects";
   lead="Five projects, each with its architecture drawn out. Backend-first — the interesting part is what happens under contention, not the UI."
 >
   <!-- A grid, not a carousel. v1 used coverflow: side cards rotated in 3D with
-       unreadable text, heights ranging 628-1173px, and 3.5s autoplay. -->
-  <div class="grid gap-6 md:grid-cols-2">
-    {projects.map((project, i) => (
-      <div class:list={[project.featured ? "md:col-span-1" : ""]}>
-        <ProjectCard project={project} index={i} />
-      </div>
-    ))}
+       unreadable text, heights from 628-1173px, and 3.5s autoplay.
+       Lead card spans full width so the remaining four tile 2x2 with no orphan. -->
+  <div class="space-y-6">
+    <ProjectCard project={lead} index={0} wide />
+
+    <div class="grid gap-6 md:grid-cols-2">
+      {rest.map((project, i) => (
+        <ProjectCard project={project} index={i + 1} />
+      ))}
+    </div>
   </div>
 </Section>

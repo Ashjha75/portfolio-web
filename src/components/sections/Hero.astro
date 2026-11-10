@@ -2,8 +2,8 @@
 import Container from "../shared/Container.astro";
 import Button from "../shared/Button.astro";
 import { profile, proofPoints } from "../../utils/profile";
+import { withBase } from "../../utils/url";
 
-const base = import.meta.env.BASE_URL;
 ---
 
 <section id="hero" class="relative overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-28">
@@ -45,7 +45,7 @@ const base = import.meta.env.BASE_URL;
         </h1>
 
         <p class="mt-7 max-w-xl text-[1.0625rem] leading-relaxed text-ink-2">
-          Backend engineer, two years at
+          Backend engineer, two years at{" "}
           <a
             href="https://www.novoinvent.com/"
             target="_blank"
@@ -64,7 +64,7 @@ const base = import.meta.env.BASE_URL;
                 stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </Button>
-          <Button href={`${base}resume.pdf`} download="Ashish-Kumar-Jha-Resume.pdf" variant="ghost">
+          <Button href={withBase("resume.pdf")} download="Ashish-Kumar-Jha-Resume.pdf" variant="ghost">
             Download résumé
           </Button>
         </div>
