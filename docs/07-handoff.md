@@ -62,7 +62,25 @@ Move all three to `docs/internal/` or gitignore them. The `docs/v2/` material in
 that repo is genuinely good — surface that from the README instead.
 **This is the highest-value thing you can do that I cannot.**
 
-### P3. Write two tests  ·  *needs your class names*
+### P3. ~~Write two tests~~ — HALF DONE (2026-11-10)
+
+**`BookingConcurrencyTest` is written, run and passing.** See `docs/proof/`.
+Result: `buyers=200 tickets=10 -> sold=10 rejected=190 remaining=0` against real
+PostgreSQL 16.15, and it is now on the ticketing card as a PASSING block.
+
+It also surfaced a real bug in the repo — `findById` is globally overridden with
+`PESSIMISTIC_WRITE` while Spring Data makes it `readOnly = true`, so any read
+outside a writable transaction throws. Write-up and suggested fix in
+`docs/proof/README.md`.
+
+**You still need to:** copy the test into the ticketing repo (it is not pushed
+there — I only have your portfolio repo), add the three Testcontainers test deps,
+and commit. Exact steps in `docs/proof/README.md`.
+
+**Still pending:** a CAS-contention test for the scheduler, which has no
+`src/test` directory at all.
+
+### P3b. Original note — *needs your class names*
 Both external reviews and the verifier independently named this the biggest gap.
 Across all five repos: `contextLoads() {}` stubs in two, **no test directory** in
 the scheduler, `"test": "exit 1"` in the Express repo. Zero concurrency tests,
@@ -80,7 +98,7 @@ Then say so on the cards: *"proved by a 200-thread contention test,
 `BookingConcurrencyTest.java`"*. That sentence is worth more than every adjective
 on the page.
 
-### P4. Put proof on the page instead of claims  ·  *I can do this once P3 exists*
+### P4. Put proof on the page  ·  STARTED — one of three done
 Your point, and it was the right one: nobody verifies claims, so stop writing
 better claims and start showing artifacts that need no verification.
 
