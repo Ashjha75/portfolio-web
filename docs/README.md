@@ -13,6 +13,9 @@ These docs are the source of truth for the redesign. Read in order:
 | [05-seo-and-security.md](./05-seo-and-security.md) | SEO, AI discoverability, CSP — and what static hosting cannot do. |
 | [github-profile-README.md](./github-profile-README.md) | Drop-in replacement for the Ashjha75/Ashjha75 profile README. |
 | [06-review-prompts.md](./06-review-prompts.md) | Copy-paste prompts for getting an honest portfolio review out of Claude / ChatGPT / Gemini. |
+| [07-handoff.md](./07-handoff.md) | **Start here.** Current state, ranked pending work, and the prompt to resume with. |
+| [resume-v2.md](./resume-v2.md) | Draft résumé aligned to the portfolio, with 12 open decisions. |
+| [chatgpt.md](./chatgpt.md) / [gemini.md](./gemini.md) | The two external AI reviews, verbatim. |
 
 ## Ground rules agreed with Ashish
 
