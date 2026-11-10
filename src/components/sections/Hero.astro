@@ -5,7 +5,7 @@ import { profile, proofPoints } from "../../utils/profile";
 import { withBase } from "../../utils/url";
 ---
 
-<section id="hero" class="relative overflow-hidden pt-28 pb-10 lg:pt-40 lg:pb-16">
+<section id="hero" data-hero class="relative overflow-hidden pt-28 pb-10 lg:pt-40 lg:pb-16">
   <!-- Ambient layer: a technical grid that slowly drifts, a breathing accent
        wash, and an occasional light sweep. Transform/opacity only, and the
        whole layer freezes under prefers-reduced-motion. -->
@@ -24,12 +24,23 @@ import { withBase } from "../../utils/url";
         <span class="cell absolute left-[216px] top-[360px] h-[72px] w-[72px] bg-accent/[0.07]"></span>
         <span class="cell absolute left-[792px] top-[216px] h-[72px] w-[72px] bg-accent/[0.09]"></span>
       </div>
+
+      <!-- beams: 1px streaks sitting exactly on 72px grid lines. The wrapper
+           pans with the grid so the streaks stay locked to the lines. -->
+      <div class="grid-pan absolute inset-0 [mask-image:radial-gradient(ellipse_75%_60%_at_50%_22%,black_25%,transparent_100%)]">
+        <span class="beam beam-h absolute left-0 top-[216px] h-px w-[180px] opacity-70"></span>
+        <span class="beam beam-v absolute left-[504px] top-0 h-[160px] w-px opacity-60"></span>
+        <span class="beam beam-h absolute left-0 top-[432px] h-px w-[220px] opacity-55"></span>
+        <span class="beam beam-v absolute left-[1008px] top-0 h-[180px] w-px opacity-60"></span>
+        <span class="beam beam-h absolute left-0 top-[288px] h-px w-[160px] opacity-50"></span>
+        <span class="beam beam-v absolute left-[792px] top-0 h-[140px] w-px opacity-50"></span>
+      </div>
     </div>
 
-    <div
-      class="glow-breathe absolute left-1/2 top-[-26%] h-[560px] w-[min(940px,130vw)] -translate-x-1/2"
-      style="background: radial-gradient(closest-side, rgb(236 148 64 / 0.16), rgb(236 148 64 / 0.06) 55%, transparent 78%);"
-    ></div>
+    <div class="glow-breathe glow-wash absolute left-1/2 top-[-26%] h-[560px] w-[min(940px,130vw)] -translate-x-1/2"></div>
+
+    <!-- pointer spotlight: moved with transform from a rAF-throttled handler -->
+    <div id="hero-spot" class="hero-spot absolute left-0 top-0 h-[560px] w-[560px] rounded-full"></div>
     <div class="scan-sweep absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-transparent via-accent/[0.06] to-transparent"></div>
 
     <!-- Transition into the next section. The old bare hairline sat alone in
@@ -68,7 +79,7 @@ import { withBase } from "../../utils/url";
             class="link-underline text-ink hover:text-accent"
             >Novoinvent Software</a
           >. I work in Java and Spring Boot on the parts that break when traffic
-          arrives — multi-tenancy, concurrency, and the data layer.
+          arrives — <span class="hl">multi-tenancy, concurrency, and the data layer</span>.
         </p>
 
         <div class="mt-9 flex flex-wrap items-center gap-3 enter-d4" data-enter>
@@ -77,6 +88,75 @@ import { withBase } from "../../utils/url";
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1">
               <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
+          </Button>
+          <Button href={withBase("resume.pdf")} download="Ashish-Kumar-Jha-Resume.pdf" variant="ghost">
+            Download résumé
+          </Button>
+        </div>
+
+        <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[13px] text-ink-3 enter-d6" data-enter>
+          <a href={"mailto:" + profile.email} class="link-underline hover:text-accent">{profile.email}</a>
+          <a href={profile.links.github} target="_blank" rel="noopener noreferrer" class="link-underline hover:text-accent">github.com/Ashjha75</a>
+          <span>{profile.location}</span>
+        </div>
+      </div>
+
+      <div class="relative enter-d3" data-enter>
+        <div class="rounded-2xl border border-line bg-surface-1/80 p-5 backdrop-blur-sm sm:p-7">
+          <div class="mb-5 flex items-center justify-between gap-3">
+            <span class="mono-label">Request path</span>
+            <span class="font-mono text-[12px] text-ink-3">multi-tenant-saas</span>
+          </div>
+
+          <svg class="hero-svg w-full" viewBox="0 0 400 260" role="img" aria-label="Diagram of a request passing through a tenant filter, a servlet filter that sets the tenant context, then a schema resolver that routes it to one of three PostgreSQL schemas: acme, globex or initech. Flyway runs migrations for each schema.">
+            <defs>
+              <marker id="hero-ah" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+                <path d="M0 0 L7 3.5 L0 7 z" class="arrow" />
+              </marker>
+            </defs>
+
+            <!-- links first, then flows, then the packet, then nodes on top so
+                 the packet passes behind each node it goes through -->
+            <rect class="group" x="100" y="182" width="244" height="50" rx="10" />
+            <path class="link" d="M226 164 H143 V187" marker-end="url(#hero-ah)" />
+            <path class="link" d="M226 164 H303 V187" marker-end="url(#hero-ah)" />
+            <path class="link" d="M354 150 V207 H349" marker-end="url(#hero-ah)" />
+
+            <path class="flow" d="M112 46 H145" marker-end="url(#hero-ah)" />
+            <path class="flow" d="M226 72 V98" marker-end="url(#hero-ah)" />
+            <path class="flow" d="M226 144 V187" marker-end="url(#hero-ah)" />
+
+            <circle class="packet" r="3.2">
+              <animateMotion dur="3.6s" repeatCount="indefinite" calcMode="linear" keyTimes="0;0.72;1" keyPoints="0;1;1" path="M112 46 H226 V193" />
+            </circle>
+
+            <rect class="node" x="8" y="26" width="104" height="40" rx="8" />
+            <text class="lbl" x="60" y="43">REQUEST</text>
+            <text class="lbl dim" x="60" y="57">HTTP</text>
+
+            <rect class="node accent" x="151" y="20" width="150" height="52" rx="8" />
+            <text class="lbl on" x="226" y="38">TENANT FILTER</text>
+            <text class="lbl on small" x="226" y="51">servlet filter</text>
+            <text class="lbl on small" x="226" y="63">sets tenant context</text>
+
+            <rect class="node" x="151" y="104" width="150" height="40" rx="8" />
+            <text class="lbl" x="226" y="121">SCHEMA RESOLVER</text>
+            <text class="lbl dim" x="226" y="135">tenant → schema</text>
+
+            <rect class="node" x="316" y="100" width="76" height="50" rx="8" />
+            <text class="lbl" x="354" y="118">FLYWAY</text>
+            <text class="lbl dim" x="354" y="131">per-schema</text>
+            <text class="lbl dim" x="354" y="142">migrations</text>
+
+            <rect class="node" x="110" y="193" width="66" height="28" rx="6" />
+            <text class="lbl" x="143" y="211">acme</text>
+            <rect class="node" x="193" y="193" width="66" height="28" rx="6" />
+            <text class="lbl" x="226" y="211">globex</text>
+            <rect class="node" x="270" y="193" width="66" height="28" rx="6" />
+            <text class="lbl" x="303" y="211">initech</text>
+
+            <text class="lbl dim" x="222" y="250">postgresql · schema per tenant</text>
+          </svg>
           </Button>
           <Button href={withBase("resume.pdf")} download="Ashish-Kumar-Jha-Resume.pdf" variant="ghost">
             Download résumé
@@ -141,7 +221,7 @@ import { withBase } from "../../utils/url";
         <dl class="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4 enter-d5" data-enter>
           {proofPoints.map((p) => (
             <div class="bg-surface-1 px-4 py-4 text-center transition-colors duration-300 hover:bg-surface-2">
-              <dt class="font-display text-xl font-semibold text-ink">{p.value}</dt>
+              <dt class="tabular font-display text-xl font-semibold text-ink" data-count={p.value}>{p.value}</dt>
               <dd class="mt-1 text-[12px] leading-snug text-ink-3">{p.label}</dd>
             </div>
           ))}
@@ -183,10 +263,24 @@ import { withBase } from "../../utils/url";
   }
   .arrow { fill: var(--color-line-strong); }
 
+  .group {
+    fill: none;
+    stroke: var(--color-line-strong);
+    stroke-width: 1;
+    stroke-dasharray: 3 4;
+  }
+
+  .packet { fill: var(--color-accent-hi); opacity: 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .packet { opacity: 1; }
+  }
+
   .flow {
     stroke: var(--color-accent);
     stroke-dasharray: 5 8;
-    animation: drift 2.6s linear infinite;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .flow { animation: drift 2.6s linear infinite; }
   }
 
   @keyframes drift {
