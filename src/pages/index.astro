@@ -1,26 +1,18 @@
 ---
-// ...existing code...
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/sections/Hero.astro';
-import Services from '../components/sections/Services.astro';
-import AboutUs from '../components/sections/AboutUs.astro';
-import Projects from '../components/sections/Projects.astro';
-import CTA from '../components/sections/CTA.astro';
-import Contact from '../components/sections/Contact.astro';
-import Timeline from '../components/sections/Timeline.astro';
-import Brands from '../components/sections/Brands.astro';
-import '../styles/global.css';
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/sections/Hero.astro";
+import Experience from "../components/sections/Experience.astro";
+import Work from "../components/sections/Work.astro";
+import Stack from "../components/sections/Stack.astro";
+import About from "../components/sections/About.astro";
+import Contact from "../components/sections/Contact.astro";
 ---
 
-<Layout title="Welcome to AgenceX">
-	<main class="flex flex-col gap-y-20 md:gap-y-32 overflow-hidden">
-		<Hero/>
-		<AboutUs/>
-		<Services/>
-		<Brands/>
-		<Projects/>
-		<CTA/>
-		<Contact/>
-		<Timeline/>
-	</main>
+<Layout>
+  <Hero />
+  <Experience />
+  <Work />
+  <Stack />
+  <About />
+  <Contact />
 </Layout>
