@@ -32,12 +32,12 @@ import { withBase } from "../../utils/url";
           )}
         </div>
 
-        <h1 class="mt-6 text-[length:var(--text-display)] font-semibold" data-enter style="--enter-delay:90ms">
+        <h1 class="mt-6 text-[length:var(--text-display)] font-semibold enter-d1" data-enter>
           I build backend systems{" "}<br class="hidden sm:block" />
           that hold up <span class="text-accent">under load</span>.
         </h1>
 
-        <p class="mt-7 max-w-xl text-[1.0625rem] leading-relaxed text-ink-2" data-enter style="--enter-delay:200ms">
+        <p class="mt-7 max-w-xl text-[1.0625rem] leading-relaxed text-ink-2 enter-d2" data-enter>
           Software engineer, two years at{" "}
           <a
             href="https://www.novoinvent.com/"
@@ -49,7 +49,7 @@ import { withBase } from "../../utils/url";
           arrives — multi-tenancy, concurrency, and the data layer.
         </p>
 
-        <div class="mt-9 flex flex-wrap items-center gap-3" data-enter style="--enter-delay:300ms">
+        <div class="mt-9 flex flex-wrap items-center gap-3 enter-d4" data-enter>
           <Button href="#work" variant="primary" class="group">
             View selected work
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1">
@@ -61,14 +61,14 @@ import { withBase } from "../../utils/url";
           </Button>
         </div>
 
-        <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[13px] text-ink-3" data-enter style="--enter-delay:400ms">
+        <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[13px] text-ink-3 enter-d6" data-enter>
           <a href={"mailto:" + profile.email} class="link-underline hover:text-accent">{profile.email}</a>
           <a href={profile.links.github} target="_blank" rel="noopener noreferrer" class="link-underline hover:text-accent">github.com/Ashjha75</a>
           <span>{profile.location}</span>
         </div>
       </div>
 
-      <div class="relative" data-enter style="--enter-delay:260ms">
+      <div class="relative enter-d3" data-enter>
         <div class="rounded-2xl border border-line bg-surface-1/80 p-5 backdrop-blur-sm sm:p-7">
           <div class="mb-5 flex items-center justify-between">
             <span class="mono-label">Request path</span>
@@ -116,7 +116,7 @@ import { withBase } from "../../utils/url";
           </svg>
         </div>
 
-        <dl class="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4" data-enter style="--enter-delay:360ms">
+        <dl class="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4 enter-d5" data-enter>
           {proofPoints.map((p) => (
             <div class="bg-surface-1 px-4 py-4 text-center transition-colors duration-300 hover:bg-surface-2">
               <dt class="font-display text-xl font-semibold text-ink">{p.value}</dt>

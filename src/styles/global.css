@@ -180,6 +180,15 @@
     animation-delay: var(--enter-delay, 0ms);
   }
 
+  /* Delay steps as classes, not inline style attributes, so the page needs no
+     style-src-attr 'unsafe-inline' in the CSP. */
+  .enter-d1 { --enter-delay:  90ms; }
+  .enter-d2 { --enter-delay: 200ms; }
+  .enter-d3 { --enter-delay: 260ms; }
+  .enter-d4 { --enter-delay: 300ms; }
+  .enter-d5 { --enter-delay: 360ms; }
+  .enter-d6 { --enter-delay: 400ms; }
+
   @keyframes enter-up {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: none; }

@@ -1,0 +1,6 @@
+# Reporting a security issue with this site.
+# NOTE: the registered location is https://<domain>/.well-known/security.txt —
+# this copy only takes effect on a custom domain.
+Contact: mailto:network.ashishjha@gmail.com
+Preferred-Languages: en
+Canonical: https://ashjha75.github.io/portfolio-web/.well-known/security.txt
