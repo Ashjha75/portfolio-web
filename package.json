@@ -11,7 +11,8 @@
     "check": "astro check",
     "deploy": "echo 'Deploying via GitHub Actions - just push to main branch'",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
-    "og": "node scripts/make-og.mjs"
+    "og": "node scripts/make-og.mjs",
+    "resume": "node scripts/make-resume.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ashish Kumar Jha - Backend Engineer</title>
+<style>
+  /* ATS rules followed here:
+     - one column, no tables, no floats, no text boxes, no images, no icons
+     - DOM order == reading order, so a parser sees role, employer, then dates
+     - real selectable text in a standard font, no glyph tricks
+     - plain section headings a parser recognises
+     - URLs written out as text, not hidden behind labels              */
+  @page { size: A4; margin: 9mm 11mm; }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: Calibri, Carlito, "Segoe UI", Arial, sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.24;
+    color: #000;
+  }
+
+  h1 {
+    font-size: 18pt;
+    letter-spacing: 0.4px;
+    margin: 0 0 1px;
+    font-weight: 700;
+  }
+
+  .role-line { font-size: 10.6pt; font-weight: 600; margin: 0 0 3px; }
+  .contact   { font-size: 9.4pt; margin: 0; }
+  .contact a { color: #000; text-decoration: none; }
+
+  h2 {
+    font-size: 9.5pt;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    margin: 8px 0 3px;
+    padding-bottom: 1.5px;
+    border-bottom: 1px solid #000;
+  }
+
+  .entry { margin-bottom: 5px; }
+  .entry:last-child { margin-bottom: 0; }
+
+  .entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .entry-title { font-weight: 700; }
+  .entry-meta  { font-size: 9.4pt; white-space: nowrap; }
+  .entry-sub   { font-size: 9.6pt; font-style: italic; margin-bottom: 2px; }
+
+  ul { margin: 2px 0 0; padding-left: 15px; }
+  li { margin-bottom: 0.5px; }
+
+  p.skills { margin: 0 0 2px; }
+  .lead { margin: 0; }
+</style>
+</head>
+<body>
+
+  <header>
+    <h1>Ashish Kumar Jha</h1>
+    <p class="role-line">Backend Engineer &mdash; Java, Spring Boot, PostgreSQL, AWS</p>
+    <p class="contact">
+      Delhi, India | 8860673349 | network.ashishjha@gmail.com |
+      linkedin.com/in/ashish5jha | github.com/Ashjha75 | ashjha75.github.io/portfolio-web
+    </p>
+  </header>
+
+  <h2>Summary</h2>
+  <p class="lead">
+    Backend engineer with 2+ years building Java and Spring Boot services, after an internship at the
+    same company. Focused on correctness under concurrency and the data layer: schema-isolated
+    multi-tenancy, compare-and-set task scheduling, and ticket inventory proven correct by a
+    200-thread contention test.
+  </p>
+
+  <h2>Technical Skills</h2>
+  <p class="skills"><strong>Languages:</strong> Java 21, SQL, TypeScript, JavaScript</p>
+  <p class="skills"><strong>Frameworks:</strong> Spring Boot, Spring Security, Spring Data JPA, Hibernate, REST, OpenAPI, Node.js, Express, Next.js</p>
+  <p class="skills"><strong>Data:</strong> PostgreSQL, MySQL, Redis, Flyway, MongoDB</p>
+  <p class="skills"><strong>Concurrency:</strong> ThreadPoolExecutor, PriorityBlockingQueue, compare-and-set state transitions, pessimistic and optimistic locking</p>
+  <p class="skills"><strong>Infrastructure &amp; Testing:</strong> Docker, AWS (EC2, S3, Lambda, ECS, EKS, RDS), GitHub Actions, Git, Linux, JUnit 5, Testcontainers</p>
+
+  <h2>Experience</h2>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">Software Engineer &mdash; Novoinvent Software</span>
+      <span class="entry-meta">Jun 2024 &ndash; Present</span>
+    </div>
+    <div class="entry-sub">Hybrid, Delhi, India</div>
+    <ul>
+      <li>Build and maintain Spring Boot services backed by MySQL, owning features from schema design through to endpoint.</li>
+      <li>Improved application performance by 15% by extracting reusable components and reworking hot paths.</li>
+      <li>Release to production on a regular cadence and work in an Agile team: sprint planning, code review, feature delivery.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">Software Intern &mdash; Novoinvent Software</span>
+      <span class="entry-meta">Mar 2023 &ndash; May 2024</span>
+    </div>
+    <div class="entry-sub">Remote</div>
+    <ul>
+      <li>Built web application features with Angular and Node.js alongside senior engineers, accelerating feature releases by 25%.</li>
+      <li>Implemented REST APIs for data retrieval and manipulation, cutting response times by 20%.</li>
+      <li>Debugged across browsers and platforms; worked day to day in Linux shell scripting and Git.</li>
+    </ul>
+  </div>
+
+  <h2>Projects</h2>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">Multi-tenant SaaS Platform</span>
+      <span class="entry-meta">github.com/Ashjha75/Multi-tenant-saas-app</span>
+    </div>
+    <div class="entry-sub">Java 21, Spring Boot, PostgreSQL, Flyway, Spring Security, Docker</div>
+    <ul>
+      <li>One deployment serving many tenants, with each tenant's data isolated at the schema level rather than by a WHERE clause.</li>
+      <li>Tenants provisioned at runtime: a servlet filter resolves the tenant before the transaction opens, and Flyway runs migrations per schema.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">Ticketing System</span>
+      <span class="entry-meta">github.com/Ashjha75/ticketing-system</span>
+    </div>
+    <div class="entry-sub">Java 21, Spring Boot, PostgreSQL, Redis, Spring Security, Maven</div>
+    <ul>
+      <li>Booking under contention: reservation runs in a transaction over a pessimistic row lock, so two buyers cannot take the same last seat.</li>
+      <li>Verified with a JUnit and Testcontainers test against PostgreSQL 16: 200 concurrent buyers, 10 tickets, 10 sold, 190 rejected, inventory never negative.</li>
+      <li>Redis caches hot event reads to keep listing traffic off the primary; rate limiting fronts the booking endpoint.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">Multi-threaded Task Scheduler</span>
+      <span class="entry-meta">github.com/Ashjha75/Multi-threaded-task-scheduler</span>
+    </div>
+    <div class="entry-sub">Java 17, ThreadPoolExecutor, PriorityBlockingQueue, CAS, Maven</div>
+    <ul>
+      <li>Priority queue feeding a fixed worker pool; compare-and-set state transitions stop two workers claiming the same task.</li>
+      <li>Retries are explicit re-enqueues with exponential backoff, so execution is at-least-once by design; observer-based events keep metrics and logging off the execution path.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">Additional</span>
+    </div>
+    <ul>
+      <li><strong>Nav Finder Backend</strong> (Node.js, Express, MongoDB, AWS, OAuth) &mdash; REST APIs for travel bookings and item shipments, deployed on AWS with OAuth authentication.</li>
+      <li><strong>Code To Context</strong> (github.com/Ashjha75/CodeToContext) &mdash; converts a local codebase into structured, token-aware LLM context; parsing runs in the browser with no backend to upload source to.</li>
+    </ul>
+  </div>
+
+  <h2>Leadership</h2>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">Team Lead, Internal Tools &mdash; Novoinvent Software</span>
+      <span class="entry-meta">Aug 2024</span>
+    </div>
+    <ul>
+      <li>Led a team building internal tools with Angular and Node.js, improving operational workflows.</li>
+      <li>Ran sprint planning and retrospectives, and mentored new joiners on coding standards and Git.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">Team Lead &mdash; Final Year Project, R.D. Engineering College</span>
+      <span class="entry-meta">Mar 2023 &ndash; Jun 2023</span>
+    </div>
+    <ul>
+      <li>Led a team of four: managed timelines and task distribution, ran code reviews, and presented outcomes to faculty.</li>
+    </ul>
+  </div>
+
+  <h2>Education</h2>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-title">B.Tech, Computer Science &mdash; R.D. Engineering College, Duhai, Uttar Pradesh</span>
+      <span class="entry-meta">Sep 2020 &ndash; May 2024</span>
+    </div>
+    <div class="entry-sub">CGPA 7.85 / 10</div>
+  </div>
+
+</body>
+</html>
