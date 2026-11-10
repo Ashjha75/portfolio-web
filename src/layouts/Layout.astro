@@ -121,11 +121,69 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
           }
           io.observe(el);
         }
+
+        // Hero highlight sweeps in once the entrance animation has settled.
+        setTimeout(() => {
+          for (const el of document.querySelectorAll("#hero .hl")) el.classList.add("is-in");
+        }, 1100);
+
+        // Proof stats count up once when visible. The final text is always
+        // the exact string from the data.
+        const countIo = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              const el = entry.target as HTMLElement;
+              countIo.unobserve(el);
+              const final = el.dataset.count ?? el.textContent ?? "";
+              const m = /^(\d+)(.*)$/.exec(final);
+              if (!m) continue;
+              const target = Number(m[1]);
+              const suffix = m[2];
+              const dur = 1200;
+              let start = 0;
+              const step = (t: number) => {
+                if (!start) start = t;
+                const k = Math.min((t - start) / dur, 1);
+                const eased = 1 - Math.pow(1 - k, 3);
+                el.textContent = k < 1 ? `${Math.round(target * eased)}${suffix}` : final;
+                if (k < 1) requestAnimationFrame(step);
+              };
+              el.textContent = `0${suffix}`;
+              setTimeout(() => requestAnimationFrame(step), 450);
+            }
+          },
+          { threshold: 0.6 }
+        );
+        for (const el of document.querySelectorAll<HTMLElement>("[data-count]")) countIo.observe(el);
+
+        // Pointer spotlight in the hero: one gradient div moved by transform,
+        // throttled to one write per frame, real pointers only.
+        const hero = document.querySelector<HTMLElement>("[data-hero]");
+        const spot = document.getElementById("hero-spot");
+        if (hero && spot && window.matchMedia("(hover: hover)").matches) {
+          let px = 0, py = 0, queued = false;
+          const half = spot.offsetWidth / 2 || 280;
+          const paint = () => {
+            spot.style.transform = `translate3d(${px - half}px, ${py - half}px, 0)`;
+            queued = false;
+          };
+          hero.addEventListener("pointermove", (e) => {
+            const r = hero.getBoundingClientRect();
+            px = e.clientX - r.left;
+            py = e.clientY - r.top;
+            if (!queued) { queued = true; requestAnimationFrame(paint); }
+          }, { passive: true });
+          hero.addEventListener("pointerenter", () => spot.classList.add("is-on"));
+          hero.addEventListener("pointerleave", () => spot.classList.remove("is-on"));
+        }
       }
 
       // --- Scroll progress + active nav section ----------------------------
       const bar = document.getElementById("scroll-progress");
       const field = document.getElementById("hero-parallax");
+      const rail = document.getElementById("exp-rail");
+      const railFill = document.getElementById("exp-rail-fill");
       const links = [...document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]")];
       const sections = links
         .map((l) => document.querySelector<HTMLElement>(l.getAttribute("href") || ""))
@@ -159,6 +217,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
           // screen — no point transforming an element nobody can see
           if (field && window.scrollY < window.innerHeight * 1.2) {
             field.style.transform = `translate3d(0, ${window.scrollY * 0.12}px, 0)`;
+          }
+          // experience rail fills as the list scrolls through the viewport
+          if (rail && railFill && !reduced.matches) {
+            const r = rail.getBoundingClientRect();
+            const vh = window.innerHeight;
+            const p = (vh * 0.7 - r.top) / Math.max(r.height, 1);
+            railFill.style.transform = `scaleY(${Math.min(Math.max(p, 0), 1)})`;
           }
           ticking = false;
         });
