@@ -55,6 +55,21 @@ const { project, index = 0, wide = false } = Astro.props;
       ))}
     </ul>
 
+    {project.proof && (
+      <figure class="mt-5 overflow-hidden rounded-lg border border-signal/25 bg-signal/[0.05]">
+        <figcaption class="flex items-center gap-2 border-b border-signal/20 px-3 py-2">
+          <span class="relative flex h-1.5 w-1.5" aria-hidden="true">
+            <span class="absolute inline-flex h-full w-full rounded-full bg-signal opacity-70"></span>
+            <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal"></span>
+          </span>
+          <span class="font-mono text-[11px] tracking-wide text-signal">
+            PASSING · {project.proof.label}
+          </span>
+        </figcaption>
+        <pre class="overflow-x-auto px-3 py-2.5 font-mono text-[11.5px] leading-relaxed text-ink-2"><code>{project.proof.output}</code></pre>
+      </figure>
+    )}
+
     <!-- mt-auto pins the footer so every card in a row ends level -->
     <div class="mt-auto pt-5">
       <div class="flex flex-wrap gap-1.5">

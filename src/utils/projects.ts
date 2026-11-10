@@ -19,6 +19,8 @@ export interface Project {
   repoUrl?: string;
   demoUrl?: string;
   featured?: boolean;
+  /** Verbatim output from a real run. Never hand-written — see docs/proof/. */
+  proof?: { label: string; output: string };
 }
 
 export const projects: Project[] = [
@@ -66,6 +68,10 @@ export const projects: Project[] = [
       "Rate limiting sits in front of the booking endpoint; browsing is paginated and filterable.",
     ],
     stack: ["Java 21", "Spring Boot", "PostgreSQL", "Redis", "Spring Security", "Maven"],
+    proof: {
+      label: "BookingConcurrencyTest · PostgreSQL 16",
+      output: "buyers=200  tickets=10  ->  sold=10  rejected=190  remaining=0",
+    },
     diagram: "ticketing",
     repoUrl: "https://github.com/Ashjha75/ticketing-system",
     demoUrl: "https://ashjha75.github.io/ticketing-system/",
