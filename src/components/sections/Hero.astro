@@ -5,15 +5,37 @@ import { profile, proofPoints } from "../../utils/profile";
 import { withBase } from "../../utils/url";
 ---
 
-<section id="hero" class="relative overflow-hidden pt-28 pb-16 lg:pt-40 lg:pb-24">
+<section id="hero" class="relative overflow-hidden pt-28 pb-10 lg:pt-40 lg:pb-16">
   <!-- Ambient layer: a technical grid that slowly drifts, a breathing accent
        wash, and an occasional light sweep. Transform/opacity only, and the
        whole layer freezes under prefers-reduced-motion. -->
-  <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-    <div class="grid-field grid-pan absolute -inset-32 opacity-70 [mask-image:radial-gradient(ellipse_80%_65%_at_50%_20%,black_35%,transparent_100%)]"></div>
-    <div class="glow-breathe absolute left-1/2 top-[-22%] h-[520px] w-[min(880px,120vw)] -translate-x-1/2 rounded-full bg-accent/[0.13] blur-[110px]"></div>
-    <div class="scan-sweep absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-transparent via-accent/[0.07] to-transparent"></div>
-    <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-line-strong to-transparent"></div>
+  <div class="pointer-events-none absolute inset-0 overflow-hidden [contain:paint]" aria-hidden="true">
+    <!-- hero-parallax is nudged by the scroll handler; the pan animation lives
+         on the child so the two transforms never fight each other -->
+    <div id="hero-parallax" class="absolute -inset-32 will-change-transform">
+      <div class="grid-field grid-pan absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_80%_68%_at_50%_22%,black_30%,transparent_100%)]"></div>
+      <div class="grid-field-fine grid-pan-fine absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_55%_45%_at_50%_18%,black_0%,transparent_100%)]"></div>
+
+      <!-- cells lighting up on the grid, aligned to the 72px pitch -->
+      <div class="absolute inset-0 [mask-image:radial-gradient(ellipse_70%_55%_at_50%_20%,black_20%,transparent_100%)]">
+        <span class="cell absolute left-[288px] top-[216px] h-[72px] w-[72px] bg-accent/[0.10]"></span>
+        <span class="cell absolute left-[576px] top-[144px] h-[72px] w-[72px] bg-accent/[0.08]"></span>
+        <span class="cell absolute left-[936px] top-[288px] h-[72px] w-[72px] bg-signal/[0.07]"></span>
+        <span class="cell absolute left-[216px] top-[360px] h-[72px] w-[72px] bg-accent/[0.07]"></span>
+        <span class="cell absolute left-[792px] top-[216px] h-[72px] w-[72px] bg-accent/[0.09]"></span>
+      </div>
+    </div>
+
+    <div
+      class="glow-breathe absolute left-1/2 top-[-26%] h-[560px] w-[min(940px,130vw)] -translate-x-1/2"
+      style="background: radial-gradient(closest-side, rgb(236 148 64 / 0.16), rgb(236 148 64 / 0.06) 55%, transparent 78%);"
+    ></div>
+    <div class="scan-sweep absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-transparent via-accent/[0.06] to-transparent"></div>
+
+    <!-- Transition into the next section. The old bare hairline sat alone in
+         empty space and read as a stray rule; it now resolves out of a fade. -->
+    <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-bg"></div>
+    <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-line-strong/70 to-transparent"></div>
   </div>
 
   <Container class="relative">

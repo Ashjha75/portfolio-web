@@ -129,6 +129,14 @@
   background-size: 72px 72px;
 }
 
+/* quarter-scale companion to grid-field, for depth */
+@utility grid-field-fine {
+  background-image:
+    linear-gradient(to right,  color-mix(in oklab, var(--color-line) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-line) 55%, transparent) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
 /* ===========================================================================
    Motion
    Reveal styles apply ONLY once JS adds `.js-motion` to <html>, so content is
@@ -137,15 +145,17 @@
 @layer components {
   .js-motion [data-reveal] {
     opacity: 0;
-    transform: translateY(26px);
+    /* a hair of scale as well as travel: it reads as settling into place
+       rather than sliding in from off-screen */
+    transform: translateY(28px) scale(0.985);
   }
 
   .js-motion [data-reveal].is-in {
     opacity: 1;
     transform: none;
     transition:
-      opacity 620ms var(--ease-out-expo),
-      transform 620ms var(--ease-out-expo);
+      opacity 700ms var(--ease-out-expo),
+      transform 700ms var(--ease-out-expo);
     transition-delay: var(--reveal-delay, 0ms);
   }
 }
@@ -195,25 +205,49 @@
   }
 
   /* slow diagonal drift of the hero grid */
-  .grid-pan { animation: grid-pan 26s linear infinite; }
+  .grid-pan { animation: grid-pan 19s linear infinite; }
   @keyframes grid-pan {
     from { transform: translate3d(0, 0, 0); }
     to   { transform: translate3d(-72px, -72px, 0); }
   }
 
+  /* a finer grid drifting the other way, so the field has depth instead of
+     looking like one flat printed sheet */
+  .grid-pan-fine { animation: grid-pan-fine 31s linear infinite; }
+  @keyframes grid-pan-fine {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(18px, 18px, 0); }
+  }
+
+  /* Individual cells lighting up, like activity on an instrument panel.
+     Opacity only, five elements — costs nothing and gives the grid a pulse. */
+  .cell { animation: cell-flash 9s ease-in-out infinite; opacity: 0; }
+  .cell:nth-child(2) { animation-duration: 11s; animation-delay: 1.6s; }
+  .cell:nth-child(3) { animation-duration: 8s;  animation-delay: 3.4s; }
+  .cell:nth-child(4) { animation-duration: 13s; animation-delay: 5.1s; }
+  .cell:nth-child(5) { animation-duration: 10s; animation-delay: 6.8s; }
+  @keyframes cell-flash {
+    0%, 72%, 100% { opacity: 0; }
+    82%           { opacity: 1; }
+  }
+
   /* the accent wash breathes rather than sitting static */
-  .glow-breathe { animation: glow-breathe 9s ease-in-out infinite; }
+  .glow-breathe { animation: glow-breathe 9s ease-in-out infinite; will-change: opacity; }
   @keyframes glow-breathe {
     0%, 100% { opacity: 0.6; }
     50%      { opacity: 1; }
   }
 
   /* a light sweep that travels the grid once in a while */
-  .scan-sweep { animation: scan-sweep 11s ease-in-out infinite; }
+  .scan-sweep {
+    animation: scan-sweep 11s ease-in-out infinite;
+    will-change: transform;
+    opacity: 0.55;
+  }
+  /* transform only — no opacity keyframes, so this stays on the compositor */
   @keyframes scan-sweep {
-    0%, 70%, 100% { opacity: 0; transform: translateY(-30%); }
-    80%           { opacity: 0.5; }
-    95%           { opacity: 0; transform: translateY(130%); }
+    0%, 72%  { transform: translate3d(0, -140%, 0); }
+    96%, 100% { transform: translate3d(0, 240%, 0); }
   }
 }
 

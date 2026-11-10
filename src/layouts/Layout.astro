@@ -101,19 +101,31 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
               if (!entry.isIntersecting) continue;
               const el = entry.target as HTMLElement;
               const i = Number(el.dataset.revealIndex ?? 0);
-              el.style.setProperty("--reveal-delay", `${Math.min(i, 5) * 60}ms`);
+              el.style.setProperty("--reveal-delay", `${Math.min(i, 6) * 70}ms`);
               el.classList.add("is-in");
               io.unobserve(el); // reveal once — v1 re-hid on scroll-out
             }
           },
-          { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+          { rootMargin: "0px 0px -10% 0px", threshold: 0.08 }
         );
 
-        for (const el of document.querySelectorAll("[data-reveal]")) io.observe(el);
+        // Anything marked [data-reveal] that has not been given an explicit
+        // index gets one from its position among its reveal siblings, so a
+        // grid or list cascades instead of every item landing at once.
+        const groups = new Map<Element, number>();
+        for (const el of document.querySelectorAll<HTMLElement>("[data-reveal]")) {
+          if (el.dataset.revealIndex === undefined && el.parentElement) {
+            const n = groups.get(el.parentElement) ?? 0;
+            groups.set(el.parentElement, n + 1);
+            el.dataset.revealIndex = String(n);
+          }
+          io.observe(el);
+        }
       }
 
       // --- Scroll progress + active nav section ----------------------------
       const bar = document.getElementById("scroll-progress");
+      const field = document.getElementById("hero-parallax");
       const links = [...document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]")];
       const sections = links
         .map((l) => document.querySelector<HTMLElement>(l.getAttribute("href") || ""))
@@ -142,6 +154,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
             "data-scrolled",
             window.scrollY > 24
           );
+
+          // drift the hero field against the scroll, but only while it is on
+          // screen — no point transforming an element nobody can see
+          if (field && window.scrollY < window.innerHeight * 1.2) {
+            field.style.transform = `translate3d(0, ${window.scrollY * 0.12}px, 0)`;
+          }
           ticking = false;
         });
       };
