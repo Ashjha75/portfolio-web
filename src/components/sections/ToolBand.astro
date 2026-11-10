@@ -42,24 +42,36 @@ const rowB = [
     <p class="mono-label mb-7">Day to day</p>
   </Container>
 
+  {/* The one canonical, machine-readable copy of the tool names. The marquee
+      below repeats every tile four times for the seamless loop, so naming the
+      tools per-tile would put each name into the page's text content four
+      times over — aria-hidden keeps clones out of the accessibility tree but
+      not out of extracted text, and /llms.txt readers see the duplicates.
+      Names live here once; the tracks carry icons only. role="list" because
+      Tailwind's preflight strips list semantics in Safari. */}
+  <ul class="sr-only" role="list">
+    {[...rowA, ...rowB].map((t) => <li>{t.name}</li>)}
+  </ul>
+
   <div class="band">
     <div class="band-row">
-      <ul class="band-track track-l" role="list">
-        {[...rowA, ...rowA, ...rowA, ...rowA].map((t, i) => (
-          <li class="tile" aria-hidden={i >= rowA.length ? "true" : undefined}>
+      {/* aria-hidden sits on the track, not on .band-row: under reduced motion
+          the row becomes a scroll container and picks up keyboard focus, and a
+          focusable node must not live inside a hidden subtree. */}
+      <ul class="band-track track-l" aria-hidden="true">
+        {[...rowA, ...rowA, ...rowA, ...rowA].map((t) => (
+          <li class="tile">
             <Icon name={t.icon} class="tile-icon" />
-            <span class="sr-only">{t.name}</span>
           </li>
         ))}
       </ul>
     </div>
 
     <div class="band-row">
-      <ul class="band-track track-r" role="list">
-        {[...rowB, ...rowB, ...rowB, ...rowB].map((t, i) => (
-          <li class="tile" aria-hidden={i >= rowB.length ? "true" : undefined}>
+      <ul class="band-track track-r" aria-hidden="true">
+        {[...rowB, ...rowB, ...rowB, ...rowB].map((t) => (
+          <li class="tile">
             <Icon name={t.icon} class="tile-icon" />
-            <span class="sr-only">{t.name}</span>
           </li>
         ))}
       </ul>

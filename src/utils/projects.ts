@@ -46,8 +46,8 @@ export const projects: Project[] = [
     summary:
       "A scheduler built from first principles to hold thousands of tasks across a worker pool without locks in the hot path.",
     highlights: [
-      "Priority queue feeds a fixed worker pool; state moves only through compare-and-set, so no task runs twice.",
-      "Failures retry with exponential backoff instead of blocking a worker.",
+      "Priority queue feeds a fixed worker pool; compare-and-set transitions stop two workers claiming the same task at once.",
+      "Retries are explicit re-enqueues with exponential backoff, so execution is at-least-once by design, not exactly-once.",
       "Observer-based event publishing keeps metrics and logging out of the execution path.",
     ],
     stack: ["Java 17+", "ThreadPoolExecutor", "PriorityBlockingQueue", "CAS", "Observer", "Maven"],
