@@ -2,42 +2,47 @@
 import Section from "../shared/Section.astro";
 import { profile } from "../../utils/profile";
 import { withBase } from "../../utils/url";
-
 ---
 
 <Section id="about" eyebrow="About" title="Short version">
-  <div class="grid gap-10 md:grid-cols-[auto_1fr] md:gap-12">
-    <!-- Small, tightly cropped. The source is a casual photo; a proper headshot
-         is the highest-value asset swap (see docs/04-phase-1.md). -->
-    <div class="shrink-0" data-reveal>
+  <div class="grid gap-10 md:grid-cols-[280px_1fr] md:gap-14">
+    <!-- Portrait card: taller crop, slightly desaturated so the casual source
+         photo sits with the palette instead of against it. -->
+    <figure class="w-full max-w-[340px] self-start overflow-hidden rounded-2xl border border-line bg-surface-1 md:max-w-none" data-reveal>
       <img
         src={withBase("images/ashishp1.jpeg")}
         alt="Ashish Kumar Jha"
-        width="160"
-        height="160"
+        width="280"
+        height="350"
         loading="lazy"
         decoding="async"
-        class="h-32 w-32 rounded-2xl border border-line object-cover [object-position:50%_22%] md:h-40 md:w-40"
+        class="aspect-[4/5] w-full object-cover [object-position:50%_20%] grayscale-[30%]"
       />
-    </div>
+      <figcaption class="border-t border-line px-4 py-3 font-mono text-[12px] tracking-wide text-ink-3">
+        {profile.name} · {profile.location}
+      </figcaption>
+    </figure>
 
     <div class="max-w-2xl space-y-5 text-ink-2" data-reveal data-reveal-index="1">
       <p>
-        I'm a backend engineer based in {profile.location}. I spend most of my time in
-        Java and Spring Boot — designing schemas, writing services, and working out
-        what happens when two requests want the same row at the same moment.
+        I'm a backend engineer based in {profile.location}. I joined Novoinvent Software
+        as an intern in March 2023 and have been an engineer there since June 2024.
       </p>
       <p>
-        I started at Novoinvent Software as an intern in 2023 and moved into an
-        engineering role in 2024. The work has been full-stack in practice, but the
-        backend is where I've gone deep: multi-tenancy, concurrency control, caching,
-        and getting services onto AWS in containers.
+        The day job is Java and Spring Boot services on MySQL. I own features from the
+        schema to the endpoint, and the parts I go deepest on are multi-tenancy,
+        concurrency control, caching and the data layer.
       </p>
       <p>
-        Outside of work I build things to understand them properly. The task scheduler
-        in my projects exists because I wanted to know how one actually behaves at the
-        thread level, not because I needed a scheduler. Right now I'm building an
-        LLM agent harness for the same reason.
+        Outside work I build side projects to understand how things actually behave. The
+        task scheduler exists so I could see what happens at the thread level. The
+        ticketing system exists to understand contention, and I wrote
+        <span class="hl">a 200-thread test against real PostgreSQL</span> to prove it
+        does not oversell.
+      </p>
+      <p>
+        Right now I'm building an LLM agent harness. When a service needs a UI, I reach
+        for Next.js.
       </p>
 
       <dl class="grid grid-cols-2 gap-x-6 gap-y-4 border-t border-line pt-6 sm:grid-cols-3">

@@ -1,0 +1,74 @@
+---
+import Section from "../shared/Section.astro";
+
+const leadership = [
+  {
+    title: "Team Lead, Internal Tools",
+    org: "Novoinvent Software",
+    period: "Aug 2024",
+    note: "Two months into the engineer role.",
+    points: [
+      "Led a team building internal tools with Angular and Node.js.",
+      "Ran sprint planning and retrospectives.",
+      "Mentored new joiners on coding standards and Git.",
+    ],
+  },
+  {
+    title: "Team Lead, final-year project",
+    org: "R.D. Engineering College",
+    period: "Mar – Jun 2023",
+    note: "",
+    points: [
+      "Led a team of four; managed timelines and task distribution.",
+      "Ran code reviews and presented the project to faculty.",
+    ],
+  },
+];
+---
+
+<Section id="background" eyebrow="Background" title="Led a team early. Finished the degree on the side.">
+  <div class="grid gap-10 md:grid-cols-[1.4fr_1fr] md:gap-14">
+    <div data-reveal>
+      <h3 class="mono-label">Leadership</h3>
+      <ul class="mt-5 space-y-5">
+        {leadership.map((r) => (
+          <li class="rounded-2xl border border-line bg-surface-1 p-5 sm:p-6">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <p class="font-display text-[1.0625rem] font-semibold text-ink">
+                {r.title} <span class="text-ink-3">·</span> <span class="text-accent">{r.org}</span>
+              </p>
+              <span class="font-mono text-[12px] tracking-wide text-ink-3">{r.period}</span>
+            </div>
+            {r.note && <p class="mt-1 font-mono text-[12px] text-ink-3">{r.note}</p>}
+            <ul class="mt-4 space-y-2">
+              {r.points.map((pt) => (
+                <li class="flex gap-3 text-ink-2">
+                  <span class="mt-[0.6rem] h-px w-3.5 shrink-0 bg-line-strong" aria-hidden="true" />
+                  <span>{pt}</span>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div data-reveal>
+      <h3 class="mono-label">Education</h3>
+      <div class="mt-5 rounded-2xl border border-line bg-surface-1 p-5 sm:p-6">
+        <p class="font-display text-[1.0625rem] font-semibold text-ink">B.Tech, Computer Science</p>
+        <p class="mt-1 text-ink-2">R.D. Engineering College, Duhai, Uttar Pradesh</p>
+        <dl class="mt-5 grid grid-cols-2 gap-4 border-t border-line pt-5">
+          <div>
+            <dt class="mono-label">Years</dt>
+            <dd class="mt-1.5 font-mono text-sm text-ink">Sep 2020 – May 2024</dd>
+          </div>
+          <div>
+            <dt class="mono-label">CGPA</dt>
+            <dd class="mt-1.5 font-mono text-sm text-ink">7.85 / 10</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</Section>

@@ -1,6 +1,9 @@
 ---
 import Section from "../shared/Section.astro";
 import { experience } from "../../utils/experience";
+
+// Split a point around its metric (e.g. "15%") so only the number is marked.
+const parts = (s: string) => s.split(/(\d+%)/).filter(Boolean);
 ---
 
 <Section
@@ -11,7 +14,8 @@ import { experience } from "../../utils/experience";
 >
   <!-- A single rail with roles hung off it: reads as one continuous tenure
        rather than two unrelated jobs. -->
-  <ol class="relative ml-1 border-l border-line pl-7 sm:pl-10">
+  <ol id="exp-rail" class="relative ml-1 border-l border-line pl-7 sm:pl-10">
+    <span id="exp-rail-fill" class="rail-fill absolute -left-px top-0 bottom-0 w-px bg-accent" aria-hidden="true"></span>
     {experience.map((job, i) => (
       <li class="relative pb-10 last:pb-0 sm:pb-14" data-reveal data-reveal-index={i}>
         <span
@@ -44,7 +48,7 @@ import { experience } from "../../utils/experience";
           {job.points.map((point) => (
             <li class="flex gap-3 text-ink-2">
               <span class="mt-[0.6rem] h-px w-3.5 shrink-0 bg-line-strong" aria-hidden="true" />
-              <span>{point}</span>
+              <span>{parts(point).map((t) => (/^\d+%$/.test(t) ? <span class="hl">{t}</span> : t))}</span>
             </li>
           ))}
         </ul>
