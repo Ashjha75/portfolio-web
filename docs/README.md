@@ -12,6 +12,7 @@ These docs are the source of truth for the redesign. Read in order:
 | [04-phase-1.md](./04-phase-1.md) | Phase 1 scope, section plan, checklist. |
 | [05-seo-and-security.md](./05-seo-and-security.md) | SEO, AI discoverability, CSP — and what static hosting cannot do. |
 | [github-profile-README.md](./github-profile-README.md) | Drop-in replacement for the Ashjha75/Ashjha75 profile README. |
+| [06-review-prompts.md](./06-review-prompts.md) | Copy-paste prompts for getting an honest portfolio review out of Claude / ChatGPT / Gemini. |
 
 ## Ground rules agreed with Ashish
 

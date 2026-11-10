@@ -17,10 +17,21 @@ GitHub Pages site the third one has hard limits — stated plainly below.
 | `rel="me"` links (GitHub, X) for identity verification | `Layout.astro` |
 | Social card image, 1200×630 | `public/og.png` |
 
-**Sitemap gotcha, fixed.** `trailingSlash: "never"` means `…/portfolio-web/`
-404s, but the sitemap integration emitted both that and the working URL. A
-`filter` now drops any entry ending in `/`, so the sitemap lists exactly one
-resolving URL.
+**Sitemap gotcha, fixed.** The sitemap integration emitted both
+`…/portfolio-web` and `…/portfolio-web/`. A `filter` now drops any entry ending
+in `/`, so the sitemap lists exactly one URL and search engines are not handed a
+duplicate.
+
+Worth being precise about the trailing slash, because the two environments differ:
+
+| | `…/portfolio-web` | `…/portfolio-web/` |
+|---|---|---|
+| `astro dev` / `astro preview` (honours `trailingSlash: "never"`) | 200 | **404** |
+| GitHub Pages (serves the directory index) | 200 | 200 |
+
+So the slashed form only breaks locally. The canonical, the sitemap and the
+wordmark link all use the unslashed form regardless — it matches the config and
+avoids duplicate-content signals.
 
 **The OG card** is hand-built, not generated art: `scripts/make-og.mjs` writes an
 SVG and renders it with sharp. Regenerate with `npm run og` after changing the
