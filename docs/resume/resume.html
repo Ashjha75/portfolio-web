@@ -27,39 +27,44 @@
     letter-spacing: 0.4px;
     margin: 0 0 1px;
     font-weight: 700;
+    color: #000;
   }
 
-  .role-line { font-size: 10.6pt; font-weight: 600; margin: 0 0 3px; }
-  .contact   { font-size: 9.4pt; margin: 0; }
+  .role-line {
+    font-size: 10pt;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #1F3A5F;
+    margin: 0 0 3px;
+  }
+  .contact   { font-size: 9.2pt; margin: 0; }
   .contact a { color: #000; text-decoration: none; }
 
   h2 {
-    font-size: 9.5pt;
+    font-size: 10pt;
     font-weight: 700;
-    letter-spacing: 0.7px;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
-    margin: 8px 0 3px;
+    color: #1F3A5F;
+    margin: 7px 0 3px;
     padding-bottom: 1.5px;
-    border-bottom: 1px solid #000;
+    border-bottom: 0.75px solid #1F3A5F;
   }
 
-  .entry { margin-bottom: 5px; }
+  .entry { margin-bottom: 4px; }
   .entry:last-child { margin-bottom: 0; }
 
-  .entry-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 10px;
-  }
+  .entry-head { display: block; }
   .entry-title { font-weight: 700; }
-  .entry-meta  { font-size: 9.4pt; white-space: nowrap; }
-  .entry-sub   { font-size: 9.6pt; font-style: italic; margin-bottom: 2px; }
+  .entry-sep   { color: #9AA3AE; margin: 0 5px; }
+  .entry-meta  { font-size: 9.2pt; }
+  .entry-sub   { font-size: 9.4pt; font-style: italic; margin-bottom: 1px; }
 
-  ul { margin: 2px 0 0; padding-left: 15px; }
+  ul { margin: 1px 0 0; padding-left: 15px; }
   li { margin-bottom: 0.5px; }
 
-  p.skills { margin: 0 0 2px; }
+  p.skills { margin: 0 0 1.5px; }
   .lead { margin: 0; }
 </style>
 </head>
@@ -67,7 +72,7 @@
 
   <header>
     <h1>Ashish Kumar Jha</h1>
-    <p class="role-line">Backend Engineer &mdash; Java, Spring Boot, PostgreSQL, AWS</p>
+    <p class="role-line">Backend Engineer | Java, Spring Boot, PostgreSQL, AWS</p>
     <p class="contact">
       Delhi, India | 8860673349 | network.ashishjha@gmail.com |
       linkedin.com/in/ashish5jha | github.com/Ashjha75 | ashjha75.github.io/portfolio-web
@@ -94,6 +99,7 @@
   <div class="entry">
     <div class="entry-head">
       <span class="entry-title">Software Engineer &mdash; Novoinvent Software</span>
+      <span class="entry-sep" aria-hidden="true">|</span>
       <span class="entry-meta">Jun 2024 &ndash; Present</span>
     </div>
     <div class="entry-sub">Hybrid, Delhi, India</div>
@@ -107,6 +113,7 @@
   <div class="entry">
     <div class="entry-head">
       <span class="entry-title">Software Intern &mdash; Novoinvent Software</span>
+      <span class="entry-sep" aria-hidden="true">|</span>
       <span class="entry-meta">Mar 2023 &ndash; May 2024</span>
     </div>
     <div class="entry-sub">Remote</div>
@@ -122,6 +129,7 @@
   <div class="entry">
     <div class="entry-head">
       <span class="entry-title">Multi-tenant SaaS Platform</span>
+      <span class="entry-sep" aria-hidden="true">|</span>
       <span class="entry-meta">github.com/Ashjha75/Multi-tenant-saas-app</span>
     </div>
     <div class="entry-sub">Java 21, Spring Boot, PostgreSQL, Flyway, Spring Security, Docker</div>
@@ -134,6 +142,7 @@
   <div class="entry">
     <div class="entry-head">
       <span class="entry-title">Ticketing System</span>
+      <span class="entry-sep" aria-hidden="true">|</span>
       <span class="entry-meta">github.com/Ashjha75/ticketing-system</span>
     </div>
     <div class="entry-sub">Java 21, Spring Boot, PostgreSQL, Redis, Spring Security, Maven</div>
@@ -147,6 +156,7 @@
   <div class="entry">
     <div class="entry-head">
       <span class="entry-title">Multi-threaded Task Scheduler</span>
+      <span class="entry-sep" aria-hidden="true">|</span>
       <span class="entry-meta">github.com/Ashjha75/Multi-threaded-task-scheduler</span>
     </div>
     <div class="entry-sub">Java 17, ThreadPoolExecutor, PriorityBlockingQueue, CAS, Maven</div>
@@ -156,10 +166,9 @@
     </ul>
   </div>
 
+  <h2>Additional Projects</h2>
+
   <div class="entry">
-    <div class="entry-head">
-      <span class="entry-title">Additional</span>
-    </div>
     <ul>
       <li><strong>Nav Finder Backend</strong> (Node.js, Express, MongoDB, AWS, OAuth) &mdash; REST APIs for travel bookings and item shipments, deployed on AWS with OAuth authentication.</li>
       <li><strong>Code To Context</strong> (github.com/Ashjha75/CodeToContext) &mdash; converts a local codebase into structured, token-aware LLM context; parsing runs in the browser with no backend to upload source to.</li>
@@ -171,6 +180,7 @@
   <div class="entry">
     <div class="entry-head">
       <span class="entry-title">Team Lead, Internal Tools &mdash; Novoinvent Software</span>
+      <span class="entry-sep" aria-hidden="true">|</span>
       <span class="entry-meta">Aug 2024</span>
     </div>
     <ul>
@@ -182,6 +192,7 @@
   <div class="entry">
     <div class="entry-head">
       <span class="entry-title">Team Lead &mdash; Final Year Project, R.D. Engineering College</span>
+      <span class="entry-sep" aria-hidden="true">|</span>
       <span class="entry-meta">Mar 2023 &ndash; Jun 2023</span>
     </div>
     <ul>
@@ -194,6 +205,7 @@
   <div class="entry">
     <div class="entry-head">
       <span class="entry-title">B.Tech, Computer Science &mdash; R.D. Engineering College, Duhai, Uttar Pradesh</span>
+      <span class="entry-sep" aria-hidden="true">|</span>
       <span class="entry-meta">Sep 2020 &ndash; May 2024</span>
     </div>
     <div class="entry-sub">CGPA 7.85 / 10</div>

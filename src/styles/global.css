@@ -137,6 +137,62 @@
   background-size: 18px 18px;
 }
 
+
+/* ===========================================================================
+   Hero layers + micro-interactions (static defaults; motion is opt-in below)
+   =========================================================================== */
+/* the accent wash behind the hero — a class, not an inline style, for CSP */
+.glow-wash {
+  background: radial-gradient(closest-side, rgb(236 148 64 / 0.16), rgb(236 148 64 / 0.06) 55%, transparent 78%);
+}
+
+/* beams: thin light streaks riding the 72px grid lines; hidden unless motion */
+.beam { display: none; }
+.beam-h { background: linear-gradient(to right, transparent, var(--color-accent), transparent); }
+.beam-v { background: linear-gradient(to bottom, transparent, var(--color-accent), transparent); }
+
+/* pointer spotlight; only exists for real pointers, shown by JS on enter */
+.hero-spot {
+  display: none;
+  background: radial-gradient(closest-side, rgb(236 148 64 / 0.10), rgb(236 148 64 / 0.035) 55%, transparent 100%);
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+.hero-spot.is-on { opacity: 1; }
+
+/* marker highlight on key phrases; full by default, swept in when motion runs */
+.hl {
+  background-image: linear-gradient(
+    color-mix(in oklab, var(--color-accent) 30%, transparent),
+    color-mix(in oklab, var(--color-accent) 30%, transparent)
+  );
+  background-repeat: no-repeat;
+  background-position: 0 90%;
+  background-size: 100% 0.34em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  color: var(--color-ink);
+}
+.js-motion .hl {
+  background-size: 0% 0.34em;
+  transition: background-size 900ms var(--ease-out-expo) 380ms;
+}
+.js-motion .is-in .hl,
+.js-motion .hl.is-in { background-size: 100% 0.34em; }
+
+/* eyebrow rule draws in when its header is revealed */
+.js-motion .eyebrow-rule { transform: scaleX(0); transform-origin: left center; }
+.js-motion .is-in .eyebrow-rule {
+  transform: none;
+  transition: transform 700ms var(--ease-out-expo) 180ms;
+}
+
+/* experience rail fill — driven by the scroll handler, motion only */
+.rail-fill { display: none; transform: scaleY(0); transform-origin: top; }
+.js-motion .rail-fill { display: block; }
+
+.tabular { font-variant-numeric: tabular-nums; }
+
 /* ===========================================================================
    Motion
    Reveal styles apply ONLY once JS adds `.js-motion` to <html>, so content is
@@ -177,6 +233,8 @@
     opacity: 1 !important;
     transform: none !important;
   }
+
+  .hero-spot, .beam, .packet { display: none !important; }
 }
 
 /* ===========================================================================
@@ -249,10 +307,30 @@
     0%, 72%  { transform: translate3d(0, -140%, 0); }
     96%, 100% { transform: translate3d(0, 240%, 0); }
   }
+  /* Beams: transform-only travel along grid lines, long cycles with long
+     rests, so at most one or two are ever moving at once. */
+  .beam { display: block; }
+  .beam-h { animation: beam-x 11s linear infinite; transform: translate3d(-100%, 0, 0); }
+  .beam-v { animation: beam-y 13s linear infinite; transform: translate3d(0, -100%, 0); }
+  .beam:nth-child(2) { animation-duration: 9s;  animation-delay: 3.2s; }
+  .beam:nth-child(3) { animation-duration: 14s; animation-delay: 1.4s; }
+  .beam:nth-child(4) { animation-duration: 7s;  animation-delay: 5.6s; }
+  .beam:nth-child(5) { animation-duration: 12s; animation-delay: 7.9s; }
+  .beam:nth-child(6) { animation-duration: 10s; animation-delay: 4.3s; }
+  @keyframes beam-x {
+    0%        { transform: translate3d(-100%, 0, 0); }
+    45%, 100% { transform: translate3d(110vw, 0, 0); }
+  }
+  @keyframes beam-y {
+    0%        { transform: translate3d(0, -100%, 0); }
+    45%, 100% { transform: translate3d(0, 64rem, 0); }
+  }
 }
 
 /* Hover affordances that depend on a real pointer. */
 @media (hover: hover) {
+  .hero-spot { display: block; }
+
   .lift {
     transition:
       transform 320ms var(--ease-out-expo),
