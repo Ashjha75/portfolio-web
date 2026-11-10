@@ -36,7 +36,6 @@ export const projects: Project[] = [
     stack: ["Java 21", "Spring Boot", "PostgreSQL", "Flyway", "Spring Security", "Docker"],
     diagram: "multi-tenant",
     repoUrl: "https://github.com/Ashjha75/Multi-tenant-saas-app",
-    demoUrl: "https://ashjha75.github.io/Multi-tenant-saas-app-ui",
     featured: true,
   },
   {
@@ -69,6 +68,7 @@ export const projects: Project[] = [
     stack: ["Java 21", "Spring Boot", "PostgreSQL", "Redis", "Spring Security", "Maven"],
     diagram: "ticketing",
     repoUrl: "https://github.com/Ashjha75/ticketing-system",
+    demoUrl: "https://ashjha75.github.io/ticketing-system/",
   },
   {
     slug: "code-to-context",
@@ -84,6 +84,7 @@ export const projects: Project[] = [
     stack: ["JavaScript", "Code parsing", "Markdown", "LLM context"],
     diagram: "context",
     repoUrl: "https://github.com/Ashjha75/CodeToContext",
+    demoUrl: "https://ashjha75.github.io/CodeToContext/",
   },
   {
     slug: "express-apis",

@@ -19,5 +19,5 @@ export const proofPoints = [
   { value: "2+",  label: "Years building backend services" },
   { value: "15%", label: "Application performance gained" },
   { value: "20%", label: "API response time cut" },
-  { value: "5",   label: "Systems shipped end to end" },
+  { value: "5",   label: "Systems designed and built" },
 ] as const;

@@ -17,7 +17,8 @@ export const GET: APIRoute = () => {
   add("# " + profile.name);
   add();
   add("> " + profile.role + " (" + profile.focus + "), based in " + profile.location +
-      ". Two years at Novoinvent Software building Spring Boot services: " +
+      ". Two years as a software engineer at Novoinvent Software, where he started " +
+      "as an intern in 2023. Spring Boot services: " +
       "multi-tenancy, concurrency control, and the data layer.");
   add();
   add("This file is a machine-readable summary of https://ashjha75.github.io/portfolio-web");

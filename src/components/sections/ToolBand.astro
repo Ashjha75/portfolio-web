@@ -2,9 +2,11 @@
 import Container from "../shared/Container.astro";
 import { Icon } from "astro-icon/components";
 
-/* Two counter-scrolling rows of the tools actually named in stack.ts, plus the
-   assistants used day to day. Full-bleed with an edge fade so it reads as a
-   band rather than a boxed widget. */
+/* Two counter-scrolling rows. This is a breadth signal only — the Stack
+   section below is the authoritative, tiered claim, and this band must never
+   assert more than it does. Kubernetes and Jenkins were removed because they
+   appear nowhere else: not in stack.ts, not in the resume, not in any repo.
+   Full-bleed with an edge fade so it reads as a band rather than a boxed widget. */
 const rowA = [
   { name: "Java", icon: "simple-icons:openjdk" },
   { name: "Spring Boot", icon: "simple-icons:springboot" },
@@ -15,7 +17,6 @@ const rowA = [
   { name: "Redis", icon: "simple-icons:redis" },
   { name: "MongoDB", icon: "simple-icons:mongodb" },
   { name: "Docker", icon: "simple-icons:docker" },
-  { name: "Kubernetes", icon: "simple-icons:kubernetes" },
   { name: "AWS", icon: "simple-icons:amazonwebservices" },
   { name: "Linux", icon: "simple-icons:linux" },
 ];
@@ -28,7 +29,6 @@ const rowB = [
   { name: "Express", icon: "simple-icons:express" },
   { name: "Git", icon: "simple-icons:git" },
   { name: "GitHub Actions", icon: "simple-icons:githubactions" },
-  { name: "Jenkins", icon: "simple-icons:jenkins" },
   { name: "Maven", icon: "simple-icons:apachemaven" },
   { name: "LangChain", icon: "simple-icons:langchain" },
   { name: "ChatGPT", icon: "simple-icons:openai" },
@@ -39,7 +39,7 @@ const rowB = [
 
 <section class="relative overflow-hidden py-14 sm:py-16" aria-label="Tools and technologies">
   <Container>
-    <p class="mono-label mb-7">Day to day</p>
+    <p class="mono-label mb-7">Tools I've worked with</p>
   </Container>
 
   {/* The one canonical, machine-readable copy of the tool names. The marquee
