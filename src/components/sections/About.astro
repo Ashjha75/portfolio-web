@@ -1,0 +1,59 @@
+---
+import Section from "../shared/Section.astro";
+import { profile } from "../../utils/profile";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<Section id="about" eyebrow="About" title="Short version">
+  <div class="grid gap-10 md:grid-cols-[auto_1fr] md:gap-12">
+    <!-- Small, tightly cropped. The source is a casual photo; a proper headshot
+         is the highest-value asset swap (see docs/04-phase-1.md). -->
+    <div class="shrink-0" data-reveal>
+      <img
+        src={`${base}images/ashishp1.jpeg`}
+        alt="Ashish Kumar Jha"
+        width="160"
+        height="160"
+        loading="lazy"
+        decoding="async"
+        class="h-32 w-32 rounded-2xl border border-line object-cover [object-position:50%_22%] md:h-40 md:w-40"
+      />
+    </div>
+
+    <div class="max-w-2xl space-y-5 text-ink-2" data-reveal data-reveal-index="1">
+      <p>
+        I'm a backend engineer based in {profile.location}. I spend most of my time in
+        Java and Spring Boot — designing schemas, writing services, and working out
+        what happens when two requests want the same row at the same moment.
+      </p>
+      <p>
+        I started at Novoinvent Software as an intern in 2023 and moved into an
+        engineering role in 2024. The work has been full-stack in practice, but the
+        backend is where I've gone deep: multi-tenancy, concurrency control, caching,
+        and getting services onto AWS in containers.
+      </p>
+      <p>
+        Outside of work I build things to understand them properly. The task scheduler
+        in my projects exists because I wanted to know how one actually behaves at the
+        thread level, not because I needed a scheduler. Right now I'm building an
+        LLM agent harness for the same reason.
+      </p>
+
+      <dl class="grid grid-cols-2 gap-x-6 gap-y-4 border-t border-line pt-6 sm:grid-cols-3">
+        <div>
+          <dt class="mono-label">Focus</dt>
+          <dd class="mt-1.5 text-sm text-ink">Backend · Java</dd>
+        </div>
+        <div>
+          <dt class="mono-label">Currently</dt>
+          <dd class="mt-1.5 text-sm text-ink">Novoinvent Software</dd>
+        </div>
+        <div>
+          <dt class="mono-label">Learning</dt>
+          <dd class="mt-1.5 text-sm text-ink">LLM agent tooling</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</Section>

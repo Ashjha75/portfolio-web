@@ -1,0 +1,25 @@
+---
+import Container from "./Container.astro";
+import Eyebrow from "./Eyebrow.astro";
+
+export interface Props {
+  id: string;
+  eyebrow?: string;
+  title?: string;
+  lead?: string;
+  class?: string;
+}
+const { id, eyebrow, title, lead, class: cls = "" } = Astro.props;
+---
+<section id={id} class:list={["py-[clamp(4.5rem,9vw,7.5rem)]", cls]}>
+  <Container>
+    {(eyebrow || title) && (
+      <header class="mb-14 max-w-2xl" data-reveal>
+        {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+        {title && <h2 class="mt-5 text-[length:var(--text-h2)] font-semibold">{title}</h2>}
+        {lead && <p class="mt-4 text-ink-2">{lead}</p>}
+      </header>
+    )}
+    <slot />
+  </Container>
+</section>

@@ -1,0 +1,54 @@
+---
+import Section from "../shared/Section.astro";
+import { experience } from "../../utils/experience";
+---
+
+<Section
+  id="experience"
+  eyebrow="Experience"
+  title="Two roles, one company, steady scope increase"
+  lead="Joined as an intern, moved into an engineering role, and have stayed on the backend throughout."
+>
+  <!-- A single rail with roles hung off it: reads as one continuous tenure
+       rather than two unrelated jobs. -->
+  <ol class="relative ml-1 border-l border-line pl-7 sm:pl-10">
+    {experience.map((job, i) => (
+      <li class="relative pb-14 last:pb-0" data-reveal data-reveal-index={i}>
+        <span
+          class:list={[
+            "absolute -left-[33px] top-1.5 grid h-3.5 w-3.5 place-items-center rounded-full border-2 sm:-left-[45px]",
+            job.current ? "border-accent bg-accent" : "border-line-strong bg-bg",
+          ]}
+          aria-hidden="true"
+        />
+
+        <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <h3 class="text-[length:var(--text-h3)] font-semibold text-ink">{job.role}</h3>
+          <span class="text-ink-3" aria-hidden="true">·</span>
+          <a
+            href={job.companyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-[length:var(--text-h3)] font-medium text-accent underline decoration-accent/30 underline-offset-4 transition-colors hover:decoration-accent"
+          >
+            {job.company}
+          </a>
+        </div>
+
+        <p class="mt-2 font-mono text-[12px] tracking-wide text-ink-3">
+          {job.period}
+          {job.current && <span class="ml-2 text-signal">● current</span>}
+        </p>
+
+        <ul class="mt-5 space-y-3">
+          {job.points.map((point) => (
+            <li class="flex gap-3 text-ink-2">
+              <span class="mt-[0.6rem] h-px w-3.5 shrink-0 bg-line-strong" aria-hidden="true" />
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
+      </li>
+    ))}
+  </ol>
+</Section>

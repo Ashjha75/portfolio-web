@@ -1,0 +1,22 @@
+---
+import Section from "../shared/Section.astro";
+import ProjectCard from "../cards/ProjectCard.astro";
+import { projects } from "../../utils/projects";
+---
+
+<Section
+  id="work"
+  eyebrow="Selected work"
+  title="Systems I've built"
+  lead="Five projects, each with its architecture drawn out. Backend-first — the interesting part is what happens under contention, not the UI."
+>
+  <!-- A grid, not a carousel. v1 used coverflow: side cards rotated in 3D with
+       unreadable text, heights ranging 628-1173px, and 3.5s autoplay. -->
+  <div class="grid gap-6 md:grid-cols-2">
+    {projects.map((project, i) => (
+      <div class:list={[project.featured ? "md:col-span-1" : ""]}>
+        <ProjectCard project={project} index={i} />
+      </div>
+    ))}
+  </div>
+</Section>

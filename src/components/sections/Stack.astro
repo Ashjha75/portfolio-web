@@ -1,0 +1,39 @@
+---
+import Section from "../shared/Section.astro";
+import { Icon } from "astro-icon/components";
+import { stackGroups } from "../../utils/stack";
+---
+
+<Section
+  id="stack"
+  eyebrow="Stack"
+  title="What I work in, by layer"
+  lead="Grouped by where it sits in a system rather than listed flat — intermediate across all of it, not a beginner anywhere."
+>
+  <div class="grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2">
+    {stackGroups.map((group, i) => (
+      <div class="bg-surface-1 p-6 sm:p-7" data-reveal data-reveal-index={i}>
+        <div class="flex items-baseline gap-3">
+          <span class="font-mono text-[11px] tracking-widest text-accent">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          <h3 class="font-display text-lg font-semibold text-ink">{group.layer}</h3>
+        </div>
+
+        <p class="mt-2.5 text-[0.9375rem] text-ink-2">{group.note}</p>
+
+        <ul class="mt-6 flex flex-wrap gap-2">
+          {group.items.map((item) => (
+            <li
+              class="inline-flex items-center gap-2 rounded-lg border border-line bg-surface-2/70
+                     px-3 py-2 transition-colors duration-200 hover:border-accent/40"
+            >
+              <Icon name={item.icon} class="h-4 w-4 text-ink-2" />
+              <span class="font-mono text-[12px] text-ink">{item.name}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</Section>

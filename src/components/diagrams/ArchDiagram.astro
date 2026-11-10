@@ -1,0 +1,196 @@
+---
+import type { DiagramKey } from "../../utils/projects";
+
+export interface Props { kind: DiagramKey }
+const { kind } = Astro.props;
+
+const ah = `url(#ah-${kind})`;
+---
+
+{/*
+  Hand-authored schematics, one per system. These exist because a backend
+  portfolio has nothing to screenshot — the architecture is the artefact.
+  Pure SVG + CSS: no canvas, no library. The flow pulse is suppressed by the
+  global prefers-reduced-motion rule in global.css.
+*/}
+<div class="arch" aria-hidden="true">
+  <svg viewBox="0 0 420 132" role="presentation" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <marker id={`ah-${kind}`} markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+        <path d="M0 0 L7 3.5 L0 7 z" class="arrow" />
+      </marker>
+    </defs>
+
+    {kind === "multi-tenant" && (
+      <g>
+        <rect class="node" x="6" y="50" width="86" height="32" rx="6" />
+        <text class="lbl" x="49" y="67">REQUEST</text>
+
+        <rect class="node accent" x="126" y="50" width="104" height="32" rx="6" />
+        <text class="lbl on" x="178" y="67">TENANT RESOLVER</text>
+
+        <rect class="node" x="292" y="8" width="122" height="28" rx="6" />
+        <text class="lbl" x="353" y="23">SCHEMA · acme</text>
+        <rect class="node" x="292" y="52" width="122" height="28" rx="6" />
+        <text class="lbl" x="353" y="67">SCHEMA · globex</text>
+        <rect class="node" x="292" y="96" width="122" height="28" rx="6" />
+        <text class="lbl" x="353" y="111">SCHEMA · initech</text>
+
+        <path class="flow" d="M92 66 H120" marker-end={ah} />
+        <path class="link" d="M230 66 H262 V22 H286" marker-end={ah} />
+        <path class="flow" d="M230 66 H286" marker-end={ah} />
+        <path class="link" d="M230 66 H262 V110 H286" marker-end={ah} />
+      </g>
+    )}
+
+    {kind === "scheduler" && (
+      <g>
+        <rect class="node" x="6" y="36" width="96" height="60" rx="6" />
+        <text class="lbl" x="54" y="59">PRIORITY</text>
+        <text class="lbl" x="54" y="75">QUEUE</text>
+
+        <rect class="node accent" x="156" y="10" width="96" height="26" rx="6" />
+        <text class="lbl on" x="204" y="24">WORKER 1</text>
+        <rect class="node accent" x="156" y="53" width="96" height="26" rx="6" />
+        <text class="lbl on" x="204" y="67">WORKER 2</text>
+        <rect class="node accent" x="156" y="96" width="96" height="26" rx="6" />
+        <text class="lbl on" x="204" y="110">WORKER 3</text>
+
+        <rect class="node" x="308" y="36" width="106" height="60" rx="6" />
+        <text class="lbl" x="361" y="59">CAS STATE</text>
+        <text class="lbl dim" x="361" y="76">RUN → DONE</text>
+
+        <path class="flow" d="M102 66 H126 V23 H150" marker-end={ah} />
+        <path class="flow" d="M102 66 H150" marker-end={ah} />
+        <path class="flow" d="M102 66 H126 V109 H150" marker-end={ah} />
+        <path class="link" d="M252 23 H280 V66 H302" marker-end={ah} />
+        <path class="link" d="M252 66 H302" marker-end={ah} />
+        <path class="link" d="M252 109 H280 V66 H302" marker-end={ah} />
+      </g>
+    )}
+
+    {kind === "ticketing" && (
+      <g>
+        <rect class="node" x="6" y="12" width="84" height="24" rx="6" />
+        <text class="lbl" x="48" y="25">BUYER</text>
+        <rect class="node" x="6" y="54" width="84" height="24" rx="6" />
+        <text class="lbl" x="48" y="67">BUYER</text>
+        <rect class="node" x="6" y="96" width="84" height="24" rx="6" />
+        <text class="lbl" x="48" y="109">BUYER</text>
+
+        <rect class="node accent" x="140" y="48" width="112" height="36" rx="6" />
+        <text class="lbl on" x="196" y="62">CONCURRENCY</text>
+        <text class="lbl on" x="196" y="76">GUARD</text>
+
+        <rect class="node" x="300" y="10" width="114" height="28" rx="6" />
+        <text class="lbl" x="357" y="25">REDIS CACHE</text>
+        <rect class="node" x="300" y="80" width="114" height="30" rx="6" />
+        <text class="lbl" x="357" y="96">INVENTORY</text>
+
+        <path class="flow" d="M90 24 H116 V60 H134" marker-end={ah} />
+        <path class="flow" d="M90 66 H134" marker-end={ah} />
+        <path class="flow" d="M90 108 H116 V72 H134" marker-end={ah} />
+        <path class="link" d="M252 58 H276 V24 H294" marker-end={ah} />
+        <path class="flow" d="M252 74 H276 V95 H294" marker-end={ah} />
+      </g>
+    )}
+
+    {kind === "context" && (
+      <g>
+        <rect class="node" x="6" y="12" width="100" height="26" rx="6" />
+        <text class="lbl" x="56" y="26">src/**</text>
+        <rect class="node" x="6" y="52" width="100" height="26" rx="6" />
+        <text class="lbl" x="56" y="66">pom.xml</text>
+        <rect class="node dimmed" x="6" y="92" width="100" height="26" rx="6" />
+        <text class="lbl dim" x="56" y="106">node_modules</text>
+
+        <rect class="node accent" x="160" y="40" width="104" height="48" rx="6" />
+        <text class="lbl on" x="212" y="58">FILTER +</text>
+        <text class="lbl on" x="212" y="74">STRUCTURE</text>
+
+        <rect class="node" x="316" y="40" width="98" height="48" rx="6" />
+        <text class="lbl" x="365" y="58">TOKEN-AWARE</text>
+        <text class="lbl" x="365" y="74">PROMPT</text>
+
+        <path class="flow" d="M106 25 H132 V58 H154" marker-end={ah} />
+        <path class="flow" d="M106 65 H154" marker-end={ah} />
+        <path class="cut" d="M106 105 H134" />
+        <line class="cut-x" x1="140" y1="99" x2="152" y2="111" />
+        <line class="cut-x" x1="152" y1="99" x2="140" y2="111" />
+        <path class="flow" d="M264 64 H310" marker-end={ah} />
+      </g>
+    )}
+
+    {kind === "express" && (
+      <g>
+        <rect class="node" x="6" y="50" width="84" height="32" rx="6" />
+        <text class="lbl" x="48" y="67">CLIENT</text>
+
+        <rect class="node accent" x="126" y="50" width="104" height="32" rx="6" />
+        <text class="lbl on" x="178" y="67">JWT + ROLES</text>
+
+        <rect class="node" x="264" y="20" width="70" height="26" rx="6" />
+        <text class="lbl" x="299" y="34">/admin</text>
+        <rect class="node" x="264" y="86" width="70" height="26" rx="6" />
+        <text class="lbl" x="299" y="100">/user</text>
+
+        <rect class="node" x="356" y="50" width="58" height="32" rx="6" />
+        <text class="lbl" x="385" y="67">MONGO</text>
+
+        <path class="flow" d="M90 66 H120" marker-end={ah} />
+        <path class="link" d="M230 66 H248 V33 H258" marker-end={ah} />
+        <path class="link" d="M230 66 H248 V99 H258" marker-end={ah} />
+        <path class="link" d="M334 33 H346 V60 H350" marker-end={ah} />
+        <path class="link" d="M334 99 H346 V72 H350" marker-end={ah} />
+      </g>
+    )}
+  </svg>
+</div>
+
+<style>
+  .arch { width: 100%; }
+  .arch svg { width: 100%; height: auto; display: block; }
+
+  .node {
+    fill: var(--color-surface-2);
+    stroke: var(--color-line-strong);
+    stroke-width: 1;
+  }
+  .node.accent {
+    fill: var(--color-accent-dim);
+    stroke: color-mix(in oklab, var(--color-accent) 60%, transparent);
+  }
+  .node.dimmed { opacity: 0.45; }
+
+  .lbl {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    fill: var(--color-ink-2);
+    text-anchor: middle;
+  }
+  .lbl.on { fill: var(--color-accent-hi); }
+  .lbl.dim { fill: var(--color-ink-3); }
+
+  .link,
+  .flow,
+  .cut {
+    fill: none;
+    stroke: var(--color-line-strong);
+    stroke-width: 1.25;
+  }
+  .arrow { fill: var(--color-line-strong); }
+
+  /* The one animated element: a slow pulse along the primary path. */
+  .flow {
+    stroke: color-mix(in oklab, var(--color-accent) 70%, transparent);
+    stroke-dasharray: 5 7;
+    animation: drift 2.4s linear infinite;
+  }
+  .cut { stroke-dasharray: 3 4; opacity: 0.5; }
+  .cut-x { stroke: var(--color-ink-3); stroke-width: 1.25; opacity: 0.7; }
+
+  @keyframes drift {
+    to { stroke-dashoffset: -24; }
+  }
+</style>
